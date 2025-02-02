@@ -46,7 +46,6 @@ html, body, #root {
   list-style: none;
   display: flex;
   gap: 20px;
-  /* margin-top: 1rem; */
   align-items: center;
 }
 
@@ -66,13 +65,12 @@ html, body, #root {
 }
 
 .nav-button {
-  background-color: white;
-  color: #1a202c;
+  background-color: #388da7;
+  color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   cursor: pointer;
-  /* margin-bottom: 0.1rem; */
 }
 
 .nav-button:hover {
@@ -93,6 +91,7 @@ html, body, #root {
   color:  #1a202c;
   padding: 0 2rem; /* Add padding for responsiveness */
   box-sizing: border-box;
+  background-color: transparent;
 }
 
 .content h1 {

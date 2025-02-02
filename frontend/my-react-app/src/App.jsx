@@ -34,10 +34,17 @@
 
 // export default App
 // export default App
-import LandingPage from "./components/LandingPage";
+// import LandingPage from "./pages/LandingPage";
+
+// function App() {
+//   return <LandingPage />;
+// }
+
+// export default App;
+import AboutPage from "./pages/AboutPage";
 
 function App() {
-  return <LandingPage />;
+  return <AboutPage />;
 }
 
 export default App;
