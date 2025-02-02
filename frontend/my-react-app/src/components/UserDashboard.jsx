@@ -68,7 +68,7 @@ const UserDashboard = () => {
             <button>Dashboard</button>
             <button>Insights</button>
             <button>Reports</button>
-            <button className="analyze-calls">Analyze Calls</button>
+            <button className="Medications">Medications</button>
           </div>
         </header>
 
