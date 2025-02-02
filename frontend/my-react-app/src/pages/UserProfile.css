@@ -1,0 +1,166 @@
+.profile-page {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
+    padding-bottom: -200px;
+    padding-top: 80px;
+    background-color: white;
+    /*flex-direction: column; */
+    justify-content: space-between; 
+    min-height: 10px; /*Ensures it takes up the full page height*/
+    max-width: 90%;
+}
+
+.profile-container {
+    margin-top: -1370px;
+    display: flex;
+    justify-content: right; /* Pushes profile section to the right */
+    align-items: center;
+    width: 60%;
+    padding: 2px;
+    margin-right: 100px;
+    flex-grow: 1;
+}
+
+.profile-picture-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: -0px;
+    margin-top: -1700px;
+    width: 100%;
+}
+
+.profile-picture {
+    margin-right: 100px; /* Space between picture and profile info */
+    margin-left: 80px;
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-picture img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 3px solid #1a202c;
+    object-fit: cover;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    padding: 20px;
+    border: 3px solid #1a202c;
+    border-radius: 10px;
+    background-color: white; /* Dark blue background */
+    color: #1a202c; /* Dark blue background */;
+    text-align: right;
+}
+
+.profile-info label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 60px;
+}
+
+.profile-info input {
+    padding: 8px;
+    padding-right: 50px;
+    padding-bottom: 5px;
+    width: 55%; /* changes the width of the typing area */
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    background-color: #ffffff;
+    color: #1a202c;
+    text-align: left;
+    font-size: 19px;
+    margin-left: -200px;
+}
+
+button {
+    padding: 10px;
+    background-color: #1a202c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #388da7;
+}
+
+
+.profile-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    margin-top: 600px;
+    margin-right: 200px;
+    margin-left: -330px;
+}
+
+.action-button {
+    padding: 10px 30px;  /* Increase padding for better spacing */
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1a202c;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    min-width: 200px; /* Ensures button has enough width */
+    max-width: 100%; /* Prevents it from exceeding parent width */
+    white-space: nowrap; /* Prevents text from wrapping */
+    overflow: hidden; /* Hides overflow text */
+    text-overflow: ellipsis; /* Adds "..." if text is too long */
+    text-align: center;
+    display: inline-block; /* Ensures proper button sizing */
+    
+}
+
+.action-button:hover {
+    background-color: #388da7;
+}
+
+.header-container {
+    display: flex;
+    justify-content: flex-start;  /* Aligns the content to the left */
+    align-items: center;  /* Vertically centers the card */
+    height: 100vh;  /* Full screen height */
+    width: 100vw;  /* Full screen width */
+    padding-left: 20px;  /* Optional: Adds padding on the left for some spacing */
+}
+
+.profile-header h1 {
+    width: 100vw;
+    height: 9vh;
+    background-color: #1a202c;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 0;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    justify-content: flex-start;
+    align-items: center;
+    padding-right: 20px;
+    gap: 10px;
+    color: white
+    
+    
+}

@@ -34,7 +34,7 @@
 
 // export default App
 
-import UserProfile from "./components/UserProfile";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   return <UserProfile />;
