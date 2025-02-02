@@ -39,7 +39,7 @@
     font-size: 16px;
     cursor: pointer;
     padding: 5px 10px;
-    margin-top: 16px;
+    margin-top: 8px;
     margin-right: 15px;
 }
 
@@ -94,6 +94,24 @@
     border-radius: 4px;
   }
   
+  .forgetPassport_button {
+    background: transparent;
+    border: none;
+    color: #1a202c;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-top: -2px;
+    margin-right: 15px;
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
+.forgetPassport_button:hover {
+  text-decoration: underline;
+  color: #388da7;
+}
+
   .login-button {
     font-family: 'Arial', sans-serif;
     padding: 10px 20px; /* Adjust padding to make it smaller */
@@ -106,6 +124,7 @@
     margin: 0 auto; /* Centers the button horizontally */
     color: white;
 }
+
   
   .login-button:hover {
     background-color: #388da7;
