@@ -1,80 +1,151 @@
-import { useState } from "react";
-import "./UserProfile.css"; // Importing styles
+import React, { useState } from "react";
+import "./UserDashboard.css"; // Using the same CSS for styling consistency
+import logo from "../assets/logo.png"; // Import logo from assets
 
 const UserProfile = () => {
-    const [isEditing, setIsEditing] = useState(false);
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        password: "",
-        resetPassword: "",
-        phone: "",
-        address: "",
-        healthCard: "",
-        birthday: "",
-        profilePicture: null
-    });
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    address: "",
+    healthcard: "",
+    birthday: "",
+    profilePicture: null,
+  });
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-    const handleImageUpload = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const imageURL = URL.createObjectURL(file);
-            setFormData({ ...formData, profilePicture: imageURL });
-        }
-    };
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFormData({ ...formData, profilePicture: file });
+  };
 
-    const toggleEdit = () => {
-        setIsEditing(!isEditing);
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("User Data:", formData);
+  };
 
-    const handleAddUserProfile = () => {
-        alert("Add New User Profile button clicked!"); 
-        // Replace this with navigation or functionality
-    };
+  return (
+    <div className="dashboard">
+      {/* Sidebar */}
+      <aside className="sidebar">
+        <div className="logo">
+          <img src={logo} alt="Logo" />
+        </div>
+        <nav className="menu">
+          <ul>
+            <li>Medical History</li>
+            <li>CogniLink</li>
+            <li>Appointments</li>
+            <li>Add Patient Profile</li>
+            <li>Settings</li>
+            <li>Logout</li>
+          </ul>
+        </nav>
+      </aside>
 
-    const handleAllProfiles = () => {
-        alert("All Profiles button clicked!");
-        // Replace this with navigation or functionality
-    };
+      {/* Main Content */}
+      <main className="content">
+        {/* Top Bar */}
+        <header className="top-bar">
+          <input
+            type="text"
+            placeholder="Search for anything..."
+            className="search-bar"
+          />
+          <div className="navigation">
+            <button>Dashboard</button>
+            <button>Insights</button>
+            <button>Reports</button>
+            <button className="Medications">Medications</button>
+          </div>
+        </header>
 
-    return (
-        <>
-            <div className="header-container">
-                <header className="profile-header">
-                    <h1>User Profiles</h1>
-                </header>
+        {/* Profile Form */}
+        <section className="profile-form-container">
+          <h2>Create User Profile</h2>
+          <div className="profile-form-layout">
+            {/* Profile Picture Upload */}
+            <div className="profile-picture-section">
+              <div className="profile-picture-circle">
+                {formData.profilePicture ? (
+                  <img
+                    src={URL.createObjectURL(formData.profilePicture)}
+                    alt="Profile Preview"
+                  />
+                ) : (
+                  <span>Upload</span>
+                )}
+              </div>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="profile-picture-input"
+              />
             </div>
-        <div className="profile-page">
-            <div className="profile-picture-container">
-                <div className="profile-picture">
-                    <img src={formData.profilePicture || "default-profile.jpg"} alt="Profile" />
-                    {isEditing && <input type="file" accept="image/*" onChange={handleImageUpload} />}
-                </div>
 
-                {/* New Buttons Below Profile Picture */}
-                <div className="profile-buttons">
-                    <button onClick={handleAddUserProfile} className="action-button">New User Profile</button>
-                    <button onClick={handleAllProfiles} className="action-button">All Profiles</button>
-                </div>
-            </div>
-            
-            <div className="profile-container">
-                <div className="profile-info">
-                    <label>Name: <input type="text" name="name" value={formData.name} onChange={handleChange} disabled={!isEditing} /></label>
-                    <label>Phone Number: <input type="tel" name="phone" value={formData.phone} onChange={handleChange} disabled={!isEditing} /></label>
-                    <label>Address: <input type="text" name="address" value={formData.address} onChange={handleChange} disabled={!isEditing} /></label>
-                    <label>Health Card Number: <input type="text" name="healthCard" value={formData.healthCard} onChange={handleChange} disabled={!isEditing} /></label>
-                    <label>Birthday: <input type="date" name="birthday" value={formData.birthday} onChange={handleChange} disabled={!isEditing} /></label>
-                    <button onClick={toggleEdit}>{isEditing ? "Save" : "Edit"}</button>
-                </div>
-            </div>
-        </div> 
-    </>
-    );
+            {/* User Information Form */}
+            <form onSubmit={handleSubmit} className="profile-form">
+              <label>
+                Name:
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <label>
+                Phone Number:
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <label>
+                Address:
+                <input
+                  type="text"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <label>
+                Healthcard Number:
+                <input
+                  type="text"
+                  name="healthcard"
+                  value={formData.healthcard}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <label>
+                Birthday:
+                <input
+                  type="date"
+                  name="birthday"
+                  value={formData.birthday}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <button type="submit">Create Profile</button>
+            </form>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
 };
 
 export default UserProfile;
