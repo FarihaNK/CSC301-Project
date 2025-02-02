@@ -53,7 +53,7 @@ body, html {
 }
 
 .menu li:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: #388da7;
 }
 
 .menu li:last-child:hover {
@@ -112,7 +112,7 @@ body, html {
 }
 
 .navigation button:hover {
-    background-color: #1a202c;
+    background-color: #388da7;
     color: white;
 }
 
@@ -212,5 +212,5 @@ body, html {
 }
 
 .profile-form button:hover {
-    background-color: #2d3748;
+    background-color: #388da7;
 }
