@@ -16,7 +16,7 @@ export default function UserLogin() {
         password,
       }, { headers: { "Content-Type": "application/json" } });
   
-      const { token } = response.data;
+      const {user, token } = response.data;
   
       // Store token in local storage (or session storage)
       localStorage.setItem("token", token);
