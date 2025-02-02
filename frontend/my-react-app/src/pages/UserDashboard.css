@@ -206,7 +206,7 @@ body, html {
 
 /* Hover Effect for Navigation Buttons */
 .custom-calendar .react-calendar__navigation button:hover {
-    background-color: #004085; /* Dark blue for hover */
+    background-color: #388da7; /* Dark blue for hover */
     color: white;
 }
 
@@ -242,7 +242,7 @@ body, html {
 .custom-calendar .react-calendar__year-view__tile--active,
 .custom-calendar .react-calendar__decade-view__tile--active,
 .custom-calendar .react-calendar__tile--active {
-    background-color: #004085; /* Dark Blue for active state */
+    background-color: #388da7; /* Dark Blue for active state */
     color: white; /* Text remains readable */
     font-weight: bold;
     border-radius: 8px;
@@ -254,7 +254,7 @@ body, html {
 .custom-calendar .react-calendar__year-view__tile:hover,
 .custom-calendar .react-calendar__decade-view__tile:hover,
 .custom-calendar .react-calendar__tile:hover {
-    background-color: #0056b3; /* Lighter blue for hover */
+    background-color: #388da7; /* Lighter blue for hover */
     color: white;
     border-radius: 8px;
     font-weight: bold;
