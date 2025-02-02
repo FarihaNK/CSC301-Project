@@ -38,6 +38,7 @@ body, html {
     list-style: none;
     padding: 0;
     width: 100%;
+    border-color: #388da7;
 }
 
 .menu li {
@@ -51,6 +52,7 @@ body, html {
     background-color: #2d3748;
     transition: all 0.3s ease;
     border: none;
+    border-color: #388da7;
 }
 
 .menu li:hover {
@@ -92,6 +94,7 @@ body, html {
     font-size: 14px;
     background-color: #f0f0f0;
     color: #333;
+    border-color: #388da7;
 }
 
 .navigation {
@@ -111,6 +114,7 @@ body, html {
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap; /* Prevent button text from wrapping */
+    border-color: #388da7;
 }
 
 .navigation button:hover {
@@ -218,7 +222,7 @@ body, html {
 
 /* Selected Navigation Button */
 .custom-calendar .react-calendar__navigation__label {
-    background-color: #004085; /* Dark Blue for selected buttons */
+    background-color: #388da7; /* Dark Blue for selected buttons */
     color: white; /* Text remains visible on blue */
     border-radius: 8px;
     padding: 5px 15px;
