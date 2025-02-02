@@ -48,8 +48,10 @@ const UserDashboard = () => {
         <nav className="menu">
           <ul>
             <li>Medical History</li>
-            <li>AI-Engine</li>
+            <li>CogniLink</li>
             <li>Appointments</li>
+            <li>Add Patient Profile</li> {/* New Button */}
+            <li>Settings</li> {/* Settings Button */}
             <li>Logout</li>
           </ul>
         </nav>

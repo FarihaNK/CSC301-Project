@@ -31,7 +31,7 @@ body, html {
 
 .logo img {
     width: 120px; /* Adjusted logo size */
-    margin-bottom: 15px;
+    margin-bottom: 30px; /* Increased margin for better spacing */
 }
 
 .menu ul {
@@ -41,8 +41,8 @@ body, html {
 }
 
 .menu li {
-    margin: 15px 0;
-    padding: 8px;
+    margin: 25px 0; /* Increased margin between buttons */
+    padding: 10px;
     font-size: 14px;
     font-weight: bold;
     text-align: center;
