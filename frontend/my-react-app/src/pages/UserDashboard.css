@@ -191,6 +191,7 @@ body, html {
     background-color: white;
     width: 100%; /* Ensures full width */
     max-width: 500px;
+    
 }
 
 /* Calendar Navigation Buttons */
@@ -237,6 +238,19 @@ body, html {
     color: black; /* Default black for weekdays */
 }
 
+.custom-calendar .react-calendar__year-view__months__month{
+    color: black; /* Default black for weekdays */
+}
+
+.custom-calendar .react-calendar__decade-view__years__year{
+    color: black; /* Default black for weekdays */
+}
+
+.custom-calendar .react-calendar__century-view__decades__decade {
+    color: black;
+    background-color: white;
+}
+
 /* Weekend Days Styling */
 .custom-calendar .react-calendar__month-view__days__day--weekend {
     color: red; /* Make Saturdays and Sundays red */
@@ -247,11 +261,12 @@ body, html {
 .custom-calendar .react-calendar__decade-view__tile--active,
 .custom-calendar .react-calendar__tile--active {
     background-color: #388da7; /* Dark Blue for active state */
-    color: white; /* Text remains readable */
+    color: black; /* Text remains readable */
     font-weight: bold;
     border-radius: 8px;
     padding: 10px;
     text-align: center;
+
 }
 
 /* Hover States for Year, Month, and Date */
