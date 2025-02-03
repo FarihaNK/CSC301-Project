@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./UserProfile.css"; // Using the same CSS for styling consistency
 import logo from "../assets/logo.png"; // Import logo from assets
+import axios from "axios";
 
 const UserProfile = () => {
   const [formData, setFormData] = useState({
@@ -22,9 +23,55 @@ const UserProfile = () => {
     setFormData({ ...formData, profilePicture: file });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("User Data:", formData);
+  
+    try {
+      // Create FormData for file upload
+      const formDataToSend = new FormData();
+      formDataToSend.append("fullName", formData.name);
+      formDataToSend.append("phoneNumber", formData.phone);
+      formDataToSend.append("address", formData.address);
+      formDataToSend.append("healthCardNumber", formData.healthcard);
+      formDataToSend.append("dob", formData.birthday);
+      
+      if (formData.profilePicture) {
+        formDataToSend.append("profilePicture", formData.profilePicture);
+      }
+  
+      // Get JWT token from localStorage
+      const token = localStorage.getItem("token");
+  
+      if (!token) {
+        alert("You must be logged in to create a profile.");
+        return;
+      }
+  
+      // Send API request
+      const response = await axios.post("http://localhost:5002/api/patients", formDataToSend, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "multipart/form-data", // For file uploads
+        },
+      });
+  
+      console.log("Profile created successfully:", response.data);
+      alert("Profile created successfully!");
+  
+      // Reset form fields after successful submission
+      setFormData({
+        name: "",
+        phone: "",
+        address: "",
+        healthcard: "",
+        birthday: "",
+        profilePicture: null,
+      });
+  
+    } catch (error) {
+      console.error("Error creating profile:", error.response?.data || error.message);
+      alert("Failed to create profile. Please try again.");
+    }
   };
 
   return (

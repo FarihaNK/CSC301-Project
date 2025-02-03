@@ -6,7 +6,7 @@ exports.createPatient = async (req, res) => {
     const { fullName, phoneNumber, dob, healthCardNumber, emergencyContact, isDependent } = req.body;
 
     // Ensure required fields are provided
-    if (!fullName || !phoneNumber || !dob || !healthCardNumber || !emergencyContact) {
+    if (!fullName || !phoneNumber || !dob || !healthCardNumber) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
@@ -16,8 +16,6 @@ exports.createPatient = async (req, res) => {
       phoneNumber,
       dob,
       healthCardNumber,
-      emergencyContact,
-      isDependent,
     });
 
     await newPatient.save();

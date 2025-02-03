@@ -7,10 +7,10 @@ const patientSchema = new mongoose.Schema({
   dob: { type: Date, required: true },
   healthCardNumber: { type: String, required: true },
   emergencyContact: {
-    name: { type: String, required: true },
-    phone: { type: String, required: true },
+    name: { type: String, required: false },
+    phone: { type: String, required: false },
   },
-  isDependent: { type: Boolean, default: false },
+  isDependent: { type: Boolean, default: false, required: false },
 }, { timestamps: true });
 
 module.exports = mongoose.model("Patient", patientSchema);
