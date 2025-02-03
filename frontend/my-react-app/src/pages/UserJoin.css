@@ -53,7 +53,7 @@
     font-weight: bold;
     color: #1a202c;  /* Match the theme color */
     margin-top: -10px; /* Adds a little space between the logo and the name */
-    margin-bottom: 4px; /* Space between the name and the login card */
+    margin-bottom: -15px; /* Space between the name and the login card */
     margin-left: 175px;
   }
 
@@ -67,7 +67,7 @@
     max-width: 400px;
     width: 100%;
     margin-left: 90px;
-    margin-bottom: 110px;
+    margin-bottom: 60px;
   }
 
   .login-logo {
