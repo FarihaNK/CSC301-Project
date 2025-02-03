@@ -3,13 +3,19 @@ const Patient = require("../models/Patient");
 // Create a new patient profile
 exports.createPatient = async (req, res) => {
   try {
-    const { fullName, dob, gender, medicalHistory, emergencyContact, isDependent } = req.body;
+    const { fullName, phoneNumber, dob, healthCardNumber, emergencyContact, isDependent } = req.body;
+
+    // Ensure required fields are provided
+    if (!fullName || !phoneNumber || !dob || !healthCardNumber || !emergencyContact) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
     const newPatient = new Patient({
       userId: req.user.id,  // Extracted from authMiddleware
       fullName,
+      phoneNumber,
       dob,
-      gender,
-      medicalHistory,
+      healthCardNumber,
       emergencyContact,
       isDependent,
     });
@@ -35,9 +41,15 @@ exports.getPatients = async (req, res) => {
 exports.getPatientById = async (req, res) => {
   try {
     const patient = await Patient.findById(req.params.id);
-    if (!patient || patient.userId.toString() !== req.user.id) {
+
+    if (!patient) {
+      return res.status(404).json({ message: "Patient profile not found" });
+    }
+
+    if (patient.userId.toString() !== req.user.id) {
       return res.status(403).json({ message: "Unauthorized" });
     }
+
     res.json(patient);
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err.message });
@@ -48,13 +60,26 @@ exports.getPatientById = async (req, res) => {
 exports.updatePatient = async (req, res) => {
   try {
     const patient = await Patient.findById(req.params.id);
-    if (!patient || patient.userId.toString() !== req.user.id) {
+
+    if (!patient) {
+      return res.status(404).json({ message: "Patient profile not found" });
+    }
+
+    if (patient.userId.toString() !== req.user.id) {
       return res.status(403).json({ message: "Unauthorized" });
     }
 
-    Object.assign(patient, req.body);
-    await patient.save();
+    // Allow updating only certain fields
+    const { fullName, phoneNumber, dob, healthCardNumber, emergencyContact, isDependent } = req.body;
 
+    if (fullName) patient.fullName = fullName;
+    if (phoneNumber) patient.phoneNumber = phoneNumber;
+    if (dob) patient.dob = dob;
+    if (healthCardNumber) patient.healthCardNumber = healthCardNumber;
+    if (emergencyContact) patient.emergencyContact = emergencyContact;
+    if (isDependent !== undefined) patient.isDependent = isDependent;
+
+    await patient.save();
     res.json({ message: "Patient profile updated", patient });
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err.message });
@@ -65,7 +90,12 @@ exports.updatePatient = async (req, res) => {
 exports.deletePatient = async (req, res) => {
   try {
     const patient = await Patient.findById(req.params.id);
-    if (!patient || patient.userId.toString() !== req.user.id) {
+
+    if (!patient) {
+      return res.status(404).json({ message: "Patient profile not found" });
+    }
+
+    if (patient.userId.toString() !== req.user.id) {
       return res.status(403).json({ message: "Unauthorized" });
     }
 
