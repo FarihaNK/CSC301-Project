@@ -50,6 +50,10 @@ body, html {
     cursor: pointer;
     background-color: #2d3748;
     transition: all 0.3s ease;
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: #388da7;
 }
 
 .menu li:hover {
@@ -86,11 +90,12 @@ body, html {
     width: 100%;
     max-width: 400px;
     padding: 8px;
-    border: 2px solid #e5e7eb;
+    border: 1px solid #e5e7eb;
     border-radius: 8px;
     font-size: 14px;
     background-color: #f0f0f0;
     color: #333;
+    border-color: #388da7;
 }
 
 .navigation {
@@ -109,6 +114,10 @@ body, html {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: #388da7;
 }
 
 .navigation button:hover {
@@ -198,6 +207,8 @@ body, html {
     border-radius: 5px;
     width: 100%;
     margin-bottom: 15px;
+    background-color: white;
+    color: black;
 }
 
 .profile-form button {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./UserDashboard.css"; // Using the same CSS for styling consistency
+import "./UserProfile.css"; // Using the same CSS for styling consistency
 import logo from "../assets/logo.png"; // Import logo from assets
 
 const UserProfile = () => {
@@ -37,7 +37,7 @@ const UserProfile = () => {
         <nav className="menu">
           <ul>
             <li>Medical History</li>
-            <li>CogniLink</li>
+            <li>MedAssistant</li>
             <li>Appointments</li>
             <li>Add Patient Profile</li>
             <li>Settings</li>
