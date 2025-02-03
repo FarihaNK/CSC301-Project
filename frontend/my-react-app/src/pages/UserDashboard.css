@@ -27,6 +27,8 @@ body, html {
     flex-direction: column;
     align-items: center;
     padding: 20px 5px; /* Adjusted padding */
+    border-color: #388da7;
+    border-radius: 5px;
 }
 
 .logo img {
@@ -38,7 +40,6 @@ body, html {
     list-style: none;
     padding: 0;
     width: 100%;
-    border-color: #388da7;
 }
 
 .menu li {
@@ -51,7 +52,9 @@ body, html {
     cursor: pointer;
     background-color: #2d3748;
     transition: all 0.3s ease;
-    border: none;
+
+    border-width: 1px;
+    border-style: solid;
     border-color: #388da7;
 }
 
@@ -89,7 +92,7 @@ body, html {
     width: 100%;
     max-width: 400px; /* Adjusted size */
     padding: 8px;
-    border: 2px solid #e5e7eb;
+    border: 1px solid #e5e7eb;
     border-radius: 8px;
     font-size: 14px;
     background-color: #f0f0f0;
@@ -109,11 +112,13 @@ body, html {
     font-weight: bold;
     color: #333;
     background-color: #e2e8f0;
-    border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap; /* Prevent button text from wrapping */
+
+    border-width: 1px;
+    border-style: solid;
     border-color: #388da7;
 }
 
@@ -261,7 +266,7 @@ body, html {
 .custom-calendar .react-calendar__decade-view__tile--active,
 .custom-calendar .react-calendar__tile--active {
     background-color: #388da7; /* Dark Blue for active state */
-    color: black; /* Text remains readable */
+    color: white; /* Text remains readable */
     font-weight: bold;
     border-radius: 8px;
     padding: 10px;
