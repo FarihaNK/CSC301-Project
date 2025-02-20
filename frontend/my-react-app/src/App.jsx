@@ -4,6 +4,7 @@ import LandingPage from "./pages/LandingPage"; // Ensure this path is correct
 import NavBar from "./components/Navbar";
 import UserJoin from "./pages/UserJoin";
 import UserLogin from "./pages/UserLogin";
+import ContactPage from "./pages/ContactPage";
 function App() {
     let component
     switch (window.location.pathname){
@@ -15,6 +16,9 @@ function App() {
             break
         case "/about":
             component = <AboutPage/>
+            break;
+        case "/contactpage":
+            component = <ContactPage/>
             break;
         case "/login":
             component = <UserLogin/>

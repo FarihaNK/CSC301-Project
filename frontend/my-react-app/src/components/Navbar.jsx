@@ -12,7 +12,7 @@ export default function Navbar() {
             <CustomLink href="/">Home</CustomLink>
             <CustomLink href="/about">About</CustomLink>
             {/* need to change when we actually create the contact page */}
-            <CustomLink href="/about">Contact</CustomLink> 
+            <CustomLink href="/contactpage">Contact</CustomLink> 
             <button className="nav-button" onClick={() => (window.location.href = "/login")}>
                 Login
             </button>
