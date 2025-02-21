@@ -34,15 +34,16 @@
 
 // export default App
 
-
 import React from "react";
 import UserLogin from "./pages/UserLogin";
+import UserProfile from "./pages/UserProfile";
+
 
 function App() {
   return (
     <div className="App">
-      {/* <h1>Login</h1> */}
-      <UserLogin />
+      {/* <UserLogin /> */}
+      <UserProfile />
     </div>
   );
 }
