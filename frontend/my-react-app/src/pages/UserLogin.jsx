@@ -2,10 +2,12 @@ import { useState } from "react";
 import "./Userlogin.css";
 import logo from "../assets/logo.png"; // Ensure the correct path
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function UserLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     console.log("Logging in with:", { email, password });
@@ -23,6 +25,7 @@ export default function UserLogin() {
   
       console.log("Login successful!", user);
       alert("Login successful!");
+      navigate("/profile");
       
       // Redirect or update UI after login
     } catch (error) {

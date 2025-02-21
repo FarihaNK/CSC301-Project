@@ -35,16 +35,24 @@
 // export default App
 
 import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import UserLogin from "./pages/UserLogin";
 import UserProfile from "./pages/UserProfile";
 
-
 function App() {
   return (
-    <div className="App">
-      {/* <UserLogin /> */}
-      <UserProfile />
-    </div>
+    <Router>
+      <Routes>
+        {/* Default route - Redirects to login */}
+        <Route path="/" element={<Navigate to="/login" />} />
+
+        {/* Login page */}
+        <Route path="/login" element={<UserLogin />} />
+
+        {/* Patient Profile page (protected) */}
+        <Route path="/profile" element={<UserProfile />} />
+      </Routes>
+    </Router>
   );
 }
 
