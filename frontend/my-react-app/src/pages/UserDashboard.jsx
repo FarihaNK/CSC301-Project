@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
-import Calendar from "react-calendar"; // Ensure react-calendar is installed
-import "react-calendar/dist/Calendar.css"; // Import calendar's default styles
-import "./UserDashboard.css"; // Import custom CSS
-import logo from "../assets/logo.png"; // Import logo from the assets folder
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import "./UserDashboard.css";
+import logo from "../assets/logo.png";
 
 const UserDashboard = () => {
-  const [currentDate, setCurrentDate] = useState(new Date()); // Live date and time
-  const [selectedDate, setSelectedDate] = useState(new Date()); // Calendar selected date
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [events, setEvents] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [eventDetails, setEventDetails] = useState({
+    title: "",
+    description: "",
+    time: "",
+    id: null,
+  });
 
   // Update current date and time every second
   useEffect(() => {
@@ -16,7 +24,13 @@ const UserDashboard = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Format the current date and time in AM/PM format
+
+  // Format date for event storage and comparison - to use for making appointments on the calendar
+  const formatDate = (date) => {
+    return date.toISOString().split("T")[0];
+  };
+
+  // Format the current date and time in AM/PM format - to use for the time shown above the calendar
   const formatDateTime = (date) => {
     const dateOptions = {
       weekday: "long",
@@ -38,6 +52,90 @@ const UserDashboard = () => {
     return `${formattedDate}, ${formattedTime}`; // Combine date and time without "at"
   };
 
+  
+
+  // Handle date click to view or add event
+  const handleDateClick = (date) => {
+    setSelectedDate(date);
+    setEventDetails({ title: "", description: "", time: "", id: null });
+    setShowModal(true);
+  };
+
+  // Handle editing an existing event
+  const handleEditEvent = (event) => {
+    setEventDetails(event);
+    setShowModal(true);
+  };
+
+  // Save event (Add or Edit)
+  const saveEvent = () => {
+    if (eventDetails.title.trim() === "") {
+      alert("Event title is required!");
+      return;
+    }
+
+    const dateKey = formatDate(selectedDate);
+    const newEvent = { ...eventDetails, id: eventDetails.id || Date.now() };
+
+    setEvents((prevEvents) => {
+      const eventsForDate = prevEvents[dateKey] || [];
+
+      if (eventDetails.id) {
+        // Edit existing event
+        const updatedEvents = eventsForDate.map((event) =>
+          event.id === eventDetails.id ? newEvent : event
+        );
+        return { ...prevEvents, [dateKey]: updatedEvents };
+      } else {
+        // Add new event
+        return {
+          ...prevEvents,
+          [dateKey]: [...eventsForDate, newEvent],
+        };
+      }
+    });
+
+    setShowModal(false);
+  };
+
+  // Delete event
+  const deleteEvent = (id) => {
+    const dateKey = formatDate(selectedDate);
+    setEvents((prevEvents) => {
+      const updatedEvents = prevEvents[dateKey].filter(
+        (event) => event.id !== id
+      );
+      return { ...prevEvents, [dateKey]: updatedEvents };
+    });
+  };
+
+  // Custom tile content to show event indicators
+  const tileContent = ({ date, view }) => {
+    if (view === "month") {
+      const dateKey = formatDate(date);
+      const eventsForDate = events[dateKey] || [];
+      if (eventsForDate.length > 0) {
+        return (
+          <ul className="event-list">
+            {eventsForDate.map((event) => (
+              <li
+                key={event.id}
+                className="event-indicator"
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent calendar's default behavior
+                  handleEditEvent(event); // Open the modal with the selected event
+                }}
+              >
+                {""}
+              </li>
+            ))}
+          </ul>
+        );
+      }
+    }
+    return null;
+  };
+
   return (
     <div className="dashboard">
       {/* Sidebar */}
@@ -50,8 +148,8 @@ const UserDashboard = () => {
             <li>Medical History</li>
             <li>MedAssistant</li>
             <li>Appointments</li>
-            <li>Add Patient Profile</li> {/* New Button */}
-            <li>Settings</li> {/* Settings Button */}
+            <li>Add Patient Profile</li>
+            <li>Settings</li>
             <li>Logout</li>
           </ul>
         </nav>
@@ -95,23 +193,67 @@ const UserDashboard = () => {
 
           {/* Calendar Section */}
           <div className="calendar-section">
-            {/* Current Date and Time Header */}
             <div className="calendar-header">
               <h3>{formatDateTime(currentDate)}</h3>
             </div>
             <Calendar
-              value={selectedDate} // Calendar uses selectedDate, not currentDate
-              onChange={setSelectedDate} // Updates selectedDate only
+              value={selectedDate}
+              onClickDay={handleDateClick}
+              tileContent={tileContent}
               className="custom-calendar"
-              tileClassName={({ activeStartDate, view }) =>
-                view === "year" || view === "decade" ? "year-tile" : null
-              }
             />
           </div>
         </section>
       </main>
+
+      {/* Event Modal */}
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>{eventDetails.id ? "Edit Event" : "Add Event"}</h3>
+            <input
+              type="text"
+              placeholder="Event Title"
+              value={eventDetails.title}
+              onChange={(e) =>
+                setEventDetails({ ...eventDetails, title: e.target.value })
+              }
+            />
+            <input
+              type="text"
+              placeholder="Event Description"
+              value={eventDetails.description}
+              onChange={(e) =>
+                setEventDetails({
+                  ...eventDetails,
+                  description: e.target.value,
+                })
+              }
+            />
+            <input
+              type="time"
+              value={eventDetails.time}
+              onChange={(e) =>
+                setEventDetails({ ...eventDetails, time: e.target.value })
+              }
+            />
+            <button onClick={saveEvent}>
+              {eventDetails.id ? "Update" : "Add"}
+            </button>
+            {eventDetails.id && (
+              <button
+                onClick={() => deleteEvent(eventDetails.id)}
+                className="delete-button"
+              >
+                Delete
+              </button>
+            )}
+            <button onClick={() => setShowModal(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default UserDashboard;
+export default UserDashboard; 
