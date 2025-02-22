@@ -190,6 +190,17 @@ body, html {
     color: #333;
 }
 
+.calendar-header h3 {
+    margin: 0;
+    font-size: 22px;
+  }
+  
+  .calendar-header span {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
 /* Calendar Styling */
 .custom-calendar {
     border: none;
@@ -283,3 +294,102 @@ body, html {
     border-radius: 8px;
     font-weight: bold;
 }
+
+.react-calendar__month-view__days__day--event {
+    position: relative;
+}
+
+.react-calendar__month-view__days__day--event::after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #388da7;
+}
+
+
+.event-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Make sure modal is on top */
+  }
+  
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    margin-top: 120px;
+    border: 2px solid #388da7; /* Border color for the modal */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for effect */
+  }
+  
+  .modal-content input,
+  .modal-content textarea {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    border-color: #388da7;
+  }
+  
+  .modal-content button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+  }
+
+  .delete-button {
+    background-color: #e53e3e; /* Red button for delete */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+
+  
+  .modal-content button:first-of-type {
+    background: #1a202c;
+    color: white;
+  }
+  
+  .modal-content button:last-of-type {
+    background: #1a202c;
+    color: white;
+  }
+
+  .modal-content button:hover {
+    background-color: #388da7; /* Darker blue on hover */
+  }
