@@ -107,6 +107,7 @@ const UserDashboard = () => {
       );
       return { ...prevEvents, [dateKey]: updatedEvents };
     });
+    setShowModal(false);
   };
 
   // Custom tile content to show event indicators
