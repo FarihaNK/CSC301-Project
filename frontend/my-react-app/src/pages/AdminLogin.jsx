@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./Userlogin.css";
+import "./AdminLogin.css";
 import logo from "../assets/logo.png"; // Ensure the correct path
 
 export default function UserLogin() {
@@ -21,7 +21,7 @@ export default function UserLogin() {
         <img src={logo} className="login-logo" alt="Login Logo" />
         <h2 className="login-name">MedAssist</h2>
         <div className="login-card">
-          <h2 className="login-title">Patient Login</h2>
+          <h2 className="login-title">Admin Login</h2>
           <input
             type="email"
             placeholder="Email"
@@ -37,9 +37,9 @@ export default function UserLogin() {
             className="login-input"
           />
           <button className="forgetPassport_button">Forgot Password?</button>
-          <button onClick={handleLogin} className="login-button">
-            Login
-          </button>
+          <button onClick={handleLogin} className="login-button">Login</button>
+          <button className="patientLogin_button"> Are you a Patient? <br /> Click Here to Login </button>
+
         </div>
       </div>
     </div>
