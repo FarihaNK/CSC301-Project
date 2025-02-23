@@ -34,9 +34,16 @@
 
 // export default App
 
-import AdminDashboard from "./pages/AdminDashboard";
+// import AdminDashboard from "./pages/AdminDashboard";
+// function App()
+// {
+//     return <AdminDashboard />;
+// }
+// export default App;
+
+import BloodTest from "./pages/BloodTest";
 function App()
 {
-    return <AdminDashboard />;
+    return <BloodTest />;
 }
 export default App;
