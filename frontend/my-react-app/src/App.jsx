@@ -41,9 +41,9 @@
 // }
 // export default App;
 
-import BloodTest from "./pages/BloodTest";
+import MRITest from "./pages/MRITest";
 function App()
 {
-    return <BloodTest />;
+    return <MRITest />;
 }
 export default App;

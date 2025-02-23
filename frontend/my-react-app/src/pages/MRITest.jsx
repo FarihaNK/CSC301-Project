@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
-import './BloodTest.css';
+import './MRITest.css';
 import logo from "../assets/logo.png";
 
 // BloodTestForm Component
-const BloodTestForm = () => {
+const MRITestForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     DOB: '',
     gender: '',
     address: '',
-    cholesterol: false,
-    glucose: false,
-    hemoglobin: false,
-    thyroid: false,
-    cbc: false,
+    reasonForMRI: '',
+    areaToBeScanned: '',
+    typeOfMRI: '',
     signature: ''
   });
 
@@ -27,16 +25,14 @@ const BloodTestForm = () => {
 
     const handleClear = () => {
         setFormData({
-          name: '',
-          DOB: '',
-          gender: '',
-          address: '',
-          cholesterol: false,
-          glucose: false,
-          hemoglobin: false,
-          thyroid: false,
-          cbc: false,
-          signature: ''
+            name: '',
+            DOB: '',
+            gender: '',
+            address: '',
+            reasonForMRI: '',
+            areaToBeScanned: '',
+            typeOfMRI: '',
+            signature: ''
         });
       };
 
@@ -46,7 +42,7 @@ const BloodTestForm = () => {
 
   return (
     <div className="form-container">
-      <h2>Blood Test Form</h2>
+      <h2>MRI Form</h2>
       <form>
         <div className="form-group">
           <label>Name:</label>
@@ -88,62 +84,37 @@ const BloodTestForm = () => {
             required
           />
         </div>
+        <h3>MRI Info</h3>
         <div className="form-group">
-          <label>Tests Requested:</label>
           <div>
-            <label>
-              <input
-                type="checkbox"
-                name="cholesterol"
-                checked={formData.cholesterol}
+            <label>Reason For MRI:</label>
+            <input
+                type="text"
+                name="reasonForMRI"
+                value={formData.reasonForMRI}
                 onChange={handleChange}
-              />
-              Cholesterol
-            </label>
+                required
+            />
           </div>
           <div>
-            <label>
-              <input
-                type="checkbox"
-                name="glucose"
-                checked={formData.glucose}
+            <label>Area to be Scanned:</label>
+            <input
+                type="text"
+                name="areaToBeScanned"
+                value={formData.areaToBeScanned}
                 onChange={handleChange}
-              />
-              Glucose
-            </label>
+                required
+            />
           </div>
           <div>
-            <label>
-              <input
-                type="checkbox"
-                name="hemoglobin"
-                checked={formData.hemoglobin}
+            <label>Type of MRI</label>
+            <input
+                type="text"
+                name="typeOfMRI"
+                value={formData.typeOfMRI}
                 onChange={handleChange}
-              />
-              Hemoglobin
-            </label>
-          </div>
-          <div>
-            <label>
-              <input
-                type="checkbox"
-                name="thyroid"
-                checked={formData.thyroid}
-                onChange={handleChange}
-              />
-              Thyroid
-            </label>
-          </div>
-          <div>
-            <label>
-              <input
-                type="checkbox"
-                name="cbc"
-                checked={formData.cbc}
-                onChange={handleChange}
-              />
-              Complete Blood Count
-            </label>
+                required
+            />
           </div>
         </div>
         <div className="form-group">
@@ -157,12 +128,6 @@ const BloodTestForm = () => {
           />
         </div>
       </form>
-      {/* <button type="clear" onClick={handleClear} className="clear-button">
-            Clear
-      </button>
-      <button type="button" onClick={handlePrint}>
-        Print Form
-      </button> */}
         <div className="button-group">
           <button type="submit" onClick={handlePrint} className="submit-button">
             Print
@@ -176,7 +141,7 @@ const BloodTestForm = () => {
 };
 
 // Dashboard Component
-const BloodTest = () => {
+const MRITest = () => {
   return (
     <div className="dashboard">
       {/* Sidebar */}
@@ -214,10 +179,10 @@ const BloodTest = () => {
         </header>
 
         {/* Blood Test Form */}
-        <BloodTestForm />
+        <MRITestForm />
       </main>
     </div>
   );
 };
 
-export default BloodTest;
+export default MRITest;
