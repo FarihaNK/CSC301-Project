@@ -1,0 +1,81 @@
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  background: white;
+  overflow-x: hidden;
+}
+
+/* MainScreen Section */
+.mainscreen {
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  background: url('../assets/image2.avif') no-repeat center center/cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color:  #1a202c;
+  padding: 0 2rem; 
+  box-sizing: border-box;
+  background-color: transparent;
+}
+
+.mainscreen::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0); /* Ensure there's no dark overlay */
+  z-index: -1;
+}
+
+.content h1 {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color:  #1a202c;
+}
+
+.content .tagline {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  color:  #1a202c;
+}
+
+.cta-button {
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  background-color: #1a202c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: green;
+}
+
+/* Footer */
+footer {
+  background: #1a202c;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  width: 100%;
+  position: relative;
+  bottom: 0;
+}
