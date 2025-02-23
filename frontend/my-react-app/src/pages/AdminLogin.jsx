@@ -1,14 +1,38 @@
 import { useState } from "react";
 import "./AdminLogin.css";
 import logo from "../assets/logo.png"; // Ensure the correct path
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function UserLogin() {
+export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     console.log("Logging in with:", { email, password });
     // Add authentication logic here
+    try {
+      const response = await axios.post("http://localhost:5001/api/auth/login", {
+        email,
+        password,
+      }, { headers: { "Content-Type": "application/json" } });
+  
+      const {user, token } = response.data;
+  
+      // Store token in local storage (or session storage)
+      localStorage.setItem("token", token);
+  
+      console.log("Login successful!", user);
+      alert("Login successful!");
+      navigate("/profile");
+      
+      // Redirect or update UI after login
+    } catch (error) {
+      console.error("Login failed:", error.response?.data || error.message);
+      alert("Invalid credentials. Please try again.");
+    }the
+    
   };
 
   return (
