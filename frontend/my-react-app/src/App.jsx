@@ -41,9 +41,9 @@
 // }
 // export default App;
 
-import CTScan from "./pages/CTScan";
+import Prescription from "./pages/Prescription";
 function App()
 {
-    return <CTScan />;
+    return <Prescription />;
 }
 export default App;
