@@ -3,6 +3,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./AdminDashboard.css";
 import logo from "../assets/logo.png";
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const AdminDashboard = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -23,7 +24,6 @@ const AdminDashboard = () => {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
-
 
   // Format date for event storage and comparison - to use for making appointments on the calendar
   const formatDate = (date) => {
@@ -167,7 +167,11 @@ const AdminDashboard = () => {
           />
           <div className="navigation">
             <button>Dashboard</button>
-            <button>Forms</button>
+            {/* <button>Forms</button> */}
+            <Link to="/forms">
+              <button>Forms</button>
+          </Link>
+
             <button className="Doc">Document Upload</button>
             <button>To-Do</button>
           </div>

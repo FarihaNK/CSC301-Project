@@ -11,7 +11,6 @@ const PrescriptionForm = () => {
     address: '',
     medicationName: '',
     dosage: '',
-    frequency: '',
     duration: '',
     refils: '',
     signature: ''
@@ -33,7 +32,6 @@ const PrescriptionForm = () => {
             address: '',
             medicationName: '',
             dosage: '',
-            frequency: '',
             duration: '',
             refils: '',
             signature: ''
@@ -106,16 +104,6 @@ const PrescriptionForm = () => {
                 type="text"
                 name="dosage"
                 value={formData.dosage}
-                onChange={handleChange}
-                required
-            />
-          </div>
-          <div>
-            <label>Frequency:</label>
-            <input
-                type="text"
-                name="frequency"
-                value={formData.frequency}
                 onChange={handleChange}
                 required
             />

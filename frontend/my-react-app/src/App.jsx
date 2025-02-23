@@ -41,9 +41,37 @@
 // }
 // export default App;
 
-import Prescription from "./pages/Prescription";
-function App()
-{
-    return <Prescription />;
-}
-export default App;
+// import FormDashboard from "./pages/Forms";
+// function App()
+// {
+//     return <FormDashboard />;
+// }
+// export default App;
+import React from 'react';
+import { BrowserRouter as BrowserRouter, Routes, Route } from 'react-router-dom';
+import AdminDashboard from './pages/AdminDashboard'
+import FormDashboard from './pages/Forms'; // Your main page component
+import Prescription from './pages/Prescription'; // Prescription page
+import BloodTest from './pages/BloodTest'; // Blood Test page
+import MRITest from './pages/MRITest'; // MRI Test page
+import CTScan from './pages/CTScan'; // CT Scan page
+
+const App = () => {
+    return (
+        <BrowserRouter> {/* Wrap everything with Router */}
+            <Routes> {/* Use Routes to define your routes */}
+            {/* Default Route */}
+            <Route path="/" element={<AdminDashboard />} /> {/* This is the main dashboard */}
+            <Route path="/forms" element={<FormDashboard />} /> {/* This is the main dashboard */}
+                
+            {/* Individual Routes for each page */}
+            <Route path="/prescription" element={<Prescription />} />
+            <Route path="/bloodtest" element={<BloodTest />} />
+            <Route path="/mri" element={<MRITest />} />
+            <Route path="/ct" element={<CTScan />} />
+            </Routes>
+        </BrowserRouter>
+    );
+  };
+  
+  export default App;

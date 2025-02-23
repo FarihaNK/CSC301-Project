@@ -13,7 +13,7 @@
     color: #333;
     height: 100%;
     width: 100%;
-    overflow: hidden;
+    overflow: auto;
   }
   
   /* Dashboard Layout */
@@ -21,7 +21,7 @@
     display: flex;
     height: 100vh;
     width: 100vw;
-    overflow: hidden; /* Prevent scrolling */
+    overflow: auto; /* Prevent scrolling */
   }
   
   /* Sidebar Styling */
@@ -136,8 +136,8 @@
   /* Form styling for the BloodTestForm */
   .form-container {
     width: 50%;
-    margin: 10px auto;
-    padding: 10px;
+    margin: 5px auto;
+    padding: 5px;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -171,9 +171,10 @@
   input[type='number'],
   input[type='date'] {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 4px;
+    height: 27px;
+    padding: 6px;
+    margin-top: 1px;
+    border-radius: 2px;
     border: 1px solid #ccc;
     box-sizing: border-box;
   }
