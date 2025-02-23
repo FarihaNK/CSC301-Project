@@ -41,9 +41,9 @@
 // }
 // export default App;
 
-import MRITest from "./pages/MRITest";
+import CTScan from "./pages/CTScan";
 function App()
 {
-    return <MRITest />;
+    return <CTScan />;
 }
 export default App;

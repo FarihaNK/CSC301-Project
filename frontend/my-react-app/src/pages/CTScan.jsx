@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import './MRITest.css';
+import './CTScan.css';
 import logo from "../assets/logo.png";
 
 // BloodTestForm Component
-const MRITestForm = () => {
+const CTScanForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     DOB: '',
     gender: '',
     address: '',
-    reasonForMRI: '',
+    reasonForCT: '',
     areaToBeScanned: '',
-    typeOfMRI: '',
+    typeOfCT: '',
     signature: ''
   });
 
@@ -29,9 +29,9 @@ const MRITestForm = () => {
             DOB: '',
             gender: '',
             address: '',
-            reasonForMRI: '',
+            reasonForCT: '',
             areaToBeScanned: '',
-            typeOfMRI: '',
+            typeOfCT: '',
             signature: ''
         });
       };
@@ -42,7 +42,7 @@ const MRITestForm = () => {
 
   return (
     <div className="form-container">
-      <h2>MRI Form</h2>
+      <h2>CT Scan Form</h2>
       <form>
         <div className="form-group">
           <label>Name:</label>
@@ -84,14 +84,14 @@ const MRITestForm = () => {
             required
           />
         </div>
-        <h3>MRI Info</h3>
+        <h3>CT Scan Info</h3>
         <div className="form-group">
           <div>
-            <label>Reason For MRI:</label>
+            <label>Reason For CT Scan:</label>
             <input
                 type="text"
-                name="reasonForMRI"
-                value={formData.reasonForMRI}
+                name="reasonForCT"
+                value={formData.reasonForCT}
                 onChange={handleChange}
                 required
             />
@@ -107,11 +107,11 @@ const MRITestForm = () => {
             />
           </div>
           <div>
-            <label>Type of MRI:</label>
+            <label>Type of CT Scan:</label>
             <input
                 type="text"
-                name="typeOfMRI"
-                value={formData.typeOfMRI}
+                name="typeOfCT"
+                value={formData.typeOfCT}
                 onChange={handleChange}
                 required
             />
@@ -141,7 +141,7 @@ const MRITestForm = () => {
 };
 
 // Dashboard Component
-const MRITest = () => {
+const CTScan = () => {
   return (
     <div className="dashboard">
       {/* Sidebar */}
@@ -179,10 +179,10 @@ const MRITest = () => {
         </header>
 
         {/* Blood Test Form */}
-        <MRITestForm />
+        <CTScanForm />
       </main>
     </div>
   );
 };
 
-export default MRITest;
+export default CTScan;
