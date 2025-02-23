@@ -36,7 +36,7 @@
 
 
 import React from "react";
-import UserLogin from "./pages/AdminLogin";
+import UserLogin from "./pages/ForgotPassword";
 
 function App() {
   return (
