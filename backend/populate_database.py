@@ -305,7 +305,8 @@ from langchain.schema.document import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from get_embedding import get_embedding_function
 from docx import Document as DocxDocument
-from langchain.vectorstores import Chroma
+#from langchain.vectorstores import Chroma
+from langchain_chroma import Chroma
 from pptx import Presentation
 import pandas as pd
 
@@ -333,6 +334,7 @@ def main(data_path):
     chunks = split_documents(documents)
     print(f"Split into {len(chunks)} chunks")
     add_to_chroma(chunks)
+    print(f"added {len(chunks)} into Chroma DB Sucessfully :)")
 
 def load_documents(data_path):
     all_documents = []

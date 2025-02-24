@@ -40,17 +40,40 @@
 // }
 // export default App;
 
+// import React from 'react';
+// import DocumentUpload from './components/DocumentUpload';
+
+// function App() {
+//   return (
+//     <div>
+//       <h1>My Project</h1>
+//       <DocumentUpload />
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
+
 import React from 'react';
-import DocumentUpload from './pages/upload';
+import { BrowserRouter as BrowserRouter, Routes, Route } from 'react-router-dom';
+import Documents from './pages/upload'
+import ChatboxInterface from './pages/ChatbotInterface'; // Your main page component
 
-function App() {
-  return (
-    <div>
-      {/* Remove or comment out the next line: */}
-      {/* <h1>My Project</h1> */}
-      <DocumentUpload />
-    </div>
-  );
-}
+const App = () => {
+    return (
+        <BrowserRouter> {/* Wrap everything with Router */}
+            <Routes> {/* Use Routes to define your routes */}
+            {/* Default Route */}
+            <Route path="/" element={<Documents />} /> {}
+            <Route path="/medassist" element={<ChatboxInterface />} /> {}
+            <Route path="/docUpload" element={<Documents />} /> {}
+            </Routes>
+        </BrowserRouter>
+    );
+  };
+  
+  export default App;
 
-export default App;
