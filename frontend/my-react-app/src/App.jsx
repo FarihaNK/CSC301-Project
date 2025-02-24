@@ -62,6 +62,7 @@ const App = () => {
             <Routes> {/* Use Routes to define your routes */}
             {/* Default Route */}
             <Route path="/" element={<AdminDashboard />} /> {/* This is the main dashboard */}
+            <Route path="/dashboard" element={<AdminDashboard />} /> {/* This is the main dashboard */}
             <Route path="/forms" element={<FormDashboard />} /> {/* This is the main dashboard */}
                 
             {/* Individual Routes for each page */}

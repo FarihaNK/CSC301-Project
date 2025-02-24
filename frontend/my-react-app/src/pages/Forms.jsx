@@ -33,8 +33,14 @@ const FormDashboard = () => {
             className="search-bar"
           />
           <div className="navigation">
-            <button>Dashboard</button>
-            <button>Forms</button>
+            {/* <button>Dashboard</button>
+            <button>Forms</button> */}
+            <Link to="/dashboard">
+              <button>Dashboard</button>
+            </Link>
+            <Link to="/forms">
+              <button>Forms</button>
+            </Link>
             <button className="Doc">Document Upload</button>
             <button>To-Do</button>
           </div>

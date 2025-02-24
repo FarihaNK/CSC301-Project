@@ -166,11 +166,14 @@ const AdminDashboard = () => {
             className="search-bar"
           />
           <div className="navigation">
-            <button>Dashboard</button>
+            {/* <button>Dashboard</button> */}
             {/* <button>Forms</button> */}
+            <Link to="/dashboard">
+              <button>Dashboard</button>
+            </Link>
             <Link to="/forms">
               <button>Forms</button>
-          </Link>
+            </Link>
 
             <button className="Doc">Document Upload</button>
             <button>To-Do</button>
@@ -178,7 +181,7 @@ const AdminDashboard = () => {
         </header>
 
         {/* Main Section */}
-        <section className="main-section">
+        <section className="main-section" id="top-part">
           <div className="left-panel">
             <div className="widget">
               <h3>Patient Documents</h3>

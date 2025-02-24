@@ -401,3 +401,8 @@ body, html {
   .modal-content button:hover {
     background-color: #388da7; /* Darker blue on hover */
   }
+
+  #top-part{
+    display: flex;
+    flex-direction: row;
+  }
