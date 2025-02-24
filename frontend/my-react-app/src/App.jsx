@@ -33,9 +33,9 @@
 // }
 
 // export default App
-import UserDashboard from "./pages/UserDashboard";
+import Upload from "./pages/upload";
 function App()
 {
-    return <UserDashboard />;
+    return <Upload />;
 }
 export default App;
