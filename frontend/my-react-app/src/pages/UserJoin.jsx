@@ -1,16 +1,41 @@
 import { useState } from "react";
 import "./UserJoin.css";
 import logo from "../assets/logo.png"; // Ensure the correct path
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function UserLogin() {
+
+export default function UserJoin() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, confirmPassword] = useState("");
+  const role = "patient"
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
-    console.log("Signing Up woth:", {name, email, password, passwordConfirm});
-    // Add authentication logic here
+  const handleSignup = async() => {
+    if (password !== passwordConfirm) {
+      alert("Passwords do not match.");
+      return;
+    }
+
+    console.log("Signing up with:", { name, email, password });
+    try {
+      const response = await axios.post("http://localhost:5001/api/auth/register", {
+        name,  // Added name
+        email,
+        password,
+        role,
+      }, { headers: { "Content-Type": "application/json" } });
+
+      console.log("Signup successful!");
+      alert("Signup successful!");
+      navigate("/");
+
+    } catch (error) {
+      console.error("Signup failed:", error.response?.data || error.message);
+      alert("Signup failed. Please try again.");
+    }
   };
 
   return (
@@ -52,7 +77,7 @@ export default function UserLogin() {
             onChange={(e) => confirmPassword(e.target.value)}
             className="login-input"
           />
-          <button onClick={handleLogin} className="login-button">
+          <button onClick={handleSignup} className="login-button">
             Sign Up
           </button>
         </div>

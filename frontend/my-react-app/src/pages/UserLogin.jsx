@@ -1,37 +1,38 @@
+
 import { useState } from "react";
-import "./AdminLogin.css";
+import "./Userlogin.css";
 import logo from "../assets/logo.png"; // Ensure the correct path
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function AdminLogin() {
+export default function UserLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async() => {
     console.log("Logging in with:", { email, password });
     // Add authentication logic here
     try {
-      const response = await axios.post("http://localhost:5001/api/auth/login", {
-        email,
-        password,
-      }, { headers: { "Content-Type": "application/json" } });
-  
-      const {user, token } = response.data;
-  
-      // Store token in local storage (or session storage)
-      localStorage.setItem("token", token);
-  
-      console.log("Login successful!", user.role);
-      alert("Login successful! as");
-      
-      // Redirect or update UI after login
-    } catch (error) {
-      console.error("Login failed:", error.response?.data || error.message);
-      alert("Invalid credentials. Please try again.");
-    }
+        const response = await axios.post("http://localhost:5001/api/auth/login", {
+          email,
+          password,
+        }, { headers: { "Content-Type": "application/json" } });
     
+        const { user, token } = response.data;
+    
+        // Store token in local storage (or session storage)
+        localStorage.setItem("token", token);
+    
+        console.log("Login successful!", user);
+        alert("Login successful!");
+        navigate("/profile");
+        
+        // Redirect or update UI after login
+      } catch (error) {
+        console.error("Login failed:", error.response?.data || error.message);
+        alert("Invalid credentials. Please try again.");
+      }  
   };
 
   return (
@@ -44,7 +45,7 @@ export default function AdminLogin() {
         <img src={logo} className="login-logo" alt="Login Logo" />
         <h2 className="login-name">MedAssist</h2>
         <div className="login-card">
-          <h2 className="login-title">Admin Login</h2>
+          <h2 className="login-title">Patient Login</h2>
           <input
             type="email"
             placeholder="Email"
@@ -60,9 +61,9 @@ export default function AdminLogin() {
             className="login-input"
           />
           <button className="forgetPassport_button">Forgot Password?</button>
-          <button onClick={handleLogin} className="login-button">Login</button>
-          <button className="patientLogin_button"> Are you a Patient? <br /> Click Here to Login </button>
-
+          <button onClick={handleLogin} className="login-button">
+            Login
+          </button>
         </div>
       </div>
     </div>

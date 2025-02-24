@@ -7,7 +7,7 @@ import LandingPage from "./pages/LandingPage";
 import ContactPage from "./pages/ContactPage";
 import UserJoin from "./pages/UserJoin";
 import NavBar from "./components/Navbar";
-import UserLogin from "./pages/AdminLogin";
+import AdminLogin from "./pages/AdminLogin";
 
 function App() {
   return (
