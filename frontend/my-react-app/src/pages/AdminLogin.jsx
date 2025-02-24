@@ -8,6 +8,7 @@ export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const person = "doctor";
 
   const handleLogin = async () => {
     console.log("Logging in with:", { email, password });
@@ -16,6 +17,7 @@ export default function AdminLogin() {
       const response = await axios.post("http://localhost:5001/api/auth/login", {
         email,
         password,
+        person,
       }, { headers: { "Content-Type": "application/json" } });
   
       const {user, token } = response.data;
@@ -25,7 +27,6 @@ export default function AdminLogin() {
   
       console.log("Login successful!", user);
       alert("Login successful!");
-      navigate("/profile");
       
       // Redirect or update UI after login
     } catch (error) {
