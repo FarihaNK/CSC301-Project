@@ -1,0 +1,98 @@
+import json
+import re
+import requests
+from bs4 import BeautifulSoup
+
+# Function to clean HTML content
+def clean_html(raw_html):
+    soup = BeautifulSoup(raw_html, 'lxml')
+    text = soup.get_text()
+    return re.sub(r'\s+', ' ', text).strip()
+
+# Load the cleaned data
+with open('cleaned_data.json', 'r') as file:
+    cleaned_data = json.load(file)
+
+# Function to search processed data
+def search_processed_data(query):
+    results = []
+    for entry in cleaned_data:
+        if query.lower() in entry['content'].lower():
+            results.append(entry)
+    return results
+
+# Function to craft a prompt based on user input
+def craft_prompt(user_input):
+    if "history" in user_input.lower():
+        return "Provide a detailed history of IBM, highlighting major milestones and achievements."
+    elif "IBM Watson" in user_input.lower():
+        return "Explain what IBM Watson is, including its features, benefits, and use cases."
+    elif "reset my password" in user_input.lower():
+        return "Provide step-by-step instructions for resetting an IBM account password."
+    else:
+        return f"The user asked: '{user_input}'. Provide a helpful and accurate response based on the known information."
+
+# Function to generate response based on user input
+def generate_response(user_input, api_key):
+    search_results = search_processed_data(user_input)
+    if search_results:
+        response = "\n\n".join([f"Title: {result['title']}\nURL: {result['url']}\n\n{result['content']}" for result in search_results])
+        return response
+
+    prompt = craft_prompt(user_input)
+    access_token = get_access_token(api_key)
+    response_text = call_ibm_api(prompt, access_token)
+    return response_text
+
+# Function to get access token using API key
+def get_access_token(api_key):
+    url = "https://iam.cloud.ibm.com/identity/token"
+    headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Accept": "application/json"
+    }
+    data = {
+        "grant_type": "urn:ibm:params:oauth:grant-type:apikey",
+        "apikey": api_key
+    }
+    response = requests.post(url, headers=headers, data=data)
+    if response.status_code != 200:
+        raise Exception("Error obtaining access token: " + response.text)
+    token_response = response.json()
+    return token_response['access_token']
+
+# Function to call IBM API with the generated prompt
+def call_ibm_api(prompt, access_token):
+    url = "https://us-south.ml.cloud.ibm.com/ml/v1/text/generation?version=2023-05-29"
+    
+    body = {
+        "parameters": {
+            "decoding_method": "greedy",
+            "max_new_tokens": 200,
+            "repetition_penalty": 1
+        },
+        "model_id": "ibm/granite-13b-chat-v2",
+        "project_id": "7ad0e124-2979-4035-83a0-07552d903ac6",
+        "input": prompt
+    }
+
+    headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {access_token}"
+    }
+
+    response = requests.post(url, headers=headers, json=body)
+    
+    if response.status_code != 200:
+        raise Exception("Non-200 response: " + str(response.text))
+
+    data = response.json()
+    return data['generated_text']
+
+# Example usage
+if __name__ == "__main__":
+    user_input = "Tell me about IBM's latest product."
+    api_key = 'nZJO220aOZhGntCD8LYkVc2JbugYtpnj-wh9XLxtota7'  # Replace with your actual API key
+    response_text = generate_response(user_input, api_key)
+    print(response_text)

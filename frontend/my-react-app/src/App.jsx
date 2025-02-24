@@ -33,9 +33,24 @@
 // }
 
 // export default App
-import Upload from "./pages/upload";
-function App()
-{
-    return <Upload />;
+// import Upload from "./pages/upload";
+// function App()
+// {
+//     return <Upload />;
+// }
+// export default App;
+
+import React from 'react';
+import DocumentUpload from './pages/upload';
+
+function App() {
+  return (
+    <div>
+      {/* Remove or comment out the next line: */}
+      {/* <h1>My Project</h1> */}
+      <DocumentUpload />
+    </div>
+  );
 }
+
 export default App;
