@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./ChatbotInterface.css";
 import logo from "../assets/logo.png";
 
 const ChatbotInterface = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const chatContainerRef = useRef(null);
 
   const handleSendMessage = () => {
     if (input.trim() === "") return;
@@ -13,6 +14,13 @@ const ChatbotInterface = () => {
     setMessages(newMessages);
     setInput("");
   };
+
+  // Auto-scroll when messages change
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   return (
     <div className="dashboard">

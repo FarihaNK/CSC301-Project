@@ -139,6 +139,8 @@ body, html {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    max-height: 71.5vh; /* Ensures it doesn't grow indefinitely */
+    padding-right: 10px; /* Prevents hiding scrollbar */
 }
   
 .question, .answer {
