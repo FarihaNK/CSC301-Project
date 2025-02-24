@@ -7,6 +7,7 @@ import LandingPage from "./pages/LandingPage";
 import ContactPage from "./pages/ContactPage";
 import UserJoin from "./pages/UserJoin";
 import NavBar from "./components/Navbar";
+import UserLogin from "./pages/AdminLogin";
 
 function App() {
   return (
@@ -17,9 +18,10 @@ function App() {
         <Route path="/home" element={<LandingPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contactpage" element={<ContactPage />} />
-        <Route path="/login" element={<UserLogin />} />
+        <Route path="/userlogin" element={<UserLogin />} />
         <Route path="/getstarted" element={<UserJoin />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/adminlogin" element={<AdminLogin />} />
       </Routes>
     </Router>
   );

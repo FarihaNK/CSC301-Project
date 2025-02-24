@@ -1,10 +1,10 @@
 import { useState } from "react";
-import "./Userlogin.css";
+import "./AdminLogin.css";
 import logo from "../assets/logo.png"; // Ensure the correct path
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function UserLogin() {
+export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -23,9 +23,8 @@ export default function UserLogin() {
       // Store token in local storage (or session storage)
       localStorage.setItem("token", token);
   
-      console.log("Login successful!", user);
-      alert("Login successful!");
-      navigate("/profile");
+      console.log("Login successful!", user.role);
+      alert("Login successful! as");
       
       // Redirect or update UI after login
     } catch (error) {
@@ -45,7 +44,7 @@ export default function UserLogin() {
         <img src={logo} className="login-logo" alt="Login Logo" />
         <h2 className="login-name">MedAssist</h2>
         <div className="login-card">
-          <h2 className="login-title">Patient Login</h2>
+          <h2 className="login-title">Admin Login</h2>
           <input
             type="email"
             placeholder="Email"
@@ -61,9 +60,9 @@ export default function UserLogin() {
             className="login-input"
           />
           <button className="forgetPassport_button">Forgot Password?</button>
-          <button onClick={handleLogin} className="login-button">
-            Login
-          </button>
+          <button onClick={handleLogin} className="login-button">Login</button>
+          <button className="patientLogin_button"> Are you a Patient? <br /> Click Here to Login </button>
+
         </div>
       </div>
     </div>

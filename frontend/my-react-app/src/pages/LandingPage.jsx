@@ -7,7 +7,7 @@ const LandingPage = () => {
     <div className="container">
       {/* MainScreen Section */}
       <header className="mainscreen">
-        <div className="content" id='middlescreen'>
+        <div className="content">
           <h1>Where Health Meets Innovation</h1>
           <p className="tagline">Your trusted companion in healthcare.</p>
           {/* <button className="cta-button">Get Started</button> */}
