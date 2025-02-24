@@ -1,3 +1,11 @@
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+  }
+
 /* General Styles */
 body, html {
     font-family: "Arial", sans-serif;
@@ -295,6 +303,22 @@ body, html {
     font-weight: bold;
 }
 
+.react-calendar__month-view__days__day--event {
+    position: relative;
+}
+
+.react-calendar__month-view__days__day--event::after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #388da7;
+}
+
 
 .event-modal {
     position: fixed;
@@ -376,4 +400,9 @@ body, html {
 
   .modal-content button:hover {
     background-color: #388da7; /* Darker blue on hover */
+  }
+
+  #top-part{
+    display: flex;
+    flex-direction: row;
   }
