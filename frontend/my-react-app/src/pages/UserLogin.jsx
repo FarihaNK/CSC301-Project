@@ -26,7 +26,7 @@ export default function UserLogin() {
     
         console.log("Login successful!", user);
         alert("Login successful!");
-        navigate("/profile");
+        navigate("/userdashboard");
         
         // Redirect or update UI after login
       } catch (error) {

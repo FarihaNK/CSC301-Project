@@ -8,6 +8,8 @@ import ContactPage from "./pages/ContactPage";
 import UserJoin from "./pages/UserJoin";
 import NavBar from "./components/Navbar";
 import AdminLogin from "./pages/AdminLogin";
+import UserDashboard from "./pages/UserDashboard";
+
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
         <Route path="/getstarted" element={<UserJoin />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
+        <Route path="/userdashboard" element={<UserDashboard />} />
       </Routes>
     </Router>
   );
