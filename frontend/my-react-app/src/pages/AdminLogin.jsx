@@ -24,7 +24,8 @@ export default function AdminLogin() {
       localStorage.setItem("token", token);
   
       console.log("Login successful!", user.role);
-      alert("Login successful! as");
+      alert("Login successful! as", user.role);
+      navigate("/admindashboard");
       
       // Redirect or update UI after login
     } catch (error) {

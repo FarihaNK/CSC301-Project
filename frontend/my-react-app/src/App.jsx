@@ -9,6 +9,12 @@ import UserJoin from "./pages/UserJoin";
 import NavBar from "./components/Navbar";
 import AdminLogin from "./pages/AdminLogin";
 import UserDashboard from "./pages/UserDashboard";
+import AdminDashboard from './pages/AdminDashboard'
+import FormDashboard from './pages/Forms'; // Your main page component
+import Prescription from './pages/Prescription'; // Prescription page
+import BloodTest from './pages/BloodTest'; // Blood Test page
+import MRITest from './pages/MRITest'; // MRI Test page
+import CTScan from './pages/CTScan'; // CT Scan page
 
 
 function App() {
@@ -25,6 +31,14 @@ function App() {
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/userdashboard" element={<UserDashboard />} />
+        <Route path="/admindashboard" element={<AdminDashboard />} /> {/* This is the main dashboard */}
+        <Route path="/forms" element={<FormDashboard />} /> {/* This is the main dashboard */}
+
+        {/* Individual Routes for each page */}
+        <Route path="/prescription" element={<Prescription />} />
+        <Route path="/bloodtest" element={<BloodTest />} />
+        <Route path="/mri" element={<MRITest />} />
+        <Route path="/ct" element={<CTScan />} />
       </Routes>
     </Router>
   );
