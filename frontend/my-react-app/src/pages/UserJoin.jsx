@@ -21,7 +21,7 @@ export default function UserJoin() {
 
     console.log("Signing up with:", { name, email, password });
     try {
-      const response = await axios.post("http://localhost:5001/api/auth/register", {
+      const response = await axios.post("http://localhost:5003/api/auth/register", {
         name,  // Added name
         email,
         password,
