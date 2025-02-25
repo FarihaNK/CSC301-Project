@@ -15,6 +15,8 @@ import Prescription from './pages/Prescription'; // Prescription page
 import BloodTest from './pages/BloodTest'; // Blood Test page
 import MRITest from './pages/MRITest'; // MRI Test page
 import CTScan from './pages/CTScan'; // CT Scan page
+import Documents from './pages/upload'
+import ChatboxInterface from './pages/ChatbotInterface';
 
 
 function App() {
@@ -39,6 +41,8 @@ function App() {
         <Route path="/bloodtest" element={<BloodTest />} />
         <Route path="/mri" element={<MRITest />} />
         <Route path="/ct" element={<CTScan />} />
+        <Route path="/medassist" element={<ChatboxInterface />} /> {}
+        <Route path="/docUpload" element={<Documents />} /> {}
       </Routes>
     </Router>
   );

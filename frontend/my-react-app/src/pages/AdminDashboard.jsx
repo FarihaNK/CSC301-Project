@@ -3,7 +3,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./AdminDashboard.css";
 import logo from "../assets/logo.png";
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link, useNavigate } from 'react-router-dom'; // Import Link from react-router-dom
 
 const AdminDashboard = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -16,6 +16,7 @@ const AdminDashboard = () => {
     time: "",
     id: null,
   });
+  const navigate = useNavigate();
 
   // Update current date and time every second
   useEffect(() => {
@@ -148,7 +149,7 @@ const AdminDashboard = () => {
           <ul>
             <li>Patients</li>
             <li>Schedule</li>
-            <li>MedAssistant</li>
+            <li onClick={() => navigate("/medassist")}>MedAssistant</li>
             <li>Personal Profile</li> {/* New Button */}
             <li>Settings</li> {/* Settings Button */}
             <li>Logout</li>
