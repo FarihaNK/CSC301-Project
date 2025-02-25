@@ -13,7 +13,7 @@ export default function AdminLogin() {
     console.log("Logging in with:", { email, password });
     // Add authentication logic here
     try {
-      const response = await axios.post("http://localhost:5001/api/auth/login", {
+      const response = await axios.post("http://localhost:5003/api/auth/login", {
         email,
         password,
       }, { headers: { "Content-Type": "application/json" } });

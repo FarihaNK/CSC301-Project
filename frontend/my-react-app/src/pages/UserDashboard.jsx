@@ -3,6 +3,8 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./UserDashboard.css";
 import logo from "../assets/logo.png";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const UserDashboard = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -13,9 +15,7 @@ const UserDashboard = () => {
     title: "",
     description: "",
     time: "",
-    id: null,
   });
-
   // Update current date and time every second
   useEffect(() => {
     const timer = setInterval(() => {
@@ -51,91 +51,97 @@ const UserDashboard = () => {
 
     return `${formattedDate}, ${formattedTime}`; // Combine date and time without "at"
   };
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    fetchAppointments();
+  }, []);
+
+  // Fetch existing appointments from the API
+  const fetchAppointments = async () => {
+    try {
+      const token = localStorage.getItem("token"); // Get JWT from localStorage
+      if (!token) {
+        console.error("No authentication token found");
+        return;
+      }
+  
+      const response = await axios.get("http://localhost:5004/api/appointments", {
+        headers: { Authorization: `Bearer ${token}` }, // Send token in header
+      });
+  
+      const fetchedEvents = response.data.reduce((acc, event) => {
+        const dateKey = event.date; // Assuming the API returns a "date" field
+        if (!acc[dateKey]) acc[dateKey] = [];
+        acc[dateKey].push(event);
+        return acc;
+      }, {});
+  
+      setEvents(fetchedEvents);
+    } catch (error) {
+      console.error("Error fetching appointments:", error.response?.data || error.message);
+    }
+  };
   
 
-  // Handle date click to view or add event
+
   const handleDateClick = (date) => {
     setSelectedDate(date);
-    setEventDetails({ title: "", description: "", time: "", id: null });
+    setEventDetails({ title: "", description: "", time: "" });
     setShowModal(true);
   };
 
-  // Handle editing an existing event
-  const handleEditEvent = (event) => {
-    setEventDetails(event);
-    setShowModal(true);
-  };
-
-  // Save event (Add or Edit)
-  const saveEvent = () => {
-    if (eventDetails.title.trim() === "") {
+  // Save appointment (POST request)
+  const saveEvent = async () => {
+    if (!eventDetails.title.trim()) {
       alert("Event title is required!");
       return;
     }
-
-    const dateKey = formatDate(selectedDate);
-    const newEvent = { ...eventDetails, id: eventDetails.id || Date.now() };
-
-    setEvents((prevEvents) => {
-      const eventsForDate = prevEvents[dateKey] || [];
-
-      if (eventDetails.id) {
-        // Edit existing event
-        const updatedEvents = eventsForDate.map((event) =>
-          event.id === eventDetails.id ? newEvent : event
-        );
-        return { ...prevEvents, [dateKey]: updatedEvents };
-      } else {
-        // Add new event
-        return {
-          ...prevEvents,
-          [dateKey]: [...eventsForDate, newEvent],
-        };
-      }
-    });
-
-    setShowModal(false);
-  };
-
-  // Delete event
-  const deleteEvent = (id) => {
-    const dateKey = formatDate(selectedDate);
-    setEvents((prevEvents) => {
-      const updatedEvents = prevEvents[dateKey].filter(
-        (event) => event.id !== id
-      );
-      return { ...prevEvents, [dateKey]: updatedEvents };
-    });
-    setShowModal(false);
-  };
-
-  // Custom tile content to show event indicators
-  const tileContent = ({ date, view }) => {
-    if (view === "month") {
-      const dateKey = formatDate(date);
-      const eventsForDate = events[dateKey] || [];
-      if (eventsForDate.length > 0) {
-        return (
-          <ul className="event-list">
-            {eventsForDate.map((event) => (
-              <li
-                key={event.id}
-                className="event-indicator"
-                onClick={(e) => {
-                  e.stopPropagation(); // Prevent calendar's default behavior
-                  handleEditEvent(event); // Open the modal with the selected event
-                }}
-              >
-                {""}
-              </li>
-            ))}
-          </ul>
-        );
-      }
+  
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No authentication token found");
+      return;
     }
-    return null;
+  
+    const dateKey = formatDate(selectedDate);
+    const newEvent = {
+      title: eventDetails.title,
+      description: eventDetails.description || "",
+      date: dateKey,
+      appointmentTime: eventDetails.time,
+    };
+  
+    try {
+      await axios.post("http://localhost:5004/api/appointments", newEvent, {
+        headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" },
+      });
+  
+      setEvents((prevEvents) => ({
+        ...prevEvents,
+        [dateKey]: [...(prevEvents[dateKey] || []), newEvent],
+      }));
+  
+      setShowModal(false);
+    } catch (error) {
+      console.error("Error creating appointment:", error.response?.data || error.message);
+    }
   };
+  
+  
+  
+
+  const tileContent = ({ date }) => {
+    const dateKey = formatDate(date);
+    return events[dateKey] ? (
+      <ul className="event-list">
+        {events[dateKey].map((event, index) => (
+          <li key={index} className="event-indicator">{event.title}</li>
+        ))}
+      </ul>
+    ) : null;
+  };
+
 
   return (
     <div className="dashboard">
@@ -149,7 +155,7 @@ const UserDashboard = () => {
             <li>Medical History</li>
             <li>MedAssistant</li>
             <li>Appointments</li>
-            <li>Add Patient Profile</li>
+            <li onClick={() => navigate("/profile")}>Personal Profile</li> {/* New Button */}
             <li>Settings</li>
             <li>Logout</li>
           </ul>
@@ -174,7 +180,7 @@ const UserDashboard = () => {
         </header>
 
         {/* Main Section */}
-        <section className="main-section">
+        <section className="main-section" id="top-part">
           <div className="left-panel">
             <div className="widget">
               <h3>Your Documents</h3>
@@ -216,39 +222,20 @@ const UserDashboard = () => {
               type="text"
               placeholder="Event Title"
               value={eventDetails.title}
-              onChange={(e) =>
-                setEventDetails({ ...eventDetails, title: e.target.value })
-              }
+              onChange={(e) => setEventDetails({ ...eventDetails, title: e.target.value })}
             />
             <input
               type="text"
               placeholder="Event Description"
               value={eventDetails.description}
-              onChange={(e) =>
-                setEventDetails({
-                  ...eventDetails,
-                  description: e.target.value,
-                })
-              }
+              onChange={(e) => setEventDetails({ ...eventDetails, description: e.target.value })}
             />
             <input
               type="time"
               value={eventDetails.time}
-              onChange={(e) =>
-                setEventDetails({ ...eventDetails, time: e.target.value })
-              }
+              onChange={(e) => setEventDetails({ ...eventDetails, time: e.target.value })}
             />
-            <button onClick={saveEvent}>
-              {eventDetails.id ? "Update" : "Add"}
-            </button>
-            {eventDetails.id && (
-              <button
-                onClick={() => deleteEvent(eventDetails.id)}
-                className="delete-button"
-              >
-                Delete
-              </button>
-            )}
+            <button onClick={saveEvent}>Add</button>
             <button onClick={() => setShowModal(false)}>Cancel</button>
           </div>
         </div>
