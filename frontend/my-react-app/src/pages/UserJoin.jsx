@@ -45,8 +45,10 @@ export default function UserJoin() {
         <button className="info_button">Contact</button>
       </div>
       <div className="login-content"> {/* New wrapper to stack logo & card */}
-        <img src={logo} className="login-logo" alt="Login Logo" />
-        <h2 className="login-name">MedAssist</h2>
+        <div className="title-and-logo">
+          <img src={logo} className="login-logo" alt="Login Logo" />
+          <h2 className="login-name">MedAssist</h2>
+        </div>
         <div className="login-card">
           <h2 className="login-title">Patient Sign Up</h2>
           <input
@@ -72,7 +74,7 @@ export default function UserJoin() {
           />
           <input
             type="password"
-            placeholder="Retype Password to Confrim"
+            placeholder="Retype Password to Confirm"
             value={passwordConfirm}
             onChange={(e) => confirmPassword(e.target.value)}
             className="login-input"
