@@ -42,8 +42,10 @@ export default function AdminLogin() {
         <button className="info_button">Contact</button>
       </div>
       <div className="login-content"> {/* New wrapper to stack logo & card */}
-        <img src={logo} className="login-logo" alt="Login Logo" />
-        <h2 className="login-name">MedAssist</h2>
+        <div className="title-and-logo">
+          <img src={logo} className="login-logo" alt="Login Logo" />
+          <h2 className="login-name">MedAssist</h2>
+          </div>
         <div className="login-card">
           <h2 className="login-title">Admin Login</h2>
           <input
