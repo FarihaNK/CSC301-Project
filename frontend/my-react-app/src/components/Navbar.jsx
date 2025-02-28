@@ -14,9 +14,10 @@ export default function Navbar() {
             {/* need to change when we actually create the contact page */}
             <CustomLink href="/contactpage">Contact</CustomLink> 
             <CustomLink href="/adminlogin">Admin Login</CustomLink> 
-            <button className="nav-button" onClick={() => (window.location.href = "/userlogin")}>
+            <CustomLink href="/userlogin">User Login</CustomLink> 
+            {/* <button className="nav-button" onClick={() => (window.location.href = "/userlogin")}>
                 User Login
-            </button>
+            </button> */}
             
         </ul>
   </nav>
