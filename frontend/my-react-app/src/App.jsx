@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation} from "react-router-dom";
 import UserLogin from "./pages/UserLogin";
 import UserProfile from "./pages/UserProfile";
 import AboutPage from "./pages/AboutPage";
@@ -19,10 +19,43 @@ import Documents from './pages/upload'
 import ChatboxInterface from './pages/ChatbotInterface';
 
 
+function Layout(){
+  const location = useLocation();
+
+  // Define which paths should show the NavBar
+  // const showNavBar = !(
+  //   location.pathname === "/" ||
+  //   location.pathname === "/home" ||
+  //   location.pathname === "/about" ||
+  //   location.pathname === "/contactpage" ||
+  //   location.pathname === "/userlogin" ||
+  //   location.pathname === "/adminlogin" ||
+  //   location.pathname === "/getstarted" 
+  // );
+  // Define which paths should show the NavBar
+  const showNavBar = !(
+    location.pathname === "/userdashboard" ||
+    location.pathname === "/admindashboard" ||
+    location.pathname === "/forms" ||
+    location.pathname === "/prescription" ||
+    location.pathname === "/bloodtest" ||
+    location.pathname === "/mri" ||
+    location.pathname === "/ct" ||
+    location.pathname === "/medassist" ||
+    location.pathname === "/docUpload"
+  );
+
+  return (
+    <>
+      {showNavBar && <NavBar />} {/* Conditionally render NavBar */}
+    </>
+  );
+}
+
 function App() {
   return (
     <Router>
-      <NavBar />
+      <Layout/>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<LandingPage />} />

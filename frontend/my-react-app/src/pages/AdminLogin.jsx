@@ -37,10 +37,6 @@ export default function AdminLogin() {
 
   return (
     <div className="login-container">
-      <div className="info_bar">
-        <button className="info_button">About</button>
-        <button className="info_button">Contact</button>
-      </div>
       <div className="login-content"> {/* New wrapper to stack logo & card */}
         <div className="title-and-logo">
           <img src={logo} className="login-logo" alt="Login Logo" />
