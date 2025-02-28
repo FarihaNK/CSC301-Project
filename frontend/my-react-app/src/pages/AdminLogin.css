@@ -141,6 +141,7 @@ html, body, #root {
 .forgetPassport_button:hover {
   text-decoration: underline;
   color: #388da7;
+  background-color: transparent;
 }
 
 .patientLogin_button {
@@ -159,6 +160,7 @@ html, body, #root {
 .patientLogin_button:hover {
   text-decoration: underline;
   color: #388da7;
+  background-color: transparent;
 }
   .login-button {
     font-family: 'Arial', sans-serif;
