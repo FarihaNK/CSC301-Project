@@ -24,13 +24,18 @@ const UserDashboard = () => {
     return () => clearInterval(timer);
   }, []);
 
-
-  // Format date for event storage and comparison - to use for making appointments on the calendar
+  // Format date for event storage and comparison
   const formatDate = (date) => {
     return date.toISOString().split("T")[0];
   };
 
-  // Format the current date and time in AM/PM format - to use for the time shown above the calendar
+  // Format the date for the schedule title
+  const formatScheduleTitleDate = (date) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+};
+
+  // Format the current date and time in AM/PM format
   const formatDateTime = (date) => {
     const dateOptions = {
       weekday: "long",
@@ -45,14 +50,11 @@ const UserDashboard = () => {
       hour12: true, // AM/PM format
     };
 
-    // Combine formatted date and time
     const formattedDate = date.toLocaleDateString("en-US", dateOptions);
     const formattedTime = date.toLocaleTimeString("en-US", timeOptions);
 
-    return `${formattedDate}, ${formattedTime}`; // Combine date and time without "at"
+    return `${formattedDate}, ${formattedTime}`;
   };
-
-  
 
   // Handle date click to view or add event
   const handleDateClick = (date) => {
@@ -203,6 +205,18 @@ const UserDashboard = () => {
               tileContent={tileContent}
               className="custom-calendar"
             />
+            {/* Schedule Section */}
+            <div className="schedule-section">
+                <h3>{formatDate(selectedDate) === formatDate(new Date()) ? "Today's Schedule" : `${formatScheduleTitleDate(selectedDate)} Schedule`}</h3>
+                <ul className="schedule-list">
+                    {(events[formatDate(selectedDate)] || []).map((event) => (
+                        <li key={event.id} className="schedule-item">
+                            <strong>{event.title}</strong>: {event.time}
+                            <p>{event.description}</p> {/* Add this line for the description */}
+                        </li>
+                    ))}
+                </ul>
+            </div>
           </div>
         </section>
       </main>
