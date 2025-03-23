@@ -539,7 +539,7 @@ const UserProfile = () => {
                   required
                 />
               </label>
-              <button type="submit">Create Profile</button>
+              <button type="submit">Save Profile</button>
             </form>
           </div>
         </div>
