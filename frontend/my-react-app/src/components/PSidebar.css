@@ -1,0 +1,89 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  /* Remove default body margin and padding */
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+  
+  .sidebar {
+    background-color: #1a202c;
+    color: white;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Keep the items stacked vertically */
+    align-items: center; /* Ensure items are centered horizontally */
+    padding: 20px 0; /* Add padding for vertical spacing */
+    border-right: 2px solid #388da7;
+    z-index: 100;
+    transition: all 0.3s ease;
+  }
+  
+  /* Logo Styles */
+  .logo {
+    width: 100%;  /* Make the logo container span the full width */
+    display: flex;  /* Enable flexbox */
+    justify-content: center;  /* Center the logo horizontally */
+    align-items: center;  /* Center the logo vertically */
+    margin-bottom: 30px;  /* Space between the logo and the other items */
+    margin-left: 20px
+  }
+  
+/* Logo Styles */
+.logo img {
+    max-width: 100%;
+    height: auto;
+    max-height: 80px;
+    display: block;
+    cursor: pointer; /* Make the logo appear clickable */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+  }
+  
+  .logo img:hover {
+    transform: scale(1.1); /* Slightly increase size on hover */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+  }
+  
+  .menu ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+  }
+  
+  .menu li {
+    margin: 20px 0;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #2d3748;
+    transition: all 0.3s ease;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #388da7;
+  }
+  
+  .menu li:hover {
+    background-color: #388da7;
+  }
+  
+  .menu li:last-child:hover {
+    background-color: #e53e3e;
+    color: white;
+  }

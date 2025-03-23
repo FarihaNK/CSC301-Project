@@ -7,8 +7,10 @@ import LandingPage from "./pages/LandingPage";
 import ContactPage from "./pages/ContactPage";
 import UserJoin from "./pages/UserJoin";
 import NavBar from "./components/Navbar";
+import PSidebar from "./components/PSidebar";
 import AdminLogin from "./pages/AdminLogin";
 import UserDashboard from "./pages/UserDashboard";
+import FamilyHistory from "./pages/FamilyHistory";
 import AdminDashboard from './pages/AdminDashboard'
 import FormDashboard from './pages/Forms'; // Your main page component
 import Prescription from './pages/Prescription'; // Prescription page
@@ -23,16 +25,6 @@ function Layout(){
   const location = useLocation();
 
   // Define which paths should show the NavBar
-  // const showNavBar = !(
-  //   location.pathname === "/" ||
-  //   location.pathname === "/home" ||
-  //   location.pathname === "/about" ||
-  //   location.pathname === "/contactpage" ||
-  //   location.pathname === "/userlogin" ||
-  //   location.pathname === "/adminlogin" ||
-  //   location.pathname === "/getstarted" 
-  // );
-  // Define which paths should show the NavBar
   const showNavBar = !(
     location.pathname === "/userdashboard" ||
     location.pathname === "/admindashboard" ||
@@ -42,12 +34,29 @@ function Layout(){
     location.pathname === "/mri" ||
     location.pathname === "/ct" ||
     location.pathname === "/medassist" ||
-    location.pathname === "/docUpload"
+    location.pathname === "/docUpload" ||
+    location.pathname === "/familyhistory" ||
+    location.pathname === "/profile" 
   );
+  const showPSidebar = !showNavBar;
+
+  // return (
+  //   <>
+  //     {/* {showPSidebar && <PSidebar />} Show Sidebar for dashboard pages */}
+  //     {showNavBar && <NavBar />} {/* Conditionally render NavBar */}
+  //   </>
+  // );
 
   return (
     <>
+      {/* Conditionally render the sidebar */}
+      {showPSidebar && <PSidebar />}
       {showNavBar && <NavBar />} {/* Conditionally render NavBar */}
+      
+      {/* Main Content Area */}
+      <div className={`main-content ${showPSidebar ? 'with-sidebar' : ''}`}>
+        {/* Content will go here */}
+      </div>
     </>
   );
 }
@@ -64,6 +73,7 @@ function App() {
         <Route path="/userlogin" element={<UserLogin />} />
         <Route path="/getstarted" element={<UserJoin />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/familyhistory" element={<FamilyHistory />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/userdashboard" element={<UserDashboard />} />
         <Route path="/admindashboard" element={<AdminDashboard />} /> {/* This is the main dashboard */}

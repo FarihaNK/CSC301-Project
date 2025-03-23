@@ -61,3 +61,45 @@ body, html {
   width: 100%;
   overflow: hidden;
 }
+
+/* .app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+.sidebar {
+  width: 200px;
+  min-height: 100vh;
+  padding: 20px 5px;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
+  width: 100%;
+}
+
+.navbar {
+  width: 100%;
+  padding: 10px;
+  color: white;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  width: 100%
+} */
+
+.main-content {
+  margin-left: 250px; /* Adjust for sidebar width */
+  padding: 20px;
+  min-height: 100vh; /* Ensure it covers the full viewport height */
+  background-color: #ffffff; /* White background for main content */
+  overflow: auto; /* Ensure the content area scrolls if necessary */
+  z-index: 1; /* Ensure content is beneath the sidebar */
+}

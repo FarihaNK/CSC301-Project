@@ -84,7 +84,7 @@ const UserProfile = () => {
   return (
     <div className="dashboard">
       {/* Sidebar */}
-      <aside className="sidebar">
+      {/* <aside className="sidebar">
         <div className="logo">
           <img src={logo} alt="Logo" />
         </div>
@@ -98,12 +98,12 @@ const UserProfile = () => {
             <li>Logout</li>
           </ul>
         </nav>
-      </aside>
+      </aside> */}
 
       {/* Main Content */}
       <main className="content">
         {/* Top Bar */}
-        <header className="top-bar">
+        {/* <header className="top-bar">
           <input
             type="text"
             placeholder="Search for anything..."
@@ -115,7 +115,7 @@ const UserProfile = () => {
             <button>Reports</button>
             <button className="Medications">Medications</button>
           </div>
-        </header>
+        </header> */}
 
         {/* Profile Form */}
         <section className="profile-form-container">

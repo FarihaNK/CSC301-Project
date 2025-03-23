@@ -156,7 +156,7 @@ const UserDashboard = () => {
             <li>MedAssistant</li>
             <li>Appointments</li>
             <li onClick={() => navigate("/profile")}>Personal Profile</li> {/* New Button */}
-            <li>Settings</li>
+            <li onClick={() => navigate("/familyhistory")}>Family History</li> {/* New Button */}
             <li>Logout</li>
           </ul>
         </nav>
@@ -165,7 +165,7 @@ const UserDashboard = () => {
       {/* Main Content */}
       <main className="content">
         {/* Top Bar */}
-        <header className="top-bar">
+        {/* <header className="top-bar">
           <input
             type="text"
             placeholder="Search for anything..."
@@ -177,7 +177,7 @@ const UserDashboard = () => {
             <button>Reports</button>
             <button className="Medications">Medications</button>
           </div>
-        </header>
+        </header> */}
 
         {/* Main Section */}
         <section className="main-section" id="top-part">
