@@ -146,7 +146,7 @@ const UserDashboard = () => {
   return (
     <div className="dashboard">
       {/* Sidebar */}
-      <aside className="sidebar">
+      {/* <aside className="sidebar">
         <div className="logo">
           <img src={logo} alt="Logo" />
         </div>
@@ -155,12 +155,12 @@ const UserDashboard = () => {
             <li>Medical History</li>
             <li>MedAssistant</li>
             <li>Appointments</li>
-            <li onClick={() => navigate("/profile")}>Personal Profile</li> {/* New Button */}
-            <li onClick={() => navigate("/familyhistory")}>Family History</li> {/* New Button */}
+            <li onClick={() => navigate("/profile")}>Personal Profile</li> 
+            <li onClick={() => navigate("/familyhistory")}>Family History</li> 
             <li>Logout</li>
           </ul>
         </nav>
-      </aside>
+      </aside> */}
 
       {/* Main Content */}
       <main className="content">

@@ -8,7 +8,7 @@ const PSidebar = () => {
 
   // Function to handle logo click and redirect to user dashboard
   const handleLogoClick = () => {
-    navigate("/userdashboard"); // Navigate to user dashboard
+    navigate("/admindashboard"); // Navigate to user dashboard
   };
 
   return (
@@ -20,10 +20,9 @@ const PSidebar = () => {
 
       <nav className="menu">
         <ul>
-          <li>Medical History</li>
-          <li>MedAssistant</li>
-          <li onClick={() => navigate("/profile")}>Personal Profile</li>
-          <li onClick={() => navigate("/familyhistory")}>Family History</li>
+          <li>Patients</li>
+          <li>Schedule</li>
+          <li onClick={() => navigate("/medassist")}>MedAssistant</li>
           <li onClick={() => navigate("/")}>Logout</li>
         </ul>
       </nav>
