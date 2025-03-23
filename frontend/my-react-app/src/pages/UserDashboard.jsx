@@ -155,7 +155,7 @@ const UserDashboard = () => {
             
             <li onClick={() => navigate("/medicalhistory")}>Medical History</li>
 
-            <li>MedAssistant</li>
+            <li onClick={() => navigate("/medAssist2")}>MedAssistant</li> {/* New Button */}
             <li>Appointments</li>
             <li onClick={() => navigate("/profile")}>Personal Profile</li> {/* New Button */}
             <li>Settings</li>
