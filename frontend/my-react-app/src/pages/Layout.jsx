@@ -129,6 +129,7 @@ const Layout = ({ children }) => {
             <li>Document Upload</li>
             <li>To-Do</li>
             <li>Settings</li>
+            
             <li className="logout">Logout</li>
           </ul>
         </nav>

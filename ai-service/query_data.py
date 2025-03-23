@@ -132,6 +132,106 @@
 #VERSION 2: ATTEMPTING TO FIX RESPONSE THING: 
 
 
+# import argparse
+# from langchain_chroma import Chroma
+# from langchain.prompts import ChatPromptTemplate
+# from langchain_ollama import OllamaLLM
+# from get_embedding import get_embedding_function
+# from langchain.schema.document import Document
+# from docx import Document as DocxDocument
+# import os
+
+# CHROMA_PATH = "chroma"
+
+# PROMPT_TEMPLATE = """
+# You are a knowledgeable assistant. Use the provided context to answer the question thoroughly and accurately. Make sure to base your answer only on the information in the context, and clearly reference the specific document Name and page Number when available. When asked for general information, reference all the data that has been provided. If user query information is not present, Let the User know right away.
+
+# Context:
+# {context}
+
+# ---
+
+# Based on the above context, answer the question: {question}
+
+# Please include the source references in your response.
+# """
+
+# def main():
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument("query_text", type=str, nargs='?', default=None, help="The query text.")
+#     args = parser.parse_args()
+#     if args.query_text:
+#         # If a query is provided as an argument, process it once
+#         answer = query_rag(args.query_text)
+#         print(answer)
+#     else:
+#         # Otherwise, enter live mode
+#         live_mode()
+
+# def live_mode():
+#     print("Entering live mode. Type 'exit' or 'quit' to stop.")
+#     while True:
+#         query_text = input("Enter your question: ")
+#         if query_text.lower() in ['exit', 'quit']:
+#             print("Exiting...")
+#             break
+#         answer = query_rag(query_text)
+#         print(answer)
+
+# def query_rag(query_text: str):
+#     """
+#     Returns a string containing the answer from the RAG pipeline 
+#     plus any source references. 
+#     """
+#     try:
+#         # 1) Prepare the DB
+#         embedding_function = get_embedding_function()
+#         db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
+
+#         # 2) Search the DB for top-k relevant chunks
+#         results = db.similarity_search_with_score(query_text, k=5)
+
+#         # 3) Build the context from the top-k chunks
+#         context_text = "\n\n---\n\n".join(
+#             [f"Source {i + 1}: {doc.page_content}" for i, (doc, _score) in enumerate(results)]
+#         )
+
+#         # 4) Prepare the prompt
+#         prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
+#         prompt = prompt_template.format(context=context_text, question=query_text)
+
+#         # 5) Use Ollama to generate a response
+#         model = OllamaLLM(model="Mistral")
+#         response_text = model.invoke(prompt)
+
+#         # 6) Extract the "sources used" from the metadata
+#         sources = []
+#         for i, (doc, _score) in enumerate(results):
+#             source_value = doc.metadata.get("source", f"Source {i + 1}")
+#             if source_value not in sources:
+#                 sources.append(source_value)
+
+#         formatted_sources = "\n".join(sources)
+#         formatted_response = f" {response_text}\nSources used:\n{formatted_sources}"
+
+#         # 7) Return the final response (NOT print)
+#         return formatted_response
+
+#     except Exception as e:
+#         # Return error message so it shows up in the chatbot
+#         return f"An error occurred: {e}"
+
+# if __name__ == "__main__":
+#     main()
+
+
+
+
+#################################################################
+
+
+
+
 import argparse
 from langchain_chroma import Chroma
 from langchain.prompts import ChatPromptTemplate
@@ -144,7 +244,7 @@ import os
 CHROMA_PATH = "chroma"
 
 PROMPT_TEMPLATE = """
-You are a knowledgeable assistant. Use the provided context to answer the question thoroughly and accurately. Make sure to base your answer only on the information in the context, and clearly reference the specific document Name and page Number when available. When asked for general information, reference all the data that has been provided. If user query information is not present, Let the User know right away.
+You are a knowledgeable assistant. Use the provided context to answer the question thoroughly and accurately. Make sure to base your answer only on the information in the context, and clearly reference the specific document Name and page Number when available. When asked for general information, reference all the data that has been provided. If user query information is not present, let the user know right away.
 
 Context:
 {context}
@@ -161,11 +261,10 @@ def main():
     parser.add_argument("query_text", type=str, nargs='?', default=None, help="The query text.")
     args = parser.parse_args()
     if args.query_text:
-        # If a query is provided as an argument, process it once
+        # Call without an external vector_db (default instance will be created)
         answer = query_rag(args.query_text)
         print(answer)
     else:
-        # Otherwise, enter live mode
         live_mode()
 
 def live_mode():
@@ -178,47 +277,56 @@ def live_mode():
         answer = query_rag(query_text)
         print(answer)
 
-def query_rag(query_text: str):
+def query_rag(query_text: str, vector_db=None):
     """
-    Returns a string containing the answer from the RAG pipeline 
-    plus any source references. 
+    Performs a similarity search on the given vector store (or a default one if not provided)
+    and generates an answer using the provided prompt template.
+    
+    Parameters:
+      query_text (str): The query question.
+      vector_db (Chroma, optional): A pre-instantiated vector store. If None, a default
+          vector store using CHROMA_PATH is created.
+    
+    Returns:
+      str: The generated answer with source references.
     """
     try:
-        # 1) Prepare the DB
         embedding_function = get_embedding_function()
-        db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
+        # If no vector_db is provided, create one using the default CHROMA_PATH
+        if vector_db is None:
+            vector_db = Chroma(
+                persist_directory=CHROMA_PATH,
+                embedding_function=embedding_function,
+            )
 
-        # 2) Search the DB for top-k relevant chunks
-        results = db.similarity_search_with_score(query_text, k=5)
+        # Perform a similarity search (retrieve top-5 chunks)
+        results = vector_db.similarity_search_with_score(query_text, k=5)
 
-        # 3) Build the context from the top-k chunks
+        # Build the context text from the retrieved document chunks
         context_text = "\n\n---\n\n".join(
-            [f"Source {i + 1}: {doc.page_content}" for i, (doc, _score) in enumerate(results)]
+            [f"Source {i+1}: {doc.page_content}" for i, (doc, _score) in enumerate(results)]
         )
 
-        # 4) Prepare the prompt
+        # Prepare the prompt using the template
         prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
         prompt = prompt_template.format(context=context_text, question=query_text)
 
-        # 5) Use Ollama to generate a response
+        # Invoke the model to generate a response
         model = OllamaLLM(model="Mistral")
         response_text = model.invoke(prompt)
 
-        # 6) Extract the "sources used" from the metadata
+        # Collect source references from document metadata
         sources = []
         for i, (doc, _score) in enumerate(results):
-            source_value = doc.metadata.get("source", f"Source {i + 1}")
+            source_value = doc.metadata.get("source", f"Source {i+1}")
             if source_value not in sources:
                 sources.append(source_value)
-
         formatted_sources = "\n".join(sources)
-        formatted_response = f" {response_text}\nSources used:\n{formatted_sources}"
 
-        # 7) Return the final response (NOT print)
+        formatted_response = f"{response_text}\nSources used:\n{formatted_sources}"
         return formatted_response
 
     except Exception as e:
-        # Return error message so it shows up in the chatbot
         return f"An error occurred: {e}"
 
 if __name__ == "__main__":

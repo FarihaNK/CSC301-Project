@@ -152,7 +152,9 @@ const UserDashboard = () => {
         </div>
         <nav className="menu">
           <ul>
-            <li>Medical History</li>
+            
+            <li onClick={() => navigate("/medicalhistory")}>Medical History</li>
+
             <li>MedAssistant</li>
             <li>Appointments</li>
             <li onClick={() => navigate("/profile")}>Personal Profile</li> {/* New Button */}

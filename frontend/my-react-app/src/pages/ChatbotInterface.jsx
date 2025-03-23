@@ -320,147 +320,145 @@
 // export default ChatbotInterface;
 
 
-//VERSION 1.3 : ATTMEPTING TO IMPROVE CHAT INTERFACE GUI: 
+//VERSION 1.3 : ATTMEPTING TO IMPROVE CHAT INTERFACE GUI: PROPER PROPER VERSION BELOW
+// import React, { useState, useEffect, useRef } from "react";
+// import axios from "axios";
+// import "./ChatbotInterface.css";
+// import logo from "../assets/logo.png";
+// import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
+// const ChatbotInterface = () => {
+//   const [messages, setMessages] = useState([]);
+//   const [input, setInput] = useState("");
+//   const [isLoading, setIsLoading] = useState(false); // track AI processing
+//   const chatContainerRef = useRef(null);
 
-import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import "./ChatbotInterface.css";
-import logo from "../assets/logo.png";
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+//   // Send the user's query to the backend RAG endpoint
+//   const handleSendMessage = async () => {
+//     if (input.trim() === "" || isLoading) return;
 
-const ChatbotInterface = () => {
-  const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // track AI processing
-  const chatContainerRef = useRef(null);
+//     // Add user's question to messages
+//     const newMessages = [...messages, { type: "question", text: input }];
+//     setMessages(newMessages);
 
-  // Send the user's query to the backend RAG endpoint
-  const handleSendMessage = async () => {
-    if (input.trim() === "" || isLoading) return;
+//     // Clear the input right away
+//     setInput("");
 
-    // Add user's question to messages
-    const newMessages = [...messages, { type: "question", text: input }];
-    setMessages(newMessages);
+//     try {
+//       // Indicate loading state
+//       setIsLoading(true);
 
-    // Clear the input right away
-    setInput("");
+//       // POST the query to your Flask backend
+//       const response = await axios.post("http://localhost:5001/query", {
+//         question: input,
+//       });
 
-    try {
-      // Indicate loading state
-      setIsLoading(true);
+//       // The server should return { answer: "...some text..." }
+//       const answer = response.data.answer;
 
-      // POST the query to your Flask backend
-      const response = await axios.post("http://localhost:5001/query", {
-        question: input,
-      });
+//       // Append the answer to the messages list
+//       setMessages((prev) => [...prev, { type: "answer", text: answer }]);
+//     } catch (error) {
+//       console.error("Error querying RAG:", error);
+//       setMessages((prev) => [
+//         ...prev,
+//         {
+//           type: "answer",
+//           text: "Error retrieving answer. Please try again later.",
+//         },
+//       ]);
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
 
-      // The server should return { answer: "...some text..." }
-      const answer = response.data.answer;
+//   // Auto-scroll to bottom whenever messages change
+//   useEffect(() => {
+//     if (chatContainerRef.current) {
+//       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+//     }
+//   }, [messages]);
 
-      // Append the answer to the messages list
-      setMessages((prev) => [...prev, { type: "answer", text: answer }]);
-    } catch (error) {
-      console.error("Error querying RAG:", error);
-      setMessages((prev) => [
-        ...prev,
-        {
-          type: "answer",
-          text: "Error retrieving answer. Please try again later.",
-        },
-      ]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+//   return (
+//     <div className="dashboard">
+//       {/* Sidebar */}
+//       <aside className="sidebar">
+//         <div className="logo">
+//           <img src={logo} alt="Logo" />
+//         </div>
+//         <nav className="menu">
+//           <ul>
+//             <li>Medical History</li>
+//             <li>MedAssistant</li>
+//             <li>Appointments</li>
+//             <li>Add Patient Profile</li>
+//             <li>Settings</li>
+//             <li>Logout</li>
+//           </ul>
+//         </nav>
+//       </aside>
 
-  // Auto-scroll to bottom whenever messages change
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    }
-  }, [messages]);
+//       {/* Main Content */}
+//       <main className="content">
+//         {/* Top Bar */}
+//         <header className="top-bar">
+//           <input
+//             type="text"
+//             placeholder="Search for anything..."
+//             className="search-bar"
+//           />
+//           <div className="navigation">
+//             <button>Dashboard</button>
+//             <button>Forms</button>
+//             <Link to="/docUpload">
+//               <button>Document Upload</button>
+//             </Link>
+//             <button className="Medications">To-Do</button>
+//           </div>
+//         </header>
 
-  return (
-    <div className="dashboard">
-      {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="logo">
-          <img src={logo} alt="Logo" />
-        </div>
-        <nav className="menu">
-          <ul>
-            <li>Medical History</li>
-            <li>MedAssistant</li>
-            <li>Appointments</li>
-            <li>Add Patient Profile</li>
-            <li>Settings</li>
-            <li>Logout</li>
-          </ul>
-        </nav>
-      </aside>
+//         {/* Chat Interface */}
+//         <section className="chat-section">
+//           {/* Chat messages */}
+//           <div className="chat-container" ref={chatContainerRef}>
+//             {messages.map((msg, index) => (
+//               <div
+//                 key={index}
+//                 className={msg.type === "question" ? "question" : "answer"}
+//               >
+//                 {msg.text}
+//               </div>
+//             ))}
 
-      {/* Main Content */}
-      <main className="content">
-        {/* Top Bar */}
-        <header className="top-bar">
-          <input
-            type="text"
-            placeholder="Search for anything..."
-            className="search-bar"
-          />
-          <div className="navigation">
-            <button>Dashboard</button>
-            <button>Forms</button>
-            <Link to="/docUpload">
-              <button>Document Upload</button>
-            </Link>
-            <button className="Medications">To-Do</button>
-          </div>
-        </header>
+//             {/* Optional: Show a "Loading..." message if isLoading */}
+//             {isLoading && (
+//               <div className="answer" style={{ fontStyle: "italic" }}>
+//                 Loading...
+//               </div>
+//             )}
+//           </div>
 
-        {/* Chat Interface */}
-        <section className="chat-section">
-          {/* Chat messages */}
-          <div className="chat-container" ref={chatContainerRef}>
-            {messages.map((msg, index) => (
-              <div
-                key={index}
-                className={msg.type === "question" ? "question" : "answer"}
-              >
-                {msg.text}
-              </div>
-            ))}
+//           {/* Input + Send Button */}
+//           <div className="chat-input-container">
+//             <input
+//               type="text"
+//               placeholder="Ask your Medical Assistant..."
+//               value={input}
+//               onChange={(e) => setInput(e.target.value)}
+//               onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+//               disabled={isLoading} // disable input while AI is generating
+//             />
+//             <button onClick={handleSendMessage} disabled={isLoading}>
+//               {isLoading ? "Sending..." : "Send"}
+//             </button>
+//           </div>
+//         </section>
+//       </main>
+//     </div>
+//   );
+// };
 
-            {/* Optional: Show a "Loading..." message if isLoading */}
-            {isLoading && (
-              <div className="answer" style={{ fontStyle: "italic" }}>
-                Loading...
-              </div>
-            )}
-          </div>
-
-          {/* Input + Send Button */}
-          <div className="chat-input-container">
-            <input
-              type="text"
-              placeholder="Ask your Medical Assistant..."
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-              disabled={isLoading} // disable input while AI is generating
-            />
-            <button onClick={handleSendMessage} disabled={isLoading}>
-              {isLoading ? "Sending..." : "Send"}
-            </button>
-          </div>
-        </section>
-      </main>
-    </div>
-  );
-};
-
-export default ChatbotInterface;
+// export default ChatbotInterface;
 
 
 //VERSION 2.3 removing the sidebar and top bar into its seperate jsx and css: 
@@ -1024,3 +1022,138 @@ export default ChatbotInterface;
 // };
 
 // export default ChatbotInterface;
+
+
+
+//VERSION 2.1: RESTRICTING ACCESS TO DOCUMENTS ATTEMPT: 
+
+import React, { useState, useEffect, useRef } from "react";
+import flaskApi from "./api"; // Import the Axios helper we created
+import "./ChatbotInterface.css";
+import logo from "../assets/logo.png";
+import { Link } from 'react-router-dom';
+
+const ChatbotInterface = () => {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const chatContainerRef = useRef(null);
+
+  // Send the user's query to the Flask /query endpoint
+  const handleSendMessage = async () => {
+    if (input.trim() === "" || isLoading) return;
+
+    // Append user's question to messages
+    setMessages(prev => [...prev, { type: "question", text: input }]);
+    const currentInput = input; // capture current input before clearing
+    setInput(""); // Clear the input immediately
+
+    try {
+      setIsLoading(true);
+      
+      // POST the query using flaskApi which automatically attaches the JWT token
+      const response = await flaskApi.post("/query", {
+        question: currentInput
+      });
+      
+      // Extract the answer from the response
+      const answer = response.data.answer;
+      setMessages(prev => [...prev, { type: "answer", text: answer }]);
+    } catch (error) {
+      console.error("Error querying RAG:", error);
+      setMessages(prev => [
+        ...prev,
+        {
+          type: "answer",
+          text: "Error retrieving answer. Please try again later."
+        }
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Auto-scroll to the bottom when messages update
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  return (
+    <div className="dashboard">
+      {/* Sidebar */}
+      <aside className="sidebar">
+        <div className="logo">
+          <img src={logo} alt="Logo" />
+        </div>
+        <nav className="menu">
+          <ul>
+            <li>Medical History</li>
+            <li>MedAssistant</li>
+            <li>Appointments</li>
+            <li>Add Patient Profile</li>
+            <li>Settings</li>
+            <li>Logout</li>
+          </ul>
+        </nav>
+      </aside>
+
+      {/* Main Content */}
+      <main className="content">
+        {/* Top Bar */}
+        <header className="top-bar">
+          <input
+            type="text"
+            placeholder="Search for anything..."
+            className="search-bar"
+          />
+          <div className="navigation">
+            <button>Dashboard</button>
+            <button>Forms</button>
+            <Link to="/docUpload">
+              <button>Document Upload</button>
+            </Link>
+            <button className="Medications">To-Do</button>
+          </div>
+        </header>
+
+        {/* Chat Interface */}
+        <section className="chat-section">
+          <div className="chat-container" ref={chatContainerRef}>
+            {messages.map((msg, index) => (
+              <div
+                key={index}
+                className={msg.type === "question" ? "question" : "answer"}
+              >
+                {msg.text}
+              </div>
+            ))}
+            {isLoading && (
+              <div className="answer" style={{ fontStyle: "italic" }}>
+                Loading...
+              </div>
+            )}
+          </div>
+
+          <div className="chat-input-container">
+            <input
+              type="text"
+              placeholder="Ask your Medical Assistant..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+              disabled={isLoading}
+            />
+            <button onClick={handleSendMessage} disabled={isLoading}>
+              {isLoading ? "Sending..." : "Send"}
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+};
+
+export default ChatbotInterface;
+
