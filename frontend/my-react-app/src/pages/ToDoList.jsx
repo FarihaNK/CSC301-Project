@@ -1,28 +1,88 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./ToDoList.css";
 import logo from "../assets/logo.png";
 
 const ToDoList = () => {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
+  const [error, setError] = useState("");
 
-  const addTask = () => {
-    if (newTask.trim()) {
-      setTasks([...tasks, { text: newTask, completed: false }]);
-      setNewTask("");
+  // Fetch tasks when the component mounts
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const fetchTasks = async () => {
+    try {
+      const response = await axios.get("http://localhost:5005/api/tasks", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Assuming token is stored in localStorage
+        },
+      });
+      setTasks(response.data);
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+      setError("Failed to load tasks.");
     }
   };
 
-  const toggleTask = (index) => {
-    const updatedTasks = tasks.map((task, i) =>
-      i === index ? { ...task, completed: !task.completed } : task
-    );
-    setTasks(updatedTasks);
+  const addTask = async () => {
+    if (newTask.trim()) {
+      try {
+        const response = await axios.post(
+          "http://localhost:5005/api/tasks",
+          { task: newTask },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`, // Ensure token is included
+            },
+          }
+        );
+        setTasks([...tasks, response.data]); // Update task list with the new task
+        setNewTask(""); // Clear the input field
+      } catch (error) {
+        console.error("Error adding task:", error);
+        setError("Failed to add task.");
+      }
+    }
   };
 
-  const deleteTask = (index) => {
-    const updatedTasks = tasks.filter((_, i) => i !== index);
-    setTasks(updatedTasks);
+  const toggleTask = async (index) => {
+    const updatedTask = { ...tasks[index], completed: !tasks[index].completed };
+    try {
+      const response = await axios.put(
+        `http://localhost:5005/api/tasks/${tasks[index].id}`,
+        updatedTask,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const updatedTasks = tasks.map((task, i) =>
+        i === index ? response.data : task
+      );
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error("Error toggling task:", error);
+      setError("Failed to toggle task.");
+    }
+  };
+
+  const deleteTask = async (index) => {
+    try {
+      await axios.delete(`http://localhost:5005/api/tasks/${tasks[index].id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      const updatedTasks = tasks.filter((_, i) => i !== index);
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error("Error deleting task:", error);
+      setError("Failed to delete task.");
+    }
   };
 
   return (
@@ -45,7 +105,11 @@ const ToDoList = () => {
 
       <main className="content">
         <header className="top-bar">
-          <input type="text" placeholder="Search for anything..." className="search-bar" />
+          <input
+            type="text"
+            placeholder="Search for anything..."
+            className="search-bar"
+          />
           <div className="navigation">
             <button>Dashboard</button>
             <button>Insights</button>
@@ -67,15 +131,16 @@ const ToDoList = () => {
                 />
                 <button onClick={addTask}>Add</button>
               </div>
+              {error && <p>{error}</p>}
               <ul className="task-list">
                 {tasks.map((task, index) => (
-                  <li key={index} className={task.completed ? "completed" : ""}>
+                  <li key={task.id} className={task.completed ? "completed" : ""}>
                     <input
                       type="checkbox"
                       checked={task.completed}
                       onChange={() => toggleTask(index)}
                     />
-                    <span>{task.text}</span>
+                    <span>{task.task}</span>
                     <button onClick={() => deleteTask(index)}>Delete</button>
                   </li>
                 ))}
