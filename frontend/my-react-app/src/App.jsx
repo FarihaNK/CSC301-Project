@@ -59,6 +59,18 @@ function Layout(){
       </div>
     </>
   );
+
+  // return (
+  //   <div className="app-layout">
+  //     {showNavBar && <header className="nav-container"><NavBar /></header>}
+  //     <div className="content-area">
+  //       {showPSidebar && <aside className="sidebar-container"><PSidebar /></aside>}
+  //       <main className={`main-content ${showPSidebar ? 'with-sidebar' : ''}`}>
+  //         {/* Content will go here */}
+  //       </main>
+  //     </div>
+  //   </div>
+  // );
 }
 
 function App() {

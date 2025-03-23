@@ -19,6 +19,7 @@
     top: 0;
     z-index: 100;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    height: 100px;
   }
   
   .logo-container {
@@ -29,6 +30,8 @@
   .logo {
     width: 50px;
     margin-right: 10px;
+    margin-top: 25px;
+    height: 80px;
   }
   
   .app-name {
