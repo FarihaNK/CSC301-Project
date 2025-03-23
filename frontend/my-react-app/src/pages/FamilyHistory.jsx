@@ -113,6 +113,7 @@ const FamilyHistoryForm = () => {
                 <option value="grandparent">Grandparent</option>
                 <option value="aunt_uncle">Aunt/Uncle</option>
                 <option value="child">Child</option>
+                <option value="other">Other</option>
               </select>
 
               <h5>Health Conditions</h5>
@@ -127,6 +128,7 @@ const FamilyHistoryForm = () => {
                   "High Blood Pressure",
                   "Obesity",
                   "Asthma",
+                  "Other"
                 ].map((condition) => (
                   <label key={condition}>
                     <input
