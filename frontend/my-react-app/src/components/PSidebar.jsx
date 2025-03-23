@@ -25,7 +25,7 @@ const PSidebar = () => {
           <li>Appointments</li>
           <li onClick={() => navigate("/profile")}>Personal Profile</li>
           <li onClick={() => navigate("/familyhistory")}>Family History</li>
-          <li>Logout</li>
+          <li onClick={() => navigate("/")}>Logout</li>
         </ul>
       </nav>
     </aside>

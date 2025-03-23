@@ -128,7 +128,7 @@ body, html {
     background-color: white;
     color: black;
     border-color: #388da7;
-    height: 45px; /* Set consistent height */
+    height: 28px; /* Set consistent height */
 }
 
 .profile-form button {
