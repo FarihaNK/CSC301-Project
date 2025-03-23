@@ -40,21 +40,27 @@ exports.createTask = async (req, res) => {
 // Update Task
 exports.updateTask = async (req, res) => {
   try {
-    const { id } = req.params;
-    const updates = req.body;
+    const taskId = req.params.id;
+    const { completed } = req.body;
     
-    const task = await Task.findByPk(id);
+    // Find the task
+    const task = await Task.findByPk(taskId);
+    
     if (!task) {
       return res.status(404).json({ message: "Task not found" });
     }
     
-    await task.update(updates);
+    // Update the task
+    task.completed = completed;
+    await task.save();
+    
     res.json(task);
   } catch (error) {
     console.error("Error Updating Task:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 
 // Delete Task
 // Make sure this function exists in your taskController.js
