@@ -31,7 +31,7 @@
 //     </>
 //   )
 // }
-import ToDoList from "./pages/ToDoList";
+import ToDoList from "./pages/ListOfPatients";
 function App()
 {
     return <ToDoList />;
