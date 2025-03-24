@@ -1,0 +1,290 @@
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  /* General Styles */
+  body, html {
+    font-family: "Arial", sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  /* Dashboard Layout */
+  .dashboard {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* Prevent scrolling */
+  }
+  
+  /* Sidebar Styling */
+  .sidebar {
+    background-color: #1a202c;
+    color: white;
+    width: 150px; /* Reduced width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 5px; /* Adjusted padding */
+    border-color: #388da7;
+    border-radius: 5px;
+  }
+  
+  .logo img {
+    width: 120px; /* Adjusted logo size */
+    margin-bottom: 30px; /* Increased margin for better spacing */
+  }
+  
+  .menu ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+  }
+  
+  .menu li {
+    margin: 25px 0; /* Increased margin between buttons */
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #2d3748;
+    transition: all 0.3s ease;
+  
+    border-width: 1px;
+    border-style: solid;
+    border-color: #388da7;
+  }
+  
+  .menu li:hover {
+    background-color: #388da7
+  }
+  
+  .menu li:last-child:hover {
+    background-color: #e53e3e;
+    color: white;
+  }
+  
+  /* Main Content Section */
+  .content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100vh;
+    width: calc(100% - 150px); /* Adjusted for new sidebar width */
+    overflow: hidden;
+  }
+  
+  /* Top Bar Styling */
+  .top-bar {
+    display: flex;
+    flex-direction: column; /* Stack search bar and navigation buttons */
+    align-items: flex-start; /* Align everything to the left */
+    padding: 10px 20px;
+    background-color: #f5f5f5;
+    border-bottom: 2px solid #e5e7eb;
+    gap: 10px;
+  }
+  
+  .search-bar {
+    width: 100%;
+    max-width: 400px; /* Adjusted size */
+    padding: 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f0f0f0;
+    color: #333;
+    border-color: #388da7;
+  }
+  
+  .navigation {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 10px;
+  }
+  
+  .navigation button {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    background-color: #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Prevent button text from wrapping */
+  
+    border-width: 1px;
+    border-style: solid;
+    border-color: #388da7;
+  }
+  
+  .navigation button:hover {
+    background-color: #388da7;
+    color: white;
+  }
+  
+  /* Form styling for the BloodTestForm */
+  .form-container {
+    width: 50%;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 2px solid #1a202c;
+    box-sizing: border-box;
+  }
+  
+  h2 {
+    text-align: center;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  h3 {
+    text-align: center;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  
+  .form-group {
+    margin-bottom: 5px;
+  }
+  
+  label {
+    font-weight: bold;
+    margin-right: 10px;
+  
+  }
+  
+  input[type='text'],
+  input[type='number'],
+  input[type='date'] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  /* Button styling */
+  button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Clear button specific styling */
+  .clear-button {
+    background-color: #388da7; /* Red color for the Clear button */
+  }
+  
+  .clear-button:hover {
+    background-color: #45a049; /* Darker red on hover */
+  }
+  
+  .submit-button {
+    background-color: #388da7; /* Blue color for Submit button */
+  }
+  
+  .submit-button:hover {
+    background-color: #4caf50; /* Darker blue on hover */
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  /* Print styles */
+  @media print {
+    /* Hide all elements except for the form */
+    body * {
+      visibility: hidden;
+    }
+  
+    /* Show only the form */
+    .form-container, .form-container * {
+      visibility: visible;
+    }
+  
+    /* Make sure the form takes up the full page width */
+    .form-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+  
+    /* Reduce the width of form fields */
+    .form-group {
+      margin-bottom: 8px; /* Reduce space between form fields */
+    }
+  
+    label {
+      font-size: 12px; /* Smaller font for labels */
+      display: block;
+      margin-bottom: 4px; /* Add space below the label */
+    }
+  
+    input[type='text'],
+    input[type='number'],
+    input[type='date'],
+    input[type='checkbox'] {
+      font-size: 12px; /* Smaller font size for input fields */
+      padding: 5px;    /* Reduced padding */
+      width: 100%;     /* Make inputs take up full width of their container */
+      box-sizing: border-box;
+      margin-bottom: 8px; /* Small space between inputs */
+    }
+  
+    input[type='checkbox'] {
+      width: auto; /* Keep checkboxes smaller */
+      margin-right: 5px;
+    }
+  
+    /* Signature input styling */
+    input[type='text'][name='signature'] {
+      font-family: 'Dancing Script', cursive;
+      font-size: 14px;
+      padding: 8px;
+      width: 100%;
+      max-width: 300px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+  
+    /* Adjust the button visibility (for print) */
+    button {
+      display: none;
+    }
+  
+    /* Avoid form overflow */
+    .form-container {
+      page-break-after: always;
+    }
+  }

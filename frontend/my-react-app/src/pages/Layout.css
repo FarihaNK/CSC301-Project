@@ -1,0 +1,118 @@
+/* Layout.css */
+
+/* Reset & Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Arial", sans-serif;
+  }
+  
+  /* Dashboard layout container */
+  .dashboard {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* no scrolling */
+  }
+  
+  /* Sidebar styling */
+  .sidebar {
+    background-color: #1a202c;
+    width: 150px;
+    padding: 20px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #388da7;
+    border-radius: 5px;
+  }
+  
+  .logo img {
+    width: 120px;
+    margin-bottom: 30px;
+  }
+  
+  .menu ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+  }
+  
+  .menu li {
+    margin: 25px 0;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #2d3748;
+    transition: background-color 0.3s ease;
+    border: 1px solid #388da7;
+  }
+  
+  .menu li:hover {
+    background-color: #388da7;
+    color: white;
+  }
+  
+  /* Only logout gets red hover */
+  .menu li.logout:hover {
+    background-color: #e53e3e;
+    color: white;
+  }
+  
+  /* Main container for top bar + content */
+  .main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Top bar styling */
+  .top-bar {
+    background-color: #e9ecef;
+    padding: 16px 20px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .search-bar {
+    width: 100%;
+    max-width: 400px;
+    padding: 8px;
+    border: 1px solid #388da7;
+    border-radius: 8px;
+  }
+  
+  .navigation {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .navigation button {
+    padding: 8px 16px;
+    border: 1px solid #388da7;
+    border-radius: 8px;
+    background-color: #e2e8f0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .navigation button:hover {
+    background-color: #388da7;
+    color: white;
+  }
+  
+  /* Content area (child pages) */
+  .content {
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+    background-color: #fff;
+    box-sizing: border-box;
+  }
+  

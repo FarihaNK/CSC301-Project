@@ -1,0 +1,143 @@
+/* patient_document_view.css */
+
+/* Basic reset / style setup */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  background: white;
+}
+
+/* Dashboard Layout */
+.dashboard {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  background: #f3f3f3;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar .logo img {
+  width: 120px;
+  margin-bottom: 1rem;
+}
+
+.sidebar .menu {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.sidebar .menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar .menu li {
+  margin: 0.75rem 0;
+  text-align: center;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.sidebar .menu li:hover {
+  background: #ddd;
+}
+
+/* Main content */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top bar */
+.top-bar {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.search-bar {
+  flex: 1;
+  padding: 0.5rem;
+  margin-right: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.navigation button {
+  margin-left: 0.5rem;
+  background: #eee;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.navigation button:hover {
+  background: #ddd;
+}
+
+/* Main content wrapper */
+.main-content {
+  flex: 1;
+  padding: 1rem 2rem;
+  overflow-y: auto;
+}
+
+.patient-docs-title {
+  font-size: 24px;
+  margin-bottom: 1rem;
+}
+
+/* Table styles */
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table thead {
+  background: #f5f5f5;
+}
+
+table th, table td {
+  text-align: left;
+  padding: 0.75rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.view-btn {
+  background: #1a202c;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.view-btn:hover {
+  background: #388da7;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 1rem;
+}
