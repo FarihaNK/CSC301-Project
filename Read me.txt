@@ -1,0 +1,9 @@
+Read me: 
+
+Setting up Slack integration: 
+
+1) python3 -m http.server 3000 : this starts a basic HTTP server on port 3000 Make sure port # is free check first
+
+2) cloudflared tunnel --url http://localhost:3000
+
+3) go to REquest URL on slack bot settings and paste generated link
