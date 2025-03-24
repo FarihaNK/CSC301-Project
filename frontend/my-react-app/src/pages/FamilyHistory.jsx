@@ -1,14 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./FamilyHistory.css";
+import axios from "axios";
 
 const FamilyHistoryForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     dob: "",
     gender: "",
+    selectedPatientId: "",
     familyMembers: [],
   });
   const [modalVisible, setModalVisible] = useState(false); // State to control modal visibility
+  const [patients, setPatients] = useState([]);
+
+  useEffect(() => {
+    const fetchPatients = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await axios.get("http://localhost:5002/api/patients", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setPatients(Array.isArray(res.data) ? res.data : []);
+      } catch (err) {
+        console.error("Failed to fetch patients", err);
+        setPatients([]);
+      }
+    };
+
+    fetchPatients();
+  }, []);
+
 
   const handleChange = (e, index) => {
     const { name, value, type, checked } = e.target;
@@ -44,15 +66,25 @@ const FamilyHistoryForm = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted Data:", formData);
-    setModalVisible(true); // Show the modal when form is saved
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.post(
+        `http://localhost:5002/api/family-history`,
+        {
+          patientId: formData.selectedPatientId,
+          familyMembers: formData.familyMembers,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
-    // Hide the modal after 3 seconds (optional)
-    setTimeout(() => {
-      setModalVisible(false);
-    }, 3000);
+      console.log("Submitted:", res.data);
+      setModalVisible(true);
+      setTimeout(() => setModalVisible(false), 3000);
+    } catch (err) {
+      console.error("Error submitting family history:", err);
+    }
   };
 
   const handleCloseModal = () => {
@@ -93,6 +125,23 @@ const FamilyHistoryForm = () => {
           <option value="male">Male</option>
           <option value="female">Female</option>
           <option value="other">Other</option>
+        </select>
+
+        <label>Select Patient</label>
+        <select
+          name="selectedPatientId"
+          value={formData.selectedPatientId}
+          onChange={(e) =>
+            setFormData({ ...formData, selectedPatientId: e.target.value })
+          }
+          required
+        >
+          <option value="">-- Select a Patient --</option>
+          {patients.map((patient) => (
+            <option key={patient._id} value={patient._id}>
+              {patient.fullName}
+            </option>
+          ))}
         </select>
 
         <h3>Family Members</h3>

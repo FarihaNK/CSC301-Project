@@ -5,7 +5,7 @@ const {
   createFamilyHistory,
   getFamilyHistory,
   deleteFamilyHistory,
-} = require("../controllers/familyHistoryController");
+} = require("../contollers/familyHistoryController");
 
 router.post("/", authMiddleware, createFamilyHistory);           // Create family history
 router.get("/:patientId", authMiddleware, getFamilyHistory);     // Get history for patient
