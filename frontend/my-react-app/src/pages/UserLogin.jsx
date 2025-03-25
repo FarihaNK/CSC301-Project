@@ -58,7 +58,7 @@ export default function UserLogin() {
             onChange={(e) => setPassword(e.target.value)}
             className="login-input"
           />
-          <button className="forgetPassport_button">Forgot Password?</button>
+          <button className="forgetPassport_button" onClick={() => navigate("/forgetpassword")}>Forgot Password?</button>
           <button onClick={handleLogin} className="login-button">
             Login
           </button>

@@ -17,7 +17,8 @@ import MRITest from './pages/MRITest'; // MRI Test page
 import CTScan from './pages/CTScan'; // CT Scan page
 import Documents from './pages/upload'
 import ChatboxInterface from './pages/ChatbotInterface';
-
+import PasswordReset from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function Layout(){
   const location = useLocation();
@@ -42,7 +43,8 @@ function Layout(){
     location.pathname === "/mri" ||
     location.pathname === "/ct" ||
     location.pathname === "/medassist" ||
-    location.pathname === "/docUpload"
+    location.pathname === "/docUpload" ||
+    location.pathname === "/forgetpassword"
   );
 
   return (
@@ -76,6 +78,8 @@ function App() {
         <Route path="/ct" element={<CTScan />} />
         <Route path="/medassist" element={<ChatboxInterface />} /> {}
         <Route path="/docUpload" element={<Documents />} /> {}
+        <Route path="/forgetpassword" element={<PasswordReset />} /> {}
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
       </Routes>
     </Router>
   );
