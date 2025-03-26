@@ -14,7 +14,7 @@ def detect_encoding(file_path):
 
 # Example usage
 if __name__ == "__main__":
-    DATA_PATH = "sampledata"
+    DATA_PATH = "./sampledata"
     encoding = detect_encoding(DATA_PATH)
     if encoding:
         print(f"Detected encoding: {encoding}")

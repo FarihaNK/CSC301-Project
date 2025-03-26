@@ -396,6 +396,144 @@
 #     main()
 
 
+#MOST CURRENT STABLE VERSION MARCH 26 @ 6:57 PM 
+
+# import argparse
+# from langchain_chroma import Chroma
+# from langchain.prompts import ChatPromptTemplate
+# from langchain_ollama import OllamaLLM
+# from langchain.schema.document import Document
+# from populate_database_text import get_database as get_text_database  # Your existing text DB
+# from populate_database_images import get_image_database             # Your image DB (CLIP-based)
+# from agents import escalate_to_sme
+# import os
+# import time
+
+# # Unified prompt template with placeholders for both text and image context.
+# PROMPT_TEMPLATE = """
+# You are a knowledgeable assistant. Use ONLY the context below to answer the users question. 
+# If the answer is found in context, provide a direct, factual answer. 
+# If the answer is NOT found in the context, respond with exactly:
+# NO_ANSWER_FOUND
+
+# {context}
+
+# ---
+# Question: {question}
+
+# Important: 
+# - If you find relevant info, answer fully and reference the documents by name/path.
+# - If no relevant info, respond EXACTLY with NO_ANSWER_FOUND.
+# """
+
+# # Instantiate the two databases:
+# text_db = get_text_database()        # MPNet-based text DB (./chroma_db)
+# image_db = get_image_database()       # CLIP-based image DB (./chroma_db_images)
+
+# def main():
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument("query_text", type=str, nargs="?", default=None, help="The query text.")
+#     args = parser.parse_args()
+    
+#     if args.query_text:
+#         # One-shot mode:
+#         answer = query_rag(args.query_text, allow_escalation=True)
+#         print(answer)
+#     else:
+#         live_mode()
+
+# def live_mode():
+#     print("Entering live mode. Type 'exit' or 'quit' to stop.")
+#     while True:
+#         query_text = input("Enter your question: ")
+#         if query_text.lower() in ['exit', 'quit']:
+#             print("Exiting...")
+#             break
+#         answer = query_rag(query_text, allow_escalation=True)
+#         print(answer)
+
+# def query_rag(query_text: str, allow_escalation: bool):
+#     """
+#     1) Searches both text and image databases.
+#     2) Builds a combined context with separate sections.
+#     3) Invokes the LLM with the prompt.
+#     4) If no answer is found, offers escalation.
+#     """
+#     try:
+#         # Search text DB and image DB
+#         text_results = text_db.similarity_search_with_score(query_text, k=3)
+#         image_results = image_db.similarity_search_with_score(query_text, k=5)
+        
+#         # Build text context
+#         text_context = ""
+#         if text_results:
+#             text_context = "Text Context:\n" + "\n\n---\n\n".join(
+#                 [f"Text Source {i+1}: {doc.page_content}" for i, (doc, _) in enumerate(text_results)]
+#             )
+        
+#         # Build image context (using metadata's source and title)
+#         image_context = ""
+#         if image_results:
+#             image_context = "Image Context:\n" + "\n\n---\n\n".join(
+#                 [f"Image Source {i+1}: {doc.metadata.get('source', 'Unknown')} (Title: {doc.metadata.get('title','')})" 
+#                  for i, (doc, _) in enumerate(image_results)]
+#             )
+        
+#         # Combine contexts
+#         combined_context = ""
+#         if text_context:
+#             combined_context += text_context + "\n\n"
+#         if image_context:
+#             combined_context += image_context + "\n\n"
+#         if not combined_context:
+#             combined_context = "No relevant context found."
+        
+#         # Build and invoke the prompt
+#         prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
+#         prompt = prompt_template.format(context=combined_context, question=query_text)
+#         model = OllamaLLM(model="llama3")
+#         response_text = model.invoke(prompt).strip()
+#         if "no_answer_found" in response_text.lower():
+#             response_text = "NO_ANSWER_FOUND"
+        
+#         # Collect references from both databases
+#         text_sources = []
+#         for i, (doc, _) in enumerate(text_results):
+#             src = doc.metadata.get("source", f"Text Source {i+1}")
+#             if src not in text_sources:
+#                 text_sources.append(src)
+#         image_sources = []
+#         for i, (doc, _) in enumerate(image_results):
+#             src = doc.metadata.get("source", f"Image Source {i+1}")
+#             if src not in image_sources:
+#                 image_sources.append(src)
+        
+#         refs = ""
+#         if text_sources:
+#             refs += "Text Sources:\n" + "\n".join(text_sources) + "\n"
+#         if image_sources:
+#             refs += "Image Sources:\n" + "\n".join(image_sources)
+        
+#         final_response = f"{response_text}\nSources used:\n{refs}" if refs else response_text
+        
+#         # If no answer was found, allow SME escalation.
+#         if response_text == "NO_ANSWER_FOUND" and allow_escalation:
+#             choice = input("No info found in context. Escalate to SME? (yes/no): ").lower().strip()
+#             if choice in ["yes", "y"]:
+#                 sme_answer = escalate_to_sme(query_text)
+#                 if sme_answer:
+#                     return f"RESPONSE FROM SME: {sme_answer}\n(Stored for future queries)"
+#                 else:
+#                     return "No SME response received. Please try again later."
+        
+#         return final_response
+
+#     except Exception as e:
+#         return f"An error occurred: {e}"
+
+# if __name__ == "__main__":
+#     main()
+
 
 import argparse
 from langchain_chroma import Chroma
@@ -459,23 +597,30 @@ def query_rag(query_text: str, allow_escalation: bool):
     4) If no answer is found, offers escalation.
     """
     try:
-        # Search text DB and image DB
+        # Retrieve from text DB and image DB
         text_results = text_db.similarity_search_with_score(query_text, k=5)
         image_results = image_db.similarity_search_with_score(query_text, k=5)
         
-        # Build text context
+        # Set a simple similarity threshold (adjust as needed)
+        SIMILARITY_THRESHOLD = 0.7
+        
+        # Filter results based on similarity score
+        filtered_text_results = [(doc, score) for doc, score in text_results if score >= SIMILARITY_THRESHOLD]
+        filtered_image_results = [(doc, score) for doc, score in image_results if score >= SIMILARITY_THRESHOLD]
+        
+        # Build text context from filtered results
         text_context = ""
-        if text_results:
+        if filtered_text_results:
             text_context = "Text Context:\n" + "\n\n---\n\n".join(
-                [f"Text Source {i+1}: {doc.page_content}" for i, (doc, _) in enumerate(text_results)]
+                [f"Text Source {i+1}: {doc.page_content}" for i, (doc, _) in enumerate(filtered_text_results)]
             )
         
-        # Build image context (using metadata's source and title)
+        # Build image context using metadata (if any)
         image_context = ""
-        if image_results:
+        if filtered_image_results:
             image_context = "Image Context:\n" + "\n\n---\n\n".join(
                 [f"Image Source {i+1}: {doc.metadata.get('source', 'Unknown')} (Title: {doc.metadata.get('title','')})" 
-                 for i, (doc, _) in enumerate(image_results)]
+                 for i, (doc, _) in enumerate(filtered_image_results)]
             )
         
         # Combine contexts
@@ -487,22 +632,27 @@ def query_rag(query_text: str, allow_escalation: bool):
         if not combined_context:
             combined_context = "No relevant context found."
         
-        # Build and invoke the prompt
+        # (Optional) Debug: print the final prompt to inspect context
+        # print("Final Prompt:\n", PROMPT_TEMPLATE.format(context=combined_context, question=query_text))
+        
+        # Build the prompt using the combined context
         prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
         prompt = prompt_template.format(context=combined_context, question=query_text)
+        
+        # Invoke the LLM
         model = OllamaLLM(model="llama3")
         response_text = model.invoke(prompt).strip()
         if "no_answer_found" in response_text.lower():
             response_text = "NO_ANSWER_FOUND"
         
-        # Collect references from both databases
+        # Collect references from both databases for transparency
         text_sources = []
-        for i, (doc, _) in enumerate(text_results):
+        for i, (doc, _) in enumerate(filtered_text_results):
             src = doc.metadata.get("source", f"Text Source {i+1}")
             if src not in text_sources:
                 text_sources.append(src)
         image_sources = []
-        for i, (doc, _) in enumerate(image_results):
+        for i, (doc, _) in enumerate(filtered_image_results):
             src = doc.metadata.get("source", f"Image Source {i+1}")
             if src not in image_sources:
                 image_sources.append(src)
@@ -515,7 +665,7 @@ def query_rag(query_text: str, allow_escalation: bool):
         
         final_response = f"{response_text}\nSources used:\n{refs}" if refs else response_text
         
-        # If no answer was found, allow SME escalation.
+        # If no answer was found, allow escalation.
         if response_text == "NO_ANSWER_FOUND" and allow_escalation:
             choice = input("No info found in context. Escalate to SME? (yes/no): ").lower().strip()
             if choice in ["yes", "y"]:

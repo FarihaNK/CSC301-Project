@@ -17,6 +17,10 @@ from docx import Document as DocxDocument
 from langchain_chroma import Chroma
 from pptx import Presentation
 
+import spacy
+nlp = spacy.load("en_core_web_sm")
+
+
 CHROMA_PATH = "./chroma_db"
 
 def main(data_path):
