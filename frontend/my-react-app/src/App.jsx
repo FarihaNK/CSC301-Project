@@ -23,6 +23,7 @@ import PasswordReset from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import MyPatientProfiles from "./pages/MyPatientProfiles";
 import ListOfPatients from './pages/ListOfPatients';
+import ToDoList from './pages/ToDoList'
 
 function Layout() {
   const location = useLocation();
@@ -42,7 +43,8 @@ function Layout() {
     location.pathname === "/familyhistory" ||
     location.pathname === "/profile" ||
     location.pathname === "/mypatients" ||
-    location.pathname === "/patientlist"
+    location.pathname === "/patientlist" ||
+    location.pathname === "/todo"
   );
   const showPSidebar = !showNavBar;
 
@@ -108,6 +110,7 @@ function App() {
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/mypatients" element={<MyPatientProfiles />} />
         <Route path="/patientlist" element={<ListOfPatients />} /> {}
+        <Route path="/todo" element={<ToDoList />} /> {}
       </Routes>
     </Router>
   );

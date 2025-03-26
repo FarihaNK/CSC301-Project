@@ -1,0 +1,252 @@
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  /* General Styles */
+  body, html {
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  /* Dashboard Layout */
+  .dashboard {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* Prevent scrolling */
+  }
+  
+  /* Sidebar Styling */
+  .sidebar {
+    background-color: #1a202c;
+    color: white;
+    width: 150px; /* Reduced width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 5px; /* Adjusted padding */
+    border-color: #388da7;
+    border-radius: 5px;
+  }
+  
+  .logo img {
+    width: 120px; /* Adjusted logo size */
+    margin-bottom: 30px; /* Increased margin for better spacing */
+  }
+  
+  .menu ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+  }
+  
+  .menu li {
+    margin: 25px 0; /* Increased margin between buttons */
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #2d3748;
+    transition: all 0.3s ease;
+  
+    border-width: 1px;
+    border-style: solid;
+    border-color: #388da7;
+  }
+  
+  .menu li:hover {
+    background-color: #388da7;
+  }
+  
+  .menu li:last-child:hover {
+    background-color: #e53e3e;
+    color: white;
+  }
+  
+  /* Main Content Section */
+  .content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100vh;
+    width: calc(100% - 150px); /* Adjusted for new sidebar width */
+    overflow: hidden;
+  }
+  
+  /* Top Bar Styling */
+  .top-bar {
+    display: flex;
+    flex-direction: column; /* Stack search bar and navigation buttons */
+    align-items: flex-start; /* Align everything to the left */
+    padding: 10px 20px;
+    background-color: #f5f5f5;
+    border-bottom: 2px solid #e5e7eb;
+    gap: 10px;
+  }
+  
+  .search-bar {
+    width: 100%;
+    max-width: 400px; /* Adjusted size */
+    padding: 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f0f0f0;
+    color: #333;
+    border-color: #388da7;
+  }
+  
+  .navigation {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 10px;
+  }
+  
+  .navigation button {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    background-color: #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Prevent button text from wrapping */
+  
+    border-width: 1px;
+    border-style: solid;
+    border-color: #388da7;
+  }
+  
+  .navigation button:hover {
+    background-color: #388da7;
+    color: white;
+  }
+  
+  /* Main Section */
+  .main-section {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    gap: 20px;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Left Panel (Widgets) */
+  .left-panel {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .widget {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    flex-grow: 1;
+    display: flex;
+    font-size: 20px;
+    flex-direction: column;
+    gap: 20px; /* Add space between the input and task list */
+  }
+  
+  .widget:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .widget h3 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .placeholder {
+    height: 20px;
+    background-color: #e5e7eb;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  /* Center the task input area and increase font */
+  .task-input {
+    display: flex;
+    justify-content: center; /* Center the input and button */
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .task-input input {
+    font-size: 18px; /* Increased font size */
+    padding: 10px;
+    border: 1px solid #388da7;
+    border-radius: 8px;
+    width: 250px; /* Adjust the width */
+  }
+  
+  .task-input button {
+    font-size: 16px; /* Increased font size */
+    padding: 10px;
+    background-color: #388da7;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .task-input button:hover {
+    background-color: #2d3748;
+  }
+  
+  /* Increase font size for task text */
+  .task-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px; /* Increased font size */
+    margin-bottom: 10px; /* Add space between tasks */
+  }
+  
+  .task-list li span {
+    flex: 1;
+  }
+  
+  .task-list li button {
+    background-color: #e53e3e;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .task-list li button:hover {
+    background-color: #c53030;
+  }
+  
+  /* Center content inside the widget */
+  .widget {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
