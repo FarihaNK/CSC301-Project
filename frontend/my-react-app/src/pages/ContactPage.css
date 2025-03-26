@@ -1,0 +1,64 @@
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+  }
+    
+  html, body, #root {
+    height: 100%;
+    width: 100%;
+    background: white;
+    overflow-x: hidden;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+    
+  /* MainScreen Section */
+  .mainscreen {
+    height: 100%; /* Take full height */
+    width: 100%;
+    background: url("../assets/image2.avif") no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding: 0 2rem;
+    color: white;
+    gap: 2rem; /* Space between the two sections */
+    flex-direction: row;
+  }
+  
+  .visitor, .admin {
+    width: 500px;
+    height: 300px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border: 2px solid #388da7;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color:  #1a202c;
+    text-align: center;
+    justify-content: center;
+  }
+  
+  /* Footer */
+  footer {
+    background: #1a202c;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+  }

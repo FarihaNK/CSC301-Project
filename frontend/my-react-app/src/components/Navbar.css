@@ -1,0 +1,70 @@
+  /* Navigation Bar */
+  * {
+    box-sizing: border-box;
+  }
+
+  body{
+    margin: 0;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #1a202c;
+    color: white;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 50px;
+    margin-right: 10px;
+  }
+  
+  .app-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+  
+  .nav {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .nav a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    padding: 0.5rem 0.5rem;
+  }
+
+  .nav a:hover {
+    color: #388da7;  /* Change the color on hover */
+    transform: scale(1.1);  /* Slightly scale up the link on hover */
+  }
+  
+  .nav-button {
+    background-color:#388da7;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .nav-button:hover {
+    background-color: #45a049;
+  }
