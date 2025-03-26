@@ -1,38 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./ListOfPatients.css";
 import logo from "../assets/logo.png";
-
-import nice_elephant from "../assets/nice_elephant.png";
-import iron_man from "../assets/iron_man.jpeg";
-import harry_potter from "../assets/harry_potter.jpg";
-import michael_jackson from "../assets/michael_jackson.jpeg";
-import lebron_james from "../assets/lebron_james.png";
 import default_profile from "../assets/default_profile.jpg";
 
-const patients_test = [
-  { id: 0, name: "John Doe", age: 69, image: default_profile },   // use default_profile for individuals with no profile pic set
-
-  { id: 1, name: "Nice Elephant", age: 25, image: nice_elephant },
-  { id: 2, name: "Iron Man", age: 52, image: iron_man },
-  { id: 3, name: "Harry Potter", age: 37, image: harry_potter },
-  { id: 4, name: "Michael Jackson", age: 50, image: michael_jackson },
-  { id: 5, name: "LeBron James", age: 40, image: lebron_james },
-  
-  { id: 6, name: "Nice Elephant", age: 25, image: nice_elephant },
-  { id: 7, name: "Iron Man", age: 52, image: iron_man },
-  { id: 8, name: "Harry Potter", age: 37, image: harry_potter },
-  { id: 9, name: "Michael Jackson", age: 50, image: michael_jackson },
-  { id: 10, name: "LeBron James", age: 40, image: lebron_james },
-
-  { id: 11, name: "Nice Elephant", age: 25, image: nice_elephant },
-  { id: 12, name: "Iron Man", age: 52, image: iron_man },
-  { id: 13, name: "Harry Potter", age: 37, image: harry_potter },
-  { id: 14, name: "Michael Jackson", age: 50, image: michael_jackson },
-  { id: 15, name: "LeBron James", age: 40, image: lebron_james }
-];
-
-
 const ListOfPatients = () => {
+  const [patients, setPatients] = useState([]);
+
+  useEffect(() => {
+    const fetchPatients = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await axios.get("http://localhost:5002/api/patients/by-doctor", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setPatients(res.data);
+      } catch (err) {
+        console.error("Failed to fetch doctor patients:", err);
+      }
+    };
+
+    fetchPatients();
+  }, []);
+
+  const calculateAge = (dob) => {
+    const birthDate = new Date(dob);
+    const ageDifMs = Date.now() - birthDate.getTime();
+    const ageDate = new Date(ageDifMs);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  };
+
   return (
     <div className="dashboard">
       <aside className="sidebar">
@@ -74,19 +71,19 @@ const ListOfPatients = () => {
                 </tr>
               </thead>
               <tbody>
-                {patients_test.map((patient) => (
-                  <tr key={patient.id}>
-                  <td>
-                    <div className="patient-info">
-                      <img src={patient.image} alt="Profile" className="profile-pic" />
-                      <span>{patient.name}</span>
-                    </div>
-                  </td>
-                  <td>{patient.age}</td>
-                  <td>
-                    <button className="access-btn">Access Medical Data</button>
-                  </td>
-                </tr>
+                {patients.map((p) => (
+                  <tr key={p._id}>
+                    <td>
+                      <div className="patient-info">
+                        <img src={default_profile} alt="Profile" className="profile-pic" />
+                        <span>{p.fullName}</span>
+                      </div>
+                    </td>
+                    <td>{calculateAge(p.dob)}</td>
+                    <td>
+                      <button className="access-btn">Access Medical Data</button>
+                    </td>
+                  </tr>
                 ))}
               </tbody>
             </table>

@@ -1,4 +1,5 @@
 const Patient = require("../models/Patient");
+const User = require("../models/User");
 
 // Create a new patient profile
 exports.createPatient = async (req, res) => {
@@ -102,6 +103,21 @@ exports.deletePatient = async (req, res) => {
     await patient.deleteOne();
     res.json({ message: "Patient profile deleted" });
   } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
+exports.getPatientsByDoctor = async (req, res) => {
+  try {
+    const doctorId = req.user.id;
+    console.log("Doctor ID from token:", doctorId);
+
+    const patients = await Patient.find({ doctorId }).populate("userId", "name email");
+
+    console.log("Patients found:", patients.length);
+    res.json(patients);
+  } catch (err) {
+    console.error("Error in getPatientsByDoctor:", err);
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };
