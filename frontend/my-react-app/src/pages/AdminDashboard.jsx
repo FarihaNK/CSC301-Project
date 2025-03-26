@@ -151,7 +151,7 @@ const formatDateTime = (date) => {
         </div>
         <nav className="menu">
           <ul>
-            <li>Patients</li>
+            <li onClick={() => navigate("/patientlist")}>Patients</li>
             <li>Schedule</li>
             <li onClick={() => navigate("/medassist")}>MedAssistant</li>
             <li>Settings</li> 

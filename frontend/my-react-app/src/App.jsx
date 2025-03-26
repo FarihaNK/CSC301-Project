@@ -22,6 +22,7 @@ import ChatboxInterface from './pages/ChatbotInterface';
 import PasswordReset from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import MyPatientProfiles from "./pages/MyPatientProfiles";
+import ListOfPatients from './pages/ListOfPatients';
 
 function Layout() {
   const location = useLocation();
@@ -40,7 +41,8 @@ function Layout() {
     location.pathname === "/forgetpassword" ||
     location.pathname === "/familyhistory" ||
     location.pathname === "/profile" ||
-    location.pathname === "/mypatients"
+    location.pathname === "/mypatients" ||
+    location.pathname === "/patientlist"
   );
   const showPSidebar = !showNavBar;
 
@@ -105,9 +107,9 @@ function App() {
         <Route path="/forgetpassword" element={<PasswordReset />} /> {}
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/mypatients" element={<MyPatientProfiles />} />
+        <Route path="/patientlist" element={<ListOfPatients />} /> {}
       </Routes>
     </Router>
   );
 }
-
 export default App;
