@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import UserLogin from "./pages/UserLogin";
 import UserProfile from "./pages/UserProfile";
 import AboutPage from "./pages/AboutPage";
@@ -19,9 +19,10 @@ import MRITest from './pages/MRITest'; // MRI Test page
 import CTScan from './pages/CTScan'; // CT Scan page
 import Documents from './pages/upload'
 import ChatboxInterface from './pages/ChatbotInterface';
+import MyPatientProfiles from "./pages/MyPatientProfiles";
 
 
-function Layout(){
+function Layout() {
   const location = useLocation();
 
   // Define which paths should show the NavBar
@@ -36,7 +37,8 @@ function Layout(){
     location.pathname === "/medassist" ||
     location.pathname === "/docUpload" ||
     location.pathname === "/familyhistory" ||
-    location.pathname === "/profile" 
+    location.pathname === "/profile" ||
+    location.pathname === "/mypatients"
   );
   const showPSidebar = !showNavBar;
 
@@ -52,7 +54,7 @@ function Layout(){
       {/* Conditionally render the sidebar */}
       {showPSidebar && <PSidebar />}
       {showNavBar && <NavBar />} {/* Conditionally render NavBar */}
-      
+
       {/* Main Content Area */}
       <div className={`main-content ${showPSidebar ? 'with-sidebar' : ''}`}>
         {/* Content will go here */}
@@ -76,7 +78,7 @@ function Layout(){
 function App() {
   return (
     <Router>
-      <Layout/>
+      <Layout />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<LandingPage />} />
@@ -96,8 +98,9 @@ function App() {
         <Route path="/bloodtest" element={<BloodTest />} />
         <Route path="/mri" element={<MRITest />} />
         <Route path="/ct" element={<CTScan />} />
-        <Route path="/medassist" element={<ChatboxInterface />} /> {}
-        <Route path="/docUpload" element={<Documents />} /> {}
+        <Route path="/medassist" element={<ChatboxInterface />} /> { }
+        <Route path="/docUpload" element={<Documents />} /> { }
+        <Route path="/mypatients" element={<MyPatientProfiles />} />
       </Routes>
     </Router>
   );
