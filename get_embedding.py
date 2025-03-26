@@ -4,6 +4,11 @@ Purpose: This Class ini
 from transformers import AutoTokenizer, AutoModel # used by embedding function, to convert chunks of
 import torch 
 
+import torch
+from PIL import Image
+from transformers import CLIPProcessor, CLIPModel
+
+
 class HuggingFaceEmbeddings:
     # load tokenizer  & model from hugging Face
     def __init__(self, model_name: str):
@@ -50,3 +55,38 @@ class HuggingFaceEmbeddings:
 
 def get_embedding_function():
     return HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
+
+
+
+class CLIPEmbeddings:
+    """
+    Use a CLIP model for cross-modal embeddings.
+    - text -> embedding
+    - image -> embedding
+    """
+    def __init__(self, model_name="openai/clip-vit-base-patch32"):
+        self.model = CLIPModel.from_pretrained(model_name)
+        self.processor = CLIPProcessor.from_pretrained(model_name)
+        self.device = "cpu"  # or "cuda" if you have a GPU
+
+    def embed_text(self, text: str):
+        inputs = self.processor(text=[text], images=None, return_tensors="pt", padding=True).to(self.device)
+        with torch.no_grad():
+            outputs = self.model.get_text_features(**inputs)
+        # Return a CPU list of floats
+        return outputs[0].cpu().tolist()
+
+    def embed_image(self, image_path: str):
+        img = Image.open(image_path).convert("RGB")
+        inputs = self.processor(text=None, images=img, return_tensors="pt", padding=True).to(self.device)
+        with torch.no_grad():
+            outputs = self.model.get_image_features(**inputs)
+        return outputs[0].cpu().tolist()
+
+    def embed_query(self, query: str):
+        # For text queries
+        return self.embed_text(query)
+
+    def embed_documents(self, texts: list[str]):
+        # For multiple text docs
+        return [self.embed_text(t) for t in texts]

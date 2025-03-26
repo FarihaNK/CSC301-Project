@@ -12,9 +12,9 @@ from populate_database import add_to_chroma  # For storing SME data
 from populate_database import get_database
 
 
-SLACK_TOKEN = "xoxb-8638729329476-8645740876177-tC1b9gISBPUut13MNP806y1M"  # Slack Bot Token
+SLACK_TOKEN = "blank"  # Slack Bot Token
 SLACK_CHANNEL = "C08JR09HVD1"       # Slack channel ID
-CHROMA_PATH = "/Users/fahd/Music/Tel_Automation_chatbot copy/chroma_db"
+CHROMA_PATH = "./chroma_db"
 
 #embedding_function = get_embedding_function()
 db = get_database()
