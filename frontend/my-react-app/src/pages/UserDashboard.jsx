@@ -146,7 +146,7 @@ const UserDashboard = () => {
   return (
     <div className="dashboard">
       {/* Sidebar */}
-      <aside className="sidebar">
+      {/* <aside className="sidebar">
         <div className="logo">
           <img src={logo} alt="Logo" />
         </div>
@@ -155,17 +155,17 @@ const UserDashboard = () => {
             <li>Medical History</li>
             <li>MedAssistant</li>
             <li>Appointments</li>
-            <li onClick={() => navigate("/profile")}>Personal Profile</li> {/* New Button */}
-            <li>Settings</li>
+            <li onClick={() => navigate("/profile")}>Personal Profile</li> 
+            <li onClick={() => navigate("/familyhistory")}>Family History</li> 
             <li>Logout</li>
           </ul>
         </nav>
-      </aside>
+      </aside> */}
 
       {/* Main Content */}
       <main className="content">
         {/* Top Bar */}
-        <header className="top-bar">
+        {/* <header className="top-bar">
           <input
             type="text"
             placeholder="Search for anything..."
@@ -177,7 +177,7 @@ const UserDashboard = () => {
             <button>Reports</button>
             <button className="Medications">Medications</button>
           </div>
-        </header>
+        </header> */}
 
         {/* Main Section */}
         <section className="main-section" id="top-part">

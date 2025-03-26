@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import UserLogin from "./pages/UserLogin";
 import UserProfile from "./pages/UserProfile";
 import AboutPage from "./pages/AboutPage";
@@ -7,8 +7,10 @@ import LandingPage from "./pages/LandingPage";
 import ContactPage from "./pages/ContactPage";
 import UserJoin from "./pages/UserJoin";
 import NavBar from "./components/Navbar";
+import PSidebar from "./components/PSidebar";
 import AdminLogin from "./pages/AdminLogin";
 import UserDashboard from "./pages/UserDashboard";
+import FamilyHistory from "./pages/FamilyHistory";
 import AdminDashboard from './pages/AdminDashboard'
 import FormDashboard from './pages/Forms'; // Your main page component
 import Prescription from './pages/Prescription'; // Prescription page
@@ -19,20 +21,11 @@ import Documents from './pages/upload'
 import ChatboxInterface from './pages/ChatbotInterface';
 import PasswordReset from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import MyPatientProfiles from "./pages/MyPatientProfiles";
 
-function Layout(){
+function Layout() {
   const location = useLocation();
 
-  // Define which paths should show the NavBar
-  // const showNavBar = !(
-  //   location.pathname === "/" ||
-  //   location.pathname === "/home" ||
-  //   location.pathname === "/about" ||
-  //   location.pathname === "/contactpage" ||
-  //   location.pathname === "/userlogin" ||
-  //   location.pathname === "/adminlogin" ||
-  //   location.pathname === "/getstarted" 
-  // );
   // Define which paths should show the NavBar
   const showNavBar = !(
     location.pathname === "/userdashboard" ||
@@ -44,20 +37,50 @@ function Layout(){
     location.pathname === "/ct" ||
     location.pathname === "/medassist" ||
     location.pathname === "/docUpload" ||
-    location.pathname === "/forgetpassword"
+    location.pathname === "/forgetpassword" ||
+    location.pathname === "/familyhistory" ||
+    location.pathname === "/profile" ||
+    location.pathname === "/mypatients"
   );
+  const showPSidebar = !showNavBar;
+
+  // return (
+  //   <>
+  //     {/* {showPSidebar && <PSidebar />} Show Sidebar for dashboard pages */}
+  //     {showNavBar && <NavBar />} {/* Conditionally render NavBar */}
+  //   </>
+  // );
 
   return (
     <>
+      {/* Conditionally render the sidebar */}
+      {showPSidebar && <PSidebar />}
       {showNavBar && <NavBar />} {/* Conditionally render NavBar */}
+
+      {/* Main Content Area */}
+      <div className={`main-content ${showPSidebar ? 'with-sidebar' : ''}`}>
+        {/* Content will go here */}
+      </div>
     </>
   );
+
+  // return (
+  //   <div className="app-layout">
+  //     {showNavBar && <header className="nav-container"><NavBar /></header>}
+  //     <div className="content-area">
+  //       {showPSidebar && <aside className="sidebar-container"><PSidebar /></aside>}
+  //       <main className={`main-content ${showPSidebar ? 'with-sidebar' : ''}`}>
+  //         {/* Content will go here */}
+  //       </main>
+  //     </div>
+  //   </div>
+  // );
 }
 
 function App() {
   return (
     <Router>
-      <Layout/>
+      <Layout />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<LandingPage />} />
@@ -66,6 +89,7 @@ function App() {
         <Route path="/userlogin" element={<UserLogin />} />
         <Route path="/getstarted" element={<UserJoin />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/familyhistory" element={<FamilyHistory />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/userdashboard" element={<UserDashboard />} />
         <Route path="/admindashboard" element={<AdminDashboard />} /> {/* This is the main dashboard */}
@@ -80,6 +104,7 @@ function App() {
         <Route path="/docUpload" element={<Documents />} /> {}
         <Route path="/forgetpassword" element={<PasswordReset />} /> {}
         <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/mypatients" element={<MyPatientProfiles />} />
       </Routes>
     </Router>
   );

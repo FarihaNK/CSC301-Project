@@ -40,7 +40,7 @@ body,
   z-index: 0;
 }
 
-/* Carousel Styles */
+
 .carousel {
   position: relative;
   z-index: 1;
@@ -48,22 +48,27 @@ body,
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-  max-width: 90%;
+  max-width: 95%;
   width: 600px;
   text-align: left;
   color: white;
+  padding-left: 3rem; /* Adjusted padding to leave space for left arrow */
+  padding-right: 3rem; /* Adjusted padding to leave space for right arrow */
 }
 
 .carousel-slide h2 {
-  font-size: 1.8rem;
+  font-size: 2.2rem; /* Increase title size */
   font-weight: bold;
-  margin-bottom: 1rem;
-  border-bottom: 2px solid #388da7;
+  margin-bottom: 1.5rem;
+  border-bottom: 3px solid #388da7;
+  text-align: center;
 }
 
 .carousel-slide p {
-  line-height: 1.6;
+  font-size: 1.4rem; /* Increase paragraph size */
+  line-height: 1.8; /* Improve readability */
   font-weight: 400;
+  text-align: center;
 }
 
 .carousel-button {
@@ -72,23 +77,24 @@ body,
   transform: translateY(-50%);
   background: transparent;
   border: none;
-  font-size: 2rem;
-  color: #388da7;
+  font-size: 4rem;
+  color: #388da7; /* Default color */
   cursor: pointer;
   z-index: 2;
   padding: 0 1rem;
 }
 
 .carousel-button:hover {
-  color: #45a049;
+  color: #45a049; /* Green color on hover */
+  background-color: transparent; /* Ensure background doesn't change */
 }
 
 .carousel-button.left {
-  left: -2rem;
+  left: -20rem; /* Positioned to the left side */
 }
 
 .carousel-button.right {
-  right: -2rem;
+  right: -20rem; /* Positioned to the right side */
 }
 
 /* Footer */

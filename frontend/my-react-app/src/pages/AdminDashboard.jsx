@@ -154,7 +154,7 @@ const formatDateTime = (date) => {
             <li>Patients</li>
             <li>Schedule</li>
             <li onClick={() => navigate("/medassist")}>MedAssistant</li>
-            <li>Settings</li> {/* Settings Button */}
+            <li>Settings</li> 
             <li>Logout</li>
           </ul>
         </nav>
@@ -163,15 +163,13 @@ const formatDateTime = (date) => {
       {/* Main Content */}
       <main className="content">
         {/* Top Bar */}
-        <header className="top-bar">
+        {/* <header className="top-bar">
           <input
             type="text"
             placeholder="Search for anything..."
             className="search-bar"
           />
           <div className="navigation">
-            {/* <button>Dashboard</button> */}
-            {/* <button>Forms</button> */}
             <Link to="/dashboard">
               <button>Dashboard</button>
             </Link>
@@ -182,7 +180,7 @@ const formatDateTime = (date) => {
             <button className="Doc">Document Upload</button>
             <button>To-Do</button>
           </div>
-        </header>
+        </header> */}
 
         {/* Main Section */}
         <section className="main-section" id="top-part">
