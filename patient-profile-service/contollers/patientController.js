@@ -3,7 +3,7 @@ const Patient = require("../models/Patient");
 // Create a new patient profile
 exports.createPatient = async (req, res) => {
   try {
-    const { fullName, phoneNumber, dob, healthCardNumber, address } = req.body;
+    const { fullName, phoneNumber, dob, healthCardNumber, address, doctorId } = req.body;
 
     // Ensure required fields are provided
     if (!fullName || !phoneNumber || !dob || !healthCardNumber || !address) {
@@ -16,7 +16,8 @@ exports.createPatient = async (req, res) => {
       phoneNumber,
       dob,
       healthCardNumber,
-      address
+      address,
+      doctorId: doctorId || null,
     });
 
     await newPatient.save();

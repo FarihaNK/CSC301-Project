@@ -7,6 +7,7 @@ const patientSchema = new mongoose.Schema({
   dob: { type: Date, required: true },
   healthCardNumber: { type: String, required: true },
   address: {type: String, required: true},
+  doctorId: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
 }, { timestamps: true });
 
 module.exports = mongoose.model("Patient", patientSchema);

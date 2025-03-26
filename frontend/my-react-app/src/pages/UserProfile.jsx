@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./UserProfile.css"; // Using the same CSS for styling consistency
 import logo from "../assets/logo.png"; // Import logo from assets
 import axios from "axios";
@@ -11,7 +11,25 @@ const UserProfile = () => {
     healthcard: "",
     birthday: "",
     profilePicture: null,
+    doctorId: "",
   });
+  const [doctors, setDoctors] = useState([]);
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await axios.get("http://localhost:5003/api/auth/doctors", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setDoctors(res.data);
+      } catch (err) {
+        console.error("Error fetching doctors:", err);
+      }
+    };
+
+    fetchDoctors();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +43,7 @@ const UserProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       // Create FormData for file upload
       const formDataToSend = new FormData();
@@ -34,14 +52,15 @@ const UserProfile = () => {
       formDataToSend.append("address", formData.address);
       formDataToSend.append("healthCardNumber", formData.healthcard);
       formDataToSend.append("dob", formData.birthday);
-      
+      formDataToSend.append("doctorId", formData.doctorId);
+
       if (formData.profilePicture) {
         formDataToSend.append("profilePicture", formData.profilePicture);
       }
-  
+
       // Get JWT token from localStorage
       const token = localStorage.getItem("token");
-  
+
       if (!token) {
         alert("You must be logged in to create a profile.");
         return;
@@ -51,9 +70,10 @@ const UserProfile = () => {
         phoneNumber: formData.phone,
         address: formData.address,
         healthCardNumber: formData.healthcard,
-        dob: formData.birthday
+        dob: formData.birthday,
+        doctorId: formData.doctorId
       };
-  
+
       // Send API request
       const response = await axios.post("http://localhost:5002/api/patients", profileData, {
         headers: {
@@ -61,10 +81,10 @@ const UserProfile = () => {
           "Content-Type": "application/json", // For file uploads
         },
       });
-  
+
       console.log("Profile created successfully:", response.data);
       alert("Profile created successfully!");
-  
+
       // Reset form fields after successful submission
       setFormData({
         name: "",
@@ -74,7 +94,7 @@ const UserProfile = () => {
         birthday: "",
         profilePicture: null,
       });
-  
+
     } catch (error) {
       console.error("Error creating profile:", error.response?.data || error.message);
       alert("Failed to create profile. Please try again.");
@@ -192,6 +212,15 @@ const UserProfile = () => {
                   onChange={handleChange}
                   required
                 />
+              </label>
+              <label>
+                Select Doctor:
+                <select name="doctorId" value={formData.doctorId || ""} onChange={handleChange} required>
+                  <option value="">-- Select a Doctor --</option>
+                  {doctors.map((doc) => (
+                    <option key={doc._id} value={doc._id}>{doc.name}</option>
+                  ))}
+                </select>
               </label>
               <button type="submit">Create Profile</button>
             </form>
