@@ -384,7 +384,7 @@ const ChatbotInterface = () => {
   return (
     <div className="dashboard">
       {/* Sidebar */}
-      <aside className="sidebar">
+      {/* <aside className="sidebar">
         <div className="logo">
           <img src={logo} alt="Logo" />
         </div>
@@ -398,12 +398,12 @@ const ChatbotInterface = () => {
             <li>Logout</li>
           </ul>
         </nav>
-      </aside>
+      </aside> */}
 
       {/* Main Content */}
       <main className="content">
         {/* Top Bar */}
-        <header className="top-bar">
+        {/* <header className="top-bar">
           <input
             type="text"
             placeholder="Search for anything..."
@@ -417,7 +417,7 @@ const ChatbotInterface = () => {
             </Link>
             <button className="Medications">To-Do</button>
           </div>
-        </header>
+        </header> */}
 
         {/* Chat Interface */}
         <section className="chat-section">

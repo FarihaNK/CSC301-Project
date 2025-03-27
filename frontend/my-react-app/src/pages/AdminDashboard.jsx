@@ -145,7 +145,7 @@ const formatDateTime = (date) => {
   return (
     <div className="dashboard">
       {/* Sidebar */}
-      <aside className="sidebar">
+      {/* <aside className="sidebar">
         <div className="logo">
           <img src={logo} alt="Logo" />
         </div>
@@ -158,7 +158,7 @@ const formatDateTime = (date) => {
             <li>Logout</li>
           </ul>
         </nav>
-      </aside>
+      </aside> */}
 
       {/* Main Content */}
       <main className="content">

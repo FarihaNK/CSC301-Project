@@ -8,6 +8,7 @@ import ContactPage from "./pages/ContactPage";
 import UserJoin from "./pages/UserJoin";
 import NavBar from "./components/Navbar";
 import PSidebar from "./components/PSidebar";
+import ASidebar from "./components/ASidebar";
 import AdminLogin from "./pages/AdminLogin";
 import UserDashboard from "./pages/UserDashboard";
 import FamilyHistory from "./pages/FamilyHistory";
@@ -44,7 +45,16 @@ function Layout() {
     location.pathname === "/mypatients" ||
     location.pathname === "/patientlist"
   );
-  const showPSidebar = !showNavBar;
+
+  const adminSideBar = !(
+    location.pathname === "/userdashboard" ||
+    location.pathname === "/forgetpassword" ||
+    location.pathname === "/familyhistory" ||
+    location.pathname === "/profile" 
+  );
+
+  const showPSidebar = !showNavBar && !adminSideBar;
+  const showASidebar = !showNavBar;
 
   // return (
   //   <>
@@ -57,10 +67,14 @@ function Layout() {
     <>
       {/* Conditionally render the sidebar */}
       {showPSidebar && <PSidebar />}
+      {showASidebar && <ASidebar />}
       {showNavBar && <NavBar />} {/* Conditionally render NavBar */}
 
       {/* Main Content Area */}
       <div className={`main-content ${showPSidebar ? 'with-sidebar' : ''}`}>
+        {/* Content will go here */}
+      </div>
+      <div className={`main-content ${showASidebar ? 'with-sidebar' : ''}`}>
         {/* Content will go here */}
       </div>
     </>
