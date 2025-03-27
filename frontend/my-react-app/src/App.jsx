@@ -56,11 +56,7 @@ function Layout() {
   );
 
   const showPSidebar = !showNavBar && !adminSideBar;
-<<<<<<< HEAD
   const showASidebar = !showNavBar && !showPSidebar;
-=======
-  const showASidebar = !showNavBar;
->>>>>>> 7ab3e73dbf512e74971acd40dec3d390c4a67996
 
   // return (
   //   <>
