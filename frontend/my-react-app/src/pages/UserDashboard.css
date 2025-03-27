@@ -406,3 +406,38 @@ body, html {
     display: flex;
     flex-direction: row;
   }
+  
+ /* Schedule Section */
+ .schedule-section {
+    margin-top: 20px; /* Add some space between the calendar and schedule */
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-section h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.schedule-list {
+    list-style: none;
+    padding: 0;
+}
+
+.schedule-item {
+    padding: 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.schedule-item:last-child {
+    border-bottom: none;
+}
+
+.schedule-item strong {
+    font-weight: bold;
+    margin-right: 10px;
+}
