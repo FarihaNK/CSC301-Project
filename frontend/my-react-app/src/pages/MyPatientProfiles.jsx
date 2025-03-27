@@ -32,7 +32,7 @@ const MyPatientProfiles = () => {
 
   return (
     <div className="dashboard">
-      <aside className="sidebar">
+      {/* <aside className="sidebar">
         <div className="logo">
           <img src={logo} alt="Logo" />
         </div>
@@ -46,12 +46,12 @@ const MyPatientProfiles = () => {
             <li>Logout</li>
           </ul>
         </nav>
-      </aside>
+      </aside> */}
 
       <main className="content">
-        <header className="top-bar">
+        {/* <header className="top-bar">
           <input type="text" placeholder="Search..." className="search-bar" />
-        </header>
+        </header> */}
 
         <section className="main-section">
           <h2>My Patient Profiles</h2>
