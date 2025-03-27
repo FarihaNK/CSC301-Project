@@ -23,7 +23,11 @@ const PSidebar = () => {
           <li onClick={() => navigate("/mypatients")}>Patients</li>
           <li>Appointments</li>
           <li>Doc Upload</li>
+<<<<<<< HEAD
           <li onClick={() => navigate("/todo")}>To-do List</li>
+=======
+          <li>To-do List</li>
+>>>>>>> 7ab3e73dbf512e74971acd40dec3d390c4a67996
           <li onClick={() => navigate("/medassist")}>MedAssistant</li>
           <li onClick={() => navigate("/")}>Logout</li>
         </ul>

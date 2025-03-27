@@ -449,6 +449,22 @@ const AdminDashboard = () => {
 
   return (
     <div className="dashboard">
+      {/* Sidebar */}
+      {/* <aside className="sidebar">
+        <div className="logo">
+          <img src={logo} alt="Logo" />
+        </div>
+        <nav className="menu">
+          <ul>
+            <li onClick={() => navigate("/patientlist")}>Patients</li>
+            <li>Schedule</li>
+            <li onClick={() => navigate("/medassist")}>MedAssistant</li>
+            <li>Settings</li> 
+            <li>Logout</li>
+          </ul>
+        </nav>
+      </aside> */}
+
       {/* Main Content */}
       <main className="content">
         <section className="main-section" id="top-part">
