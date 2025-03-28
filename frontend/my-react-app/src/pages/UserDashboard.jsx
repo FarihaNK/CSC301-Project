@@ -345,6 +345,12 @@ const UserDashboard = () => {
     return date.toISOString().split("T")[0];
   };
 
+  // Format the date for the schedule title
+  const formatScheduleTitleDate = (date) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+  };  
+
   // Format the current date and time in AM/PM format - to use for the time shown above the calendar
   const formatDateTime = (date) => {
     const dateOptions = {
@@ -408,6 +414,11 @@ const UserDashboard = () => {
     setShowModal(true);
   };
 
+  const handleEditEvent = (event) => {
+    setEventDetails({...event, id: event.id, time: event.appointmentTime});
+    setShowModal(true);
+  };
+
   // Save appointment (POST request)
   const saveEvent = async () => {
     if (!eventDetails.title.trim()) {
@@ -424,37 +435,115 @@ const UserDashboard = () => {
     const dateKey = formatDate(selectedDate);
     const newEvent = {
       title: eventDetails.title,
-      description: eventDetails.description || "",
+      description: eventDetails.description,
+      id: eventDetails.id || "",
       date: dateKey,
       appointmentTime: eventDetails.time,
     };
 
-    try {
+  //   try {
+  //     await axios.post("http://localhost:5004/api/appointments", newEvent, {
+  //       headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" },
+  //     });
+  //     setEvents((prevEvents) => ({
+  //       ...prevEvents,
+  //       [dateKey]: [...(prevEvents[dateKey] || []), newEvent],
+  //     }));
+
+  //     if (eventDetails.id) {
+  //       const updatedEvents = eventForDate.map((event) => 
+  //         event.id === eventDetails.id ? newEvent : event
+  //     );
+  //     return {... prevEvents, [dateKey]: updatedEvents };
+  //     } else {
+  //       return {
+  //         ...prevEvents, 
+  //         [dateKey]: [...eventsForDate, newEvent]
+  //       }; 
+  
+  //     }
+
+  //   } catch (error) {
+  //     console.error("Error creating appointment:", error.response?.data || error.message);
+  //   }
+  //   setShowModal(false);
+  // };
+  try {
+    if (eventDetails.id) {
+      // Log the full update details for debugging
+      console.log("Updating event with ID:", eventDetails.id);
+      console.log("Update payload:", newEvent);
+      console.log("update date:", eventDetails.appointmentTime)
+
+      // Ensure the full URL is correct and the ID is passed correctly
+      const updateResponse = await axios.put(
+        `http://localhost:5004/api/appointments/${eventDetails.id}`, 
+        newEvent, 
+        {
+          headers: { 
+            Authorization: `Bearer ${token}`, 
+            "Content-Type": "application/json" 
+          },
+        }
+      );
+
+      console.log("Update response:", updateResponse.data);
+
+      // Update state with new event data
+      setEvents((prevEvents) => {
+        const updatedEvents = (prevEvents[dateKey] || []).map((event) =>
+          event.id === eventDetails.id ? newEvent : event
+        );
+        return { ...prevEvents, [dateKey]: updatedEvents };
+      });
+    } else {
+      // Create a new event via API
       await axios.post("http://localhost:5004/api/appointments", newEvent, {
-        headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" },
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
       });
 
+      // Add new event to state
       setEvents((prevEvents) => ({
         ...prevEvents,
         [dateKey]: [...(prevEvents[dateKey] || []), newEvent],
       }));
-
-      setShowModal(false);
-    } catch (error) {
-      console.error("Error creating appointment:", error.response?.data || error.message);
     }
+  } catch (error) {
+    console.error("Error saving appointment:", error.response?.data || error.message);
+    // Log more detailed error information
+    if (error.response) {
+      console.error("Error details:", {
+        status: error.response.status,
+        data: error.response.data,
+        headers: error.response.headers
+      });
+    }
+  }
+
+  setShowModal(false);
+};
+
+  const deleteEvent = (id) => {
+    const dateKey = formatDate(selectedDate);
+    setEvents((prevEvents) => {
+      const updatedEvents = prevEvents[dateKey].filter(
+        (event) => event.id !== id
+      );
+      return { ...prevEvents, [dateKey]: updatedEvents };
+    });
+    setShowModal(false);
   };
 
-  const tileContent = ({ date }) => {
-    const dateKey = formatDate(date);
-    return events[dateKey] ? (
-      <ul className="event-list">
-        {events[dateKey].map((event, index) => (
-          <li key={index} className="event-indicator">{event.title}</li>
-        ))}
-      </ul>
-    ) : null;
-  };
+  const tileContent = ({ date, view }) => {
+    if (view === "month") {
+      const dateKey = formatDate(date);
+      const eventsForDate = events[dateKey] || [];
+      if (eventsForDate.length > 0) {
+        return <div className="event-indicator"></div>; // Just a visual marker
+       }
+     }
+     return null;
+ };
 
   return (
     <div className="dashboard">
@@ -480,17 +569,40 @@ const UserDashboard = () => {
             </div>
           </div>
 
+          
           {/* Calendar Section */}
           <div className="calendar-section">
             <div className="calendar-header">
               <h3>{formatDateTime(currentDate)}</h3>
             </div>
-            <Calendar
-              value={selectedDate}
-              onClickDay={handleDateClick}
-              tileContent={tileContent}
-              className="custom-calendar"
-            />
+              <Calendar
+                value={selectedDate}
+                onClickDay={handleDateClick}
+                tileContent={tileContent}
+                className="custom-calendar"
+              />
+            <div className="schedule-section">
+              <h3>
+                {formatDate(selectedDate) === formatDate(new Date()) 
+                  ? "Today's Schedule" 
+                  : `${formatScheduleTitleDate(selectedDate)} Schedule`}
+              </h3>
+              <ul className="schedule-list">
+                {(events[formatDate(selectedDate)] || []).map((event) => (
+                  <li 
+                    key={event.id} 
+                    className="schedule-item" 
+                    onClick={() => handleEditEvent(event)}
+                  >
+                    <div className="event-container">
+                      <span className="event-title">{event.title}</span>
+                      <span className="event-description">{event.description}</span>
+                      <span className="event-time">({event.appointmentTime})</span> 
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </section>
       </main>
@@ -504,20 +616,39 @@ const UserDashboard = () => {
               type="text"
               placeholder="Event Title"
               value={eventDetails.title}
-              onChange={(e) => setEventDetails({ ...eventDetails, title: e.target.value })}
+              onChange={(e) =>
+                setEventDetails({ ...eventDetails, title: e.target.value })
+              }
             />
             <input
               type="text"
               placeholder="Event Description"
               value={eventDetails.description}
-              onChange={(e) => setEventDetails({ ...eventDetails, description: e.target.value })}
+              onChange={(e) =>
+                setEventDetails({
+                  ...eventDetails,
+                  description: e.target.value,
+                })
+              }
             />
             <input
               type="time"
               value={eventDetails.time}
-              onChange={(e) => setEventDetails({ ...eventDetails, time: e.target.value })}
+              onChange={(e) =>
+                setEventDetails({ ...eventDetails, time: e.target.value })
+              }
             />
-            <button onClick={saveEvent}>Add</button>
+            <button onClick={saveEvent}>
+              {eventDetails.id ? "Update" : "Add"}
+            </button>
+            {eventDetails.id && (
+              <button
+                onClick={() => deleteEvent(eventDetails.id)}
+                className="delete-button"
+              >
+                Delete
+              </button>
+            )}
             <button onClick={() => setShowModal(false)}>Cancel</button>
           </div>
         </div>
