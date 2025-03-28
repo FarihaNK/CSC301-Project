@@ -1,5 +1,5 @@
 # CSC301-Project-AI service
-
+Install all dependencies before you try to run this. Also paste the user-auth file (.js) inside your root user AuthService
 Before running: Make sure that all dependencies are installed (in Venv)
 1) Run app.py in ai-service 
 2) Run simpleserver in ai-service ( to handle slack GET and POST requests)
