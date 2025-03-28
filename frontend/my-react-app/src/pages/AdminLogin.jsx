@@ -10,7 +10,7 @@ export default function AdminLogin() {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    console.log("Logging in with:", { email, password });
+    // console.log("Logging in with:", { email, password });
     // Add authentication logic here
     try {
       const response = await axios.post("http://localhost:5003/api/auth/login", {
@@ -23,7 +23,7 @@ export default function AdminLogin() {
       // Store token in local storage (or session storage)
       localStorage.setItem("token", token);
   
-      console.log("Login successful!", user.role);
+      // console.log("Login successful!", user.role);
       alert("Login successful! as", user.role);
       navigate("/admindashboard");
       

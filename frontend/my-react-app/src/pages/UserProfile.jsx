@@ -83,7 +83,7 @@ const UserProfile = () => {
         },
       });
 
-      console.log("Profile created successfully:", response.data);
+      // console.log("Profile created successfully:", response.data);
       alert("Profile created successfully!");
 
       // Reset form fields after successful submission

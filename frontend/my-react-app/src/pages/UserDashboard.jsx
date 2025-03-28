@@ -547,7 +547,7 @@ const saveEvent = async () => {
   try {
     if (eventDetails.id) {
       // Log the full update details for debugging
-      console.log("Updating event with full payload:", newEvent);
+      // console.log("Updating event with full payload:", newEvent);
 
       const updateResponse = await axios.put(
         `http://localhost:5004/api/appointments/${eventDetails.id}`, 
@@ -560,7 +560,7 @@ const saveEvent = async () => {
         }
       );
 
-      console.log("Update response:", updateResponse.data);
+      // console.log("Update response:", updateResponse.data);
 
       // Update state with new event data
       setEvents((prevEvents) => {

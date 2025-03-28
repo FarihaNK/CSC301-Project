@@ -11,7 +11,6 @@ export default function UserLogin() {
   const navigate = useNavigate();
 
   const handleLogin = async() => {
-    console.log("Logging in with:", { email, password });
     // Add authentication logic here
     try {
         const response = await axios.post("http://localhost:5003/api/auth/login", {
@@ -23,8 +22,6 @@ export default function UserLogin() {
     
         // Store token in local storage (or session storage)
         localStorage.setItem("token", token);
-    
-        console.log("Login successful!", user);
         alert("Login successful!");
         navigate("/userdashboard");
         

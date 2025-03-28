@@ -79,7 +79,7 @@ const FamilyHistoryForm = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      console.log("Submitted:", res.data);
+      // console.log("Submitted:", res.data);
       setModalVisible(true);
       setTimeout(() => setModalVisible(false), 3000);
     } catch (err) {

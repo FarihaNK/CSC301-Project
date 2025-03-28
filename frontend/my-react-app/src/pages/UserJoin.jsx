@@ -19,7 +19,7 @@ export default function UserJoin() {
       return;
     }
 
-    console.log("Signing up with:", { name, email, password });
+    
     try {
       const response = await axios.post("http://localhost:5003/api/auth/register", {
         name,  // Added name
