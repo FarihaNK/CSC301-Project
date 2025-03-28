@@ -39,10 +39,11 @@ export default function AdminLogin() {
     <div className="login-container">
       <div className="login-content"> {/* New wrapper to stack logo & card */}
         <div className="title-and-logo">
-          <img src={logo} className="login-logo" alt="Login Logo" />
+          <img src={logo} className="login-logo" alt="MedAssist Logo" />
           <h2 className="login-name">MedAssist</h2>
-          </div>
-        <div className="login-card">
+        </div>
+        {/* <div className="login-card"> */}
+        <form className="login-card" onSubmit={handleLogin}>
           <h2 className="login-title">Admin Login</h2>
           <input
             type="email"
@@ -50,6 +51,7 @@ export default function AdminLogin() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="login-input"
+            required
           />
           <input
             type="password"
@@ -57,12 +59,13 @@ export default function AdminLogin() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="login-input"
+            required
           />
           <button className="forgetPassport_button">Forgot Password?</button>
           <button onClick={handleLogin} className="login-button">Login</button>
           <button className="patientLogin_button"> Are you a Patient? <br /> Click Here to Login </button>
-
-        </div>
+        </form>
+        {/* </div> */}
       </div>
     </div>
   );

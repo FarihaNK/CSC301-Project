@@ -1,20 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./ToDoList.css";
-import logo from "../assets/logo.png";
-import {
-  MDBBtn,
-  MDBCard,
-  MDBCardBody,
-  MDBCheckbox,
-  MDBContainer,
-  MDBIcon,
-  MDBListGroup,
-  MDBListGroupItem,
-  MDBRow,
-  MDBTooltip,
-} from "mdb-react-ui-kit";
-
 
 
 const ToDoList = () => {
@@ -150,11 +136,14 @@ const ToDoList = () => {
               <ul className="task-list">
                 {tasks.map((task, index) => (
                   <li key={task.id} className={task.completed ? "completed" : ""}>
+                    <div className="checkbox">
                     <input
+                    
                       type="checkbox"
                       checked={task.completed}
                       onChange={() => toggleTask(index)}
                     />
+                     </div>
                     <span className="task">{task.task}</span>
                     <button className="deleteButton" onClick={() => deleteTask(index)}>Delete</button>
                   </li>
