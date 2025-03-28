@@ -28,7 +28,6 @@ const PSidebar = () => {
           <li>Medical History</li>
           <li>MedAssistant</li>
           <li onClick={() => navigate("/profile")}>Personal Profile</li>
-          <li onClick={() => navigate("/familyhistory")}>Family History</li>
           <li onClick={() => navigate("/mypatients")}>My Dependants</li>
           <li onClick={handleLogout}>Logout</li>
         </ul>

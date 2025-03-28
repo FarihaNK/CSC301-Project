@@ -98,7 +98,10 @@ function Layout() {
 
 export const ProtectedRoute = ({ children, allowedRoles }) => {
   const token = localStorage.getItem("token");
-  if (!token) return <Navigate to="/" />;
+  if (!token) {
+    localStorage.removeItem("token");
+    return <Navigate to="/" />;
+  }
 
   const { role } = jwtDecode(token);
   return allowedRoles.includes(role) ? children : <Navigate to="/" />;

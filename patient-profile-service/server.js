@@ -5,7 +5,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const patientRoutes = require("./routes/patientRoutes.js");
-const familyRoutes = require("./routes/familyRoutes");
+const medicalHistoryRoutes = require("./routes/medicalHistoryRoutes.js");
 
 const app = express();
 
@@ -17,7 +17,7 @@ app.use(morgan("dev"));
 
 // Routes
 app.use("/api/patients", patientRoutes);
-app.use("/api/family-history", familyRoutes);
+app.use("/api/medicalhistory", medicalHistoryRoutes);
 
 // Connect to MongoDB
 mongoose
