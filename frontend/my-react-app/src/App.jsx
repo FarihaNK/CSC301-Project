@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import UserLogin from "./pages/UserLogin";
 import UserProfile from "./pages/UserProfile";
 import AboutPage from "./pages/AboutPage";
@@ -50,7 +51,7 @@ function Layout() {
   const adminSideBar = !(
     location.pathname === "/userdashboard" ||
     location.pathname === "/familyhistory" ||
-    location.pathname === "/profile" 
+    location.pathname === "/profile"
   );
 
   const showPSidebar = !showNavBar && !adminSideBar;
@@ -93,7 +94,23 @@ function Layout() {
   // );
 }
 
+
+export const ProtectedRoute = ({ children, allowedRoles }) => {
+  const token = localStorage.getItem("token");
+  if (!token) return <Navigate to="/" />;
+
+  const { role } = jwtDecode(token);
+  return allowedRoles.includes(role) ? children : <Navigate to="/" />;
+};
+
 function App() {
+
+  const token = localStorage.getItem("token");
+  if (token) {
+    const decoded = jwtDecode(token);
+    console.log("User Role:", decoded.role);
+  }
+
   return (
     <Router>
       <Layout />
@@ -104,25 +121,25 @@ function App() {
         <Route path="/contactpage" element={<ContactPage />} />
         <Route path="/userlogin" element={<UserLogin />} />
         <Route path="/getstarted" element={<UserJoin />} />
-        <Route path="/profile" element={<UserProfile />} />
-        <Route path="/familyhistory" element={<FamilyHistory />} />
+        <Route path="/profile" element={<ProtectedRoute allowedRoles={['patient']}> <UserProfile /> </ProtectedRoute>} />
+        <Route path="/familyhistory" element={<ProtectedRoute allowedRoles={['patient']}> <FamilyHistory /> </ProtectedRoute>} />
         <Route path="/adminlogin" element={<AdminLogin />} />
-        <Route path="/userdashboard" element={<UserDashboard />} />
-        <Route path="/admindashboard" element={<AdminDashboard />} /> {/* This is the main dashboard */}
+        <Route path="/userdashboard" element={<ProtectedRoute allowedRoles={['patient']}> <UserDashboard /> </ProtectedRoute>} />
+        <Route path="/admindashboard" element={<ProtectedRoute allowedRoles={['doctor']}> <AdminDashboard /> </ProtectedRoute>} />
         <Route path="/forms" element={<FormDashboard />} /> {/* This is the main dashboard */}
 
         {/* Individual Routes for each page */}
-        <Route path="/prescription" element={<Prescription />} />
-        <Route path="/bloodtest" element={<BloodTest />} />
-        <Route path="/mri" element={<MRITest />} />
-        <Route path="/ct" element={<CTScan />} />
-        <Route path="/medassist" element={<ChatboxInterface />} /> {}
-        <Route path="/docUpload" element={<Documents />} /> {}
-        <Route path="/forgetpassword" element={<PasswordReset />} /> {}
+        <Route path="/prescription" element={<ProtectedRoute allowedRoles={['doctor']}> <Prescription /> </ProtectedRoute>} />
+        <Route path="/bloodtest" element={<ProtectedRoute allowedRoles={['doctor']}> <BloodTest /> </ProtectedRoute>} />
+        <Route path="/mri" element={<ProtectedRoute allowedRoles={['doctor']}> <MRITest /> </ProtectedRoute>} />
+        <Route path="/ct" element={<ProtectedRoute allowedRoles={['doctor']}> <CTScan /> </ProtectedRoute>} />
+        <Route path="/medassist" element={<ChatboxInterface />} /> { }
+        <Route path="/docUpload" element={<Documents />} /> { }
+        <Route path="/forgetpassword" element={<PasswordReset />} /> { }
         <Route path="/reset-password/:token" element={<ResetPassword />} />
-        <Route path="/mypatients" element={<MyPatientProfiles />} />
-        <Route path="/patientlist" element={<ListOfPatients />} /> {}
-        <Route path="/todo" element={<ToDoList />} /> {}
+        <Route path="/mypatients" element={<ProtectedRoute allowedRoles={['patient']}> <MyPatientProfiles /> </ProtectedRoute>} />
+        <Route path="/patientlist" element={<ProtectedRoute allowedRoles={['doctor']}> <ListOfPatients /> </ProtectedRoute>} />
+        <Route path="/todo" element={<ProtectedRoute allowedRoles={['doctor']}> <ToDoList /> </ProtectedRoute>} />
       </Routes>
     </Router>
   );

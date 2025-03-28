@@ -25,9 +25,9 @@ const PSidebar = () => {
 
       <nav className="menu">
         <ul>
-          <li onClick={() => navigate("/mypatients")}>Patients</li>
+          <li onClick={() => navigate("/patientlist")}>Patients</li>
           <li>Appointments</li>
-          <li>Doc Upload</li>
+          <li onClick={() => navigate("/docUpload")}>Doc Upload</li>
           <li onClick={() => navigate("/todo")}>To-do List</li>
           <li onClick={() => navigate("/medassist")}>MedAssistant</li>
           <li onClick={handleLogout}>Logout</li>

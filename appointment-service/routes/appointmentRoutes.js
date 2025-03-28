@@ -1,6 +1,6 @@
 const express = require("express");
 const { createAppointment, getAppointments, updateAppointment } = require("../controllers/appointmentController");
-const authMiddleware = require("../middleware/authmiddleware");
+const { authMiddleware, requireRole } = require('../middleware/authmiddleware');
 
 const router = express.Router();
 
