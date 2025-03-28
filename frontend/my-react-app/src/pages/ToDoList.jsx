@@ -44,6 +44,7 @@ const ToDoList = () => {
   const addTask = async () => {
     if (newTask.trim()) {
       try {
+        console.log(newTask);
         const response = await axios.post(
           "http://localhost:5005/api/tasks",
           { task: newTask },
