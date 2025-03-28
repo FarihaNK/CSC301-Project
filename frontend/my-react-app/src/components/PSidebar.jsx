@@ -11,6 +11,11 @@ const PSidebar = () => {
     navigate("/userdashboard"); // Navigate to user dashboard
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <aside className="sidebar">
       {/* Make the logo clickable */}
@@ -24,7 +29,7 @@ const PSidebar = () => {
           <li>MedAssistant</li>
           <li onClick={() => navigate("/profile")}>Personal Profile</li>
           <li onClick={() => navigate("/familyhistory")}>Family History</li>
-          <li onClick={() => navigate("/")}>Logout</li>
+          <li onClick={handleLogout}>Logout</li>
           {/* <li onClick={() => navigate("/mypatients")}>My Patients</li> */}
         </ul>
       </nav>

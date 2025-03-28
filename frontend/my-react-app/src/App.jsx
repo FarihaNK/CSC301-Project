@@ -40,7 +40,6 @@ function Layout() {
     location.pathname === "/ct" ||
     location.pathname === "/medassist" ||
     location.pathname === "/docUpload" ||
-    location.pathname === "/forgetpassword" ||
     location.pathname === "/familyhistory" ||
     location.pathname === "/profile" ||
     location.pathname === "/mypatients" ||
@@ -50,7 +49,6 @@ function Layout() {
 
   const adminSideBar = !(
     location.pathname === "/userdashboard" ||
-    location.pathname === "/forgetpassword" ||
     location.pathname === "/familyhistory" ||
     location.pathname === "/profile" 
   );
