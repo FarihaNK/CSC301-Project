@@ -402,7 +402,7 @@ const AdminDashboard = () => {
 
   const handleDateClick = (date) => {
     setSelectedDate(date);
-    setEventDetails({ id: null, title: "", description: "", time: "" });
+    setEventDetails({ title: "", description: "", time: "" });
     setShowModal(true);
   };
 
@@ -412,82 +412,82 @@ const AdminDashboard = () => {
     setShowModal(true);
   };
   
-  const saveEvent = async () => {
-    if (!eventDetails.title.trim()) {
-      alert("Event title is required!");
-      return;
-    }
+  // const saveEvent = async () => {
+  //   if (!eventDetails.title.trim()) {
+  //     alert("Event title is required!");
+  //     return;
+  //   }
   
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("No authentication token found");
-      return;
-    }
-    console.log(eventDetails)
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     console.error("No authentication token found");
+  //     return;
+  //   }
+  //   console.log(eventDetails)
   
-    const dateKey = formatDate(selectedDate);
-    const newEvent = {
-      title: eventDetails.title,
-      description: eventDetails.description,
-      id: eventDetails.id || Date.now().toString(), // Generate ID if new event
-      date: dateKey,
-      appointmentTime: eventDetails.time,
-    };
+  //   const dateKey = formatDate(selectedDate);
+  //   const newEvent = {
+  //     title: eventDetails.title,
+  //     description: eventDetails.description,
+  //     id: eventDetails.id || Date.now().toString(), // Generate ID if new event
+  //     date: dateKey,
+  //     appointmentTime: eventDetails.time,
+  //   };
   
-    try {
-      if (eventDetails.id) {
-        // Log the full update details for debugging
-        console.log("Updating event with ID:", eventDetails.id);
-        console.log("Update payload:", newEvent);
-        console.log("update date:", eventDetails.appointmentTime)
+  //   try {
+  //     if (eventDetails.id) {
+  //       // Log the full update details for debugging
+  //       console.log("Updating event with ID:", eventDetails.id);
+  //       console.log("Update payload:", newEvent);
+  //       console.log("update date:", eventDetails.appointmentTime)
   
-        // Ensure the full URL is correct and the ID is passed correctly
-        const updateResponse = await axios.put(
-          `http://localhost:5004/api/appointments/${eventDetails.id}`, 
-          newEvent, 
-          {
-            headers: { 
-              Authorization: `Bearer ${token}`, 
-              "Content-Type": "application/json" 
-            },
-          }
-        );
+  //       // Ensure the full URL is correct and the ID is passed correctly
+  //       const updateResponse = await axios.put(
+  //         `http://localhost:5004/api/appointments/${eventDetails.id}`, 
+  //         newEvent, 
+  //         {
+  //           headers: { 
+  //             Authorization: `Bearer ${token}`, 
+  //             "Content-Type": "application/json" 
+  //           },
+  //         }
+  //       );
   
-        console.log("Update response:", updateResponse.data);
+  //       console.log("Update response:", updateResponse.data);
   
-        // Update state with new event data
-        setEvents((prevEvents) => {
-          const updatedEvents = (prevEvents[dateKey] || []).map((event) =>
-            event.id === eventDetails.id ? newEvent : event
-          );
-          return { ...prevEvents, [dateKey]: updatedEvents };
-        });
-      } else {
-        // Create a new event via API
-        await axios.post("http://localhost:5004/api/appointments", newEvent, {
-          headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-        });
+  //       // Update state with new event data
+  //       setEvents((prevEvents) => {
+  //         const updatedEvents = (prevEvents[dateKey] || []).map((event) =>
+  //           event.id === eventDetails.id ? newEvent : event
+  //         );
+  //         return { ...prevEvents, [dateKey]: updatedEvents };
+  //       });
+  //     } else {
+  //       // Create a new event via API
+  //       await axios.post("http://localhost:5004/api/appointments", newEvent, {
+  //         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+  //       });
   
-        // Add new event to state
-        setEvents((prevEvents) => ({
-          ...prevEvents,
-          [dateKey]: [...(prevEvents[dateKey] || []), newEvent],
-        }));
-      }
-    } catch (error) {
-      console.error("Error saving appointment:", error.response?.data || error.message);
-      // Log more detailed error information
-      if (error.response) {
-        console.error("Error details:", {
-          status: error.response.status,
-          data: error.response.data,
-          headers: error.response.headers
-        });
-      }
-    }
+  //       // Add new event to state
+  //       setEvents((prevEvents) => ({
+  //         ...prevEvents,
+  //         [dateKey]: [...(prevEvents[dateKey] || []), newEvent],
+  //       }));
+  //     }
+  //   } catch (error) {
+  //     console.error("Error saving appointment:", error.response?.data || error.message);
+  //     // Log more detailed error information
+  //     if (error.response) {
+  //       console.error("Error details:", {
+  //         status: error.response.status,
+  //         data: error.response.data,
+  //         headers: error.response.headers
+  //       });
+  //     }
+  //   }
   
-    setShowModal(false);
-  };
+  //   setShowModal(false);
+  // };
   
   // const saveEvent = async () => {
   //   if (!eventDetails.title.trim()) {
@@ -543,18 +543,150 @@ const AdminDashboard = () => {
   //   setShowModal(false);
   // };
   
-
-  const deleteEvent = (id) => {
-    const dateKey = formatDate(selectedDate);
-    setEvents((prevEvents) => {
-      const updatedEvents = prevEvents[dateKey].filter(
-        (event) => event.id !== id
-      );
-      return { ...prevEvents, [dateKey]: updatedEvents };
-    });
-    setShowModal(false);
-  };
+  const saveEvent = async () => {
+    if (!eventDetails.title.trim()) {
+      alert("Event title is required!");
+      return;
+    }
   
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No authentication token found");
+      return;
+    }
+  
+    const dateKey = formatDate(selectedDate);
+    const newEvent = {
+      title: eventDetails.title,
+      description: eventDetails.description || "",
+      date: dateKey,
+      appointmentTime: eventDetails.time,
+      // Include the ID if it exists
+      id: eventDetails.id
+    };
+  
+    try {
+      if (eventDetails.id) {
+        // Log the full update details for debugging
+        console.log("Updating event with full payload:", newEvent);
+  
+        const updateResponse = await axios.put(
+          `http://localhost:5004/api/appointments/${eventDetails.id}`, 
+          newEvent, 
+          {
+            headers: { 
+              Authorization: `Bearer ${token}`, 
+              "Content-Type": "application/json" 
+            },
+          }
+        );
+  
+        console.log("Update response:", updateResponse.data);
+  
+        // Update state with new event data
+        setEvents((prevEvents) => {
+          const updatedEvents = { ...prevEvents };
+          const dateEvents = updatedEvents[dateKey] || [];
+          
+          updatedEvents[dateKey] = dateEvents.map((event) =>
+            event.id === eventDetails.id ? { ...event, ...newEvent } : event
+          );
+          
+          return updatedEvents;
+        });
+      } else {
+        // Create new event
+        const createResponse = await axios.post(
+          "http://localhost:5004/api/appointments", 
+          newEvent, 
+          {
+            headers: { 
+              Authorization: `Bearer ${token}`, 
+              "Content-Type": "application/json" 
+            },
+          }
+        );
+  
+        // Add new event to state
+        setEvents((prevEvents) => ({
+          ...prevEvents,
+          [dateKey]: [...(prevEvents[dateKey] || []), createResponse.data],
+        }));
+      }
+  
+      setShowModal(false);
+    } catch (error) {
+      console.error("Error saving appointment:", error);
+      
+      // Detailed error logging
+      if (error.response) {
+        console.error("Error details:", {
+          status: error.response.status,
+          data: error.response.data,
+          headers: error.response.headers
+        });
+        
+        alert(`Update failed: ${error.response.data.message || 'Unknown error'}`);
+      } else if (error.request) {
+        console.error("No response received:", error.request);
+        alert("No response from server. Check your network connection.");
+      } else {
+        console.error("Error setting up request:", error.message);
+        alert("An unexpected error occurred.");
+      }
+    }
+  };
+
+  // const deleteEvent = (id) => {
+  //   const dateKey = formatDate(selectedDate);
+  //   setEvents((prevEvents) => {
+  //     const updatedEvents = prevEvents[dateKey].filter(
+  //       (event) => event.id !== id
+  //     );
+  //     return { ...prevEvents, [dateKey]: updatedEvents };
+  //   });
+  //   setShowModal(false);
+  // };
+  const deleteEvent = async (id) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No authentication token found");
+      return;
+    }
+  
+    try {
+      await axios.delete(`http://localhost:5004/api/appointments/${id}`, {
+        headers: { 
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+  
+      // Remove from local state
+      setEvents((prevEvents) => {
+        const updatedEvents = { ...prevEvents };
+        
+        // Find the date of the deleted event
+        const dateKey = Object.keys(updatedEvents).find(date => 
+          updatedEvents[date].some(event => event.id === id)
+        );
+  
+        if (dateKey) {
+          updatedEvents[dateKey] = updatedEvents[dateKey].filter(
+            (event) => event.id !== id
+          );
+        }
+  
+        return updatedEvents;
+      });
+  
+      // Close the modal
+      setShowModal(false);
+    } catch (error) {
+      console.error("Error deleting appointment:", error);
+      alert("Failed to delete the appointment. Please try again.");
+    }
+  };
     const tileContent = ({ date, view }) => {
        if (view === "month") {
          const dateKey = formatDate(date);

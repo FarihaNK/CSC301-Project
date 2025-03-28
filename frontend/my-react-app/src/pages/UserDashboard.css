@@ -241,7 +241,7 @@ body, html {
     align-content: center;
     align-items: center;
     /* max-width: 4%; */
-    
+    overflow: auto;
 }
 
 .calendar-header {
@@ -475,8 +475,83 @@ body, html {
   }
 
  /* Schedule Section */
- .schedule-section {
-    margin-top: 20px; /* Add some space between the calendar and schedule */
+ /* .schedule-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    max-height: 200px;
+    overflow-y: auto;
+} */
+
+.schedule-section {
+    flex-shrink: 0;
+    max-height: 250px;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    /* max-height: 250px; Explicitly set max-height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.schedule-section h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 10;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.schedule-list {
+    list-style: none;
+    padding: 0;
+}
+
+.schedule-item {
+    padding: 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.schedule-item:last-child {
+    border-bottom: none;
+}
+
+/* Customize scrollbar for webkit browsers (Chrome, Safari, newer versions of Edge) */
+.schedule-section::-webkit-scrollbar {
+    width: 8px;
+}
+
+.schedule-section::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.schedule-section::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.schedule-section::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Firefox scrollbar */
+.schedule-section {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+}
+ /* .schedule-section {
+    margin-top: 20px; 
     padding: 20px;
     background-color: white;
     border-radius: 12px;
@@ -508,7 +583,7 @@ body, html {
 .schedule-item strong {
     font-weight: bold;
     margin-right: 10px;
-}
+} */
 
 .event-container {
     margin-bottom: 10px;
@@ -535,3 +610,4 @@ body, html {
     /* text-decoration: wavy; */
   }
   
+
