@@ -2,11 +2,27 @@ const Task = require("../models/ToDoList");
 
 // Fetch Task
 exports.getTask = async (req, res) => {
+  // try {
+  //   const tasks = await Task.findAll();
+  //   res.json(tasks);
+  // } catch (error) {
+  //   console.error("Error Fetching Tasks:", error);
+  //   res.status(500).json({ message: "Server error", error: error.message });
+  // }
   try {
-    const tasks = await Task.findAll();
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ message: "Unauthorized: No user ID found" });
+    }
+    // const tasks = await Task.findAll();
+    const tasks = await Task.findAll({
+      where: {
+        userId: req.user.id // Only fetch tasks for the authenticated user
+      }
+    });
+
     res.json(tasks);
   } catch (error) {
-    console.error("Error Fetching Tasks:", error);
+    console.error("Error fetching tasks:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
