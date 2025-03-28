@@ -36,8 +36,7 @@ const ToDoList = () => {
       });
       setTasks(response.data);
     } catch (error) {
-      console.error("Error fetching tasks:", error);
-      setError("Failed to load tasks.");
+      
     }
   };
 

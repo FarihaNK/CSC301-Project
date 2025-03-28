@@ -144,41 +144,9 @@ const MRITestForm = () => {
 const MRITest = () => {
   return (
     <div className="dashboard">
-      {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="logo">
-          <img src={logo} alt="Logo" />
-        </div>
-        <nav className="menu">
-          <ul>
-            <li>Patients</li>
-            <li>Schedule</li>
-            <li>MedAssistant</li>
-            <li>Personal Profile</li> {/* New Button */}
-            <li>Settings</li> {/* Settings Button */}
-            <li>Logout</li>
-          </ul>
-        </nav>
-      </aside>
-
       {/* Main Content */}
       <main className="content">
-        {/* Top Bar */}
-        <header className="top-bar">
-          <input
-            type="text"
-            placeholder="Search for anything..."
-            className="search-bar"
-          />
-          <div className="navigation">
-            <button>Dashboard</button>
-            <button>Forms</button>
-            <button className="Doc">Document Upload</button>
-            <button>To-Do</button>
-          </div>
-        </header>
-
-        {/* Blood Test Form */}
+        {/* MRI Test Form */}
         <MRITestForm />
       </main>
     </div>

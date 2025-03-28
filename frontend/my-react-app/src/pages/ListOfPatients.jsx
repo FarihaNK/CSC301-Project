@@ -32,33 +32,8 @@ const ListOfPatients = () => {
 
   return (
     <div className="dashboard">
-      <aside className="sidebar">
-        <div className="logo">
-          <img src={logo} alt="Logo" />
-        </div>
-        <nav className="menu">
-          <ul>
-            <li>Medical History</li>
-            <li>MedAssistant</li>
-            <li>Appointments</li>
-            <li>Add Patient Profile</li>
-            <li>Settings</li>
-            <li>Logout</li>
-          </ul>
-        </nav>
-      </aside>
 
       <main className="content">
-        <header className="top-bar">
-          <input type="text" placeholder="Search for anything..." className="search-bar" />
-          <div className="navigation">
-            <button>Dashboard</button>
-            <button>Insights</button>
-            <button>Reports</button>
-            <button className="Medications">Medications</button>
-          </div>
-        </header>
-
         <section className="main-section">
           <h2>Patients</h2>
           <div className="table-container">
