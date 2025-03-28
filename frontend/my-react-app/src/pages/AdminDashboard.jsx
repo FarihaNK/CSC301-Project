@@ -738,41 +738,43 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          {/* Calendar Section */}
-          <div className="calendar-section">
-            <div className="calendar-header">
-              <h3>{formatDateTime(currentDate)}</h3>
+          <div className="dashboard-container">
+            {/* Calendar Section */}
+            <div className="calendar-section">
+              <div className="calendar-header">
+                <h3>{formatDateTime(currentDate)}</h3>
+                <Calendar
+                  value={selectedDate}
+                  onClickDay={handleDateClick}
+                  tileContent={tileContent}
+                  className="custom-calendar"
+                />
+              </div>
+                <div className="schedule-section">
+                  <h3>
+                    {formatDate(selectedDate) === formatDate(new Date()) 
+                      ? "Today's Schedule" 
+                      : `${formatScheduleTitleDate(selectedDate)} Schedule`}
+                  </h3>
+                  <ul className="schedule-list">
+                    {(events[formatDate(selectedDate)] || []).map((event) => (
+                      <li 
+                        key={event.id} 
+                        className="schedule-item" 
+                        onClick={() => handleEditEvent(event)}
+                      >
+                        <div className="event-container">
+                          <span className="event-title">{event.title}</span>
+                          <span className="event-description">{event.description}</span>
+                          <span className="event-time">({event.appointmentTime})</span> 
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>  
             </div>
-              <Calendar
-                value={selectedDate}
-                onClickDay={handleDateClick}
-                tileContent={tileContent}
-                className="custom-calendar"
-              />
-            <div className="schedule-section">
-              <h3>
-                {formatDate(selectedDate) === formatDate(new Date()) 
-                  ? "Today's Schedule" 
-                  : `${formatScheduleTitleDate(selectedDate)} Schedule`}
-              </h3>
-              <ul className="schedule-list">
-                {(events[formatDate(selectedDate)] || []).map((event) => (
-                  <li 
-                    key={event.id} 
-                    className="schedule-item" 
-                    onClick={() => handleEditEvent(event)}
-                  >
-                    <div className="event-container">
-                      <span className="event-title">{event.title}</span>
-                      <span className="event-description">{event.description}</span>
-                      <span className="event-time">({event.appointmentTime})</span> 
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
+          </section>
       </main>
 
       {/* Event Modal */}
