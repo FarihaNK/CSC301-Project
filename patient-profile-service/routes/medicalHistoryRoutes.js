@@ -8,7 +8,7 @@ const {
   deleteMedicalHistory,
 } = require("../contollers/medicalHistoryController");
 
-router.post("/", authMiddleware, requireRole('patient'), createOrUpdateMedicalHistory);
+router.post("/", authMiddleware, createOrUpdateMedicalHistory);
 router.get("/:patientId", authMiddleware, getMedicalHistory);
 router.delete("/:patientId", authMiddleware, requireRole('patient'), deleteMedicalHistory);
 

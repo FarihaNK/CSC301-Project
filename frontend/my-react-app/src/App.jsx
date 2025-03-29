@@ -12,7 +12,7 @@ import PSidebar from "./components/PSidebar";
 import ASidebar from "./components/ASidebar";
 import AdminLogin from "./pages/AdminLogin";
 import UserDashboard from "./pages/UserDashboard";
-import FamilyHistory from "./pages/FamilyHistory";
+import MyMedicalHistory from "./pages/MyMedicalHistory";
 import AdminDashboard from './pages/AdminDashboard'
 import FormDashboard from './pages/Forms'; // Your main page component
 import Prescription from './pages/Prescription'; // Prescription page
@@ -41,7 +41,7 @@ function Layout() {
     location.pathname === "/ct" ||
     location.pathname === "/medassist" ||
     location.pathname === "/docUpload" ||
-    location.pathname === "/familyhistory" ||
+    location.pathname === "/mymedicalhistory" ||
     location.pathname === "/profile" ||
     location.pathname === "/mypatients" ||
     location.pathname === "/patientlist" ||
@@ -50,7 +50,7 @@ function Layout() {
 
   const adminSideBar = !(
     location.pathname === "/userdashboard" ||
-    location.pathname === "/familyhistory" ||
+    location.pathname === "/mymedicalhistory" ||
     location.pathname === "/profile" ||
     location.pathname === "/mypatients"
   );
@@ -126,7 +126,7 @@ function App() {
         <Route path="/userlogin" element={<UserLogin />} />
         <Route path="/getstarted" element={<UserJoin />} />
         <Route path="/profile" element={<ProtectedRoute allowedRoles={['patient']}> <UserProfile /> </ProtectedRoute>} />
-        <Route path="/familyhistory" element={<ProtectedRoute allowedRoles={['patient']}> <FamilyHistory /> </ProtectedRoute>} />
+        <Route path="/mymedicalhistory" element={<ProtectedRoute allowedRoles={['patient']}> <MyMedicalHistory /> </ProtectedRoute>} />
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/userdashboard" element={<ProtectedRoute allowedRoles={['patient']}> <UserDashboard /> </ProtectedRoute>} />
         <Route path="/admindashboard" element={<ProtectedRoute allowedRoles={['doctor']}> <AdminDashboard /> </ProtectedRoute>} />
