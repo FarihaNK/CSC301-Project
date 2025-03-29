@@ -1,0 +1,6 @@
+# Ignore all __pycache__ folders
+__pycache__/
+
+
+ai-service/sampledata/
+ai-service/chroma/

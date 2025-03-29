@@ -1,0 +1,119 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  background: white;
+  overflow-x: hidden;
+  overflow: hidden;
+}
+
+.login-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #f0f2f5; /* Added a light background color */
+}
+
+.login-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  /* padding: 20px; */
+}
+
+.title-and-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  align-self: baseline;
+  /* margin: 0; */
+  margin-left: -50px;
+}
+
+.login-logo {
+  width: auto;
+  height: 160px;
+  margin-bottom: 10px;
+}
+
+.login-name {
+  font-family: 'Arial', sans-serif;
+  font-size: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #1a202c;
+  text-align: center;
+}
+
+.login-card {
+  /* background: white; */
+  background: transparent;
+  border-radius: 8px;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  /* padding: 25px; */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-title {
+  font-size: 30px;
+  text-decoration: none;
+  margin-bottom: 20px;
+  color: #1a202c;
+}
+
+.login-input {
+  width: 100%;
+  /* padding: 10px; */
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.forgetPassport_button, .adminLogin_button {
+  background: transparent;
+  border: none;
+  color: #1a202c;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.forgetPassport_button:hover, .adminLogin_button:hover {
+  text-decoration: underline;
+  color: #388da7;
+}
+
+.login-button {
+  width: 100%;
+  /* padding: 12px; */
+  background-color: #1a202c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #388da7;
+}
+
+.adminLogin_button:hover {
+  background-color: transparent;
+}
