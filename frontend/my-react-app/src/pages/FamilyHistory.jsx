@@ -8,9 +8,9 @@ const FamilyHistoryForm = () => {
     dob: "",
     gender: "",
     selectedPatientId: "",
-    familyMembers: [],
+    familyMembers: [{ relation: "", conditions: [], otherCondition: "" }],
   });
-  const [modalVisible, setModalVisible] = useState(false); // State to control modal visibility
+
   const [patients, setPatients] = useState([]);
 
   useEffect(() => {
@@ -31,50 +31,48 @@ const FamilyHistoryForm = () => {
     fetchPatients();
   }, []);
 
-
   const handleChange = (e, index) => {
     const { name, value, type, checked } = e.target;
 
-    if (type === "checkbox") {
-      setFormData((prev) => {
-        const updatedFamilyMembers = [...prev.familyMembers];
-        updatedFamilyMembers[index].conditions = checked
+    setFormData((prev) => {
+      const updatedFamilyMembers = [...prev.familyMembers];
+
+      if (type === "checkbox" && name === "conditions") {
+        const updatedConditions = checked
           ? [...updatedFamilyMembers[index].conditions, value]
           : updatedFamilyMembers[index].conditions.filter((c) => c !== value);
-        return { ...prev, familyMembers: updatedFamilyMembers };
-      });
-    } else {
-      setFormData((prev) => {
-        const updatedFamilyMembers = [...prev.familyMembers];
-        if (index !== undefined) {
-          updatedFamilyMembers[index][name] = value;
-          return { ...prev, familyMembers: updatedFamilyMembers };
-        } else {
-          return { ...prev, [name]: value };
-        }
-      });
-    }
-  };
 
-  const handleAddFamilyMember = () => {
-    setFormData((prev) => ({
-      ...prev,
-      familyMembers: [
-        ...prev.familyMembers,
-        { relation: "", conditions: [] },
-      ],
-    }));
+        updatedFamilyMembers[index].conditions = updatedConditions;
+      } else if (name === "otherCondition") {
+        updatedFamilyMembers[index].otherCondition = value;
+      } else if (index !== undefined) {
+        updatedFamilyMembers[index][name] = value;
+      } else {
+        return { ...prev, [name]: value };
+      }
+
+      return { ...prev, familyMembers: updatedFamilyMembers };
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
+
+      // Merge otherCondition into conditions array if it exists
+      const finalFamilyMembers = formData.familyMembers.map((member) => {
+        const mergedConditions = member.otherCondition
+          ? [...member.conditions, member.otherCondition]
+          : member.conditions;
+        return { ...member, conditions: mergedConditions };
+      });
+
       const res = await axios.post(
-        `http://localhost:5002/api/family-history`,
+        `http://localhost:5002/api/medicalhistory`,
         {
           patientId: formData.selectedPatientId,
-          familyMembers: formData.familyMembers,
+          familyMembers: finalFamilyMembers,
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -82,51 +80,16 @@ const FamilyHistoryForm = () => {
       // console.log("Submitted:", res.data);
       setModalVisible(true);
       setTimeout(() => setModalVisible(false), 3000);
+
     } catch (err) {
       console.error("Error submitting family history:", err);
     }
   };
 
-  const handleCloseModal = () => {
-    setModalVisible(false); // Close the modal when the user clicks "Close"
-  };
-
   return (
     <div className="form-container">
-      <h2>Family History Form</h2>
+      <h2>Personal Hisory</h2>
       <form onSubmit={handleSubmit}>
-        <h3>Patient Information</h3>
-        <label>Full Name</label>
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={(e) => handleChange(e)}
-          required
-        />
-
-        <label>Date of Birth</label>
-        <input
-          type="date"
-          name="dob"
-          value={formData.dob}
-          onChange={(e) => handleChange(e)}
-          required
-        />
-
-        <label>Gender</label>
-        <select
-          name="gender"
-          value={formData.gender}
-          onChange={(e) => handleChange(e)}
-          required
-        >
-          <option value="">Select</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-
         <label>Select Patient</label>
         <select
           name="selectedPatientId"
@@ -144,27 +107,10 @@ const FamilyHistoryForm = () => {
           ))}
         </select>
 
-        <h3>Family Members</h3>
+        <h3>Personal History</h3>
         {formData.familyMembers.map((member, index) => (
           <div key={index} className="family-member-section">
-            <h4 className="family-member-header">Family Member {index + 1}</h4>
             <div className="family-member-details">
-              <label>Relation</label>
-              <select
-                name="relation"
-                value={member.relation}
-                onChange={(e) => handleChange(e, index)}
-              >
-                <option value="">Select</option>
-                <option value="father">Father</option>
-                <option value="mother">Mother</option>
-                <option value="sibling">Sibling</option>
-                <option value="grandparent">Grandparent</option>
-                <option value="aunt_uncle">Aunt/Uncle</option>
-                <option value="child">Child</option>
-                <option value="other">Other</option>
-              </select>
-
               <h5>Health Conditions</h5>
               <div className="conditions-checkboxes">
                 {[
@@ -177,7 +123,7 @@ const FamilyHistoryForm = () => {
                   "High Blood Pressure",
                   "Obesity",
                   "Asthma",
-                  "Other"
+                  "Other",
                 ].map((condition) => (
                   <label key={condition}>
                     <input
@@ -190,27 +136,26 @@ const FamilyHistoryForm = () => {
                     {condition}
                   </label>
                 ))}
+
+                {/* Show textbox if "Other" is checked */}
+                {member.conditions.includes("Other") && (
+                  <div className="other-condition-input">
+                    <label>Please specify:</label>
+                    <input
+                      type="text"
+                      name="otherCondition"
+                      value={member.otherCondition || ""}
+                      onChange={(e) => handleChange(e, index)}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
         ))}
 
-        <button type="button" onClick={handleAddFamilyMember}>
-          Add Family Member
-        </button>
-
         <button type="submit">Save</button>
       </form>
-
-      {/* Modal for Success Message */}
-      {modalVisible && (
-        <div className="modal">
-          <div className="modal-content">
-            <h3>Saved successfully!</h3>
-            <button onClick={handleCloseModal}>Close</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

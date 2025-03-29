@@ -9,7 +9,8 @@ export default function AdminLogin() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     // console.log("Logging in with:", { email, password });
     // Add authentication logic here
     try {
@@ -62,7 +63,7 @@ export default function AdminLogin() {
             required
           />
           <button className="forgetPassport_button">Forgot Password?</button>
-          <button onClick={handleLogin} className="login-button">Login</button>
+          <button type="submit"  className="login-button">Login</button>
           <button className="patientLogin_button"> Are you a Patient? <br /> Click Here to Login </button>
         </form>
         {/* </div> */}
