@@ -4,11 +4,30 @@ const User = require("../models/User");
 // Create a new patient profile
 exports.createPatient = async (req, res) => {
   try {
-    const { fullName, phoneNumber, dob, healthCardNumber, address, doctorId } = req.body;
+    const { fullName, phoneNumber, dob, healthCardNumber, address, doctorId, isDependant } = req.body;
 
     // Ensure required fields are provided
     if (!fullName || !phoneNumber || !dob || !healthCardNumber || !address) {
       return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    // Convert string to boolean if needed
+    const dependantStatus = typeof isDependant === "string" 
+      ? isDependant === "true" 
+      : !!isDependant;
+
+    // Check if user already has a non-dependant patient
+    if (!dependantStatus) {
+      const existingNonDep = await Patient.findOne({
+        userId: req.user.id,
+        isDependant: false,
+      });
+
+      if (existingNonDep) {
+        return res.status(400).json({
+          message: "You already have a primary (non-dependant) patient profile.",
+        });
+      }
     }
 
     const newPatient = new Patient({
@@ -19,6 +38,7 @@ exports.createPatient = async (req, res) => {
       healthCardNumber,
       address,
       doctorId: doctorId || null,
+      isDependant: dependantStatus,
     });
 
     await newPatient.save();
@@ -71,14 +91,14 @@ exports.updatePatient = async (req, res) => {
     }
 
     // Allow updating only certain fields
-    const { fullName, phoneNumber, dob, healthCardNumber, emergencyContact, isDependent } = req.body;
+    const { fullName, phoneNumber, dob, healthCardNumber, emergencyContact, isDependant } = req.body;
 
     if (fullName) patient.fullName = fullName;
     if (phoneNumber) patient.phoneNumber = phoneNumber;
     if (dob) patient.dob = dob;
     if (healthCardNumber) patient.healthCardNumber = healthCardNumber;
     if (emergencyContact) patient.emergencyContact = emergencyContact;
-    if (isDependent !== undefined) patient.isDependent = isDependent;
+    if (isDependant !== undefined) patient.isDependant = isDependant;
 
     await patient.save();
     res.json({ message: "Patient profile updated", patient });

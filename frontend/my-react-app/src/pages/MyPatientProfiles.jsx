@@ -105,8 +105,8 @@ const MyPatientProfiles = () => {
 
         <section className="main-section">
           <h2>My Dependants</h2>
-          {profiles.length === 0 ? (
-            <p>No patient profiles created yet.</p>
+          {profiles.filter((p) => p.isDependant === true).length === 0 ? (
+            <p>No dependant profiles found.</p>
           ) : (
             <div className="table-container">
               <table className="patient-table">
@@ -120,7 +120,7 @@ const MyPatientProfiles = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {profiles.map((p) => (
+                  {profiles.filter((p) => p.isDependant === true).map((p) => (
                     <tr key={p._id}>
                       <td>
                         <div className="patient-info">
@@ -132,7 +132,9 @@ const MyPatientProfiles = () => {
                       <td>{calculateAge(p.dob)}</td>
                       <td>{p.healthCardNumber}</td>
                       <td>
-                        <button className="access-btn" onClick={() => handleViewMedicalHistory(p)}>Access Medical History</button>
+                        <button className="access-btn" onClick={() => handleViewMedicalHistory(p)}>
+                          Access Medical History
+                        </button>
                       </td>
                     </tr>
                   ))}

@@ -13,6 +13,7 @@ const UserProfile = () => {
     birthday: "",
     profilePicture: null,
     doctorId: "",
+    isDependant: ""
   });
   const [doctors, setDoctors] = useState([]);
 
@@ -34,7 +35,8 @@ const UserProfile = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const parsedValue = name === "isDependant" ? value === "true" : value;
+    setFormData({ ...formData, [name]: parsedValue });
   };
 
   const handleFileChange = (e) => {
@@ -54,6 +56,7 @@ const UserProfile = () => {
       formDataToSend.append("healthCardNumber", formData.healthcard);
       formDataToSend.append("dob", formData.birthday);
       formDataToSend.append("doctorId", formData.doctorId);
+      formDataToSend.append("isDependant", formData.isDependant);
 
       if (formData.profilePicture) {
         formDataToSend.append("profilePicture", formData.profilePicture);
@@ -72,7 +75,8 @@ const UserProfile = () => {
         address: formData.address,
         healthCardNumber: formData.healthcard,
         dob: formData.birthday,
-        doctorId: formData.doctorId
+        doctorId: formData.doctorId,
+        isDependant: formData.isDependant
       };
 
       // Send API request
@@ -94,6 +98,7 @@ const UserProfile = () => {
         healthcard: "",
         birthday: "",
         profilePicture: null,
+        isDependant: "",
       });
 
     } catch (error) {
@@ -208,6 +213,15 @@ const UserProfile = () => {
                   {doctors.map((doc) => (
                     <option key={doc._id} value={doc._id}>{doc.name}</option>
                   ))}
+                </select>
+              </label>
+              <label>
+                Dependancy Status
+                <select name="isDependant" value={formData.isDependant === true ? "true" : formData.isDependant === false ? "false" : ""}
+                  onChange={handleChange} required>
+                  <option value="">-- Select Option --</option>
+                  <option value="true">You are a dependant</option>
+                  <option value="false">You are not a dependant.</option>
                 </select>
               </label>
               <button type="submit">Create Profile</button>
