@@ -270,6 +270,7 @@ import logo from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 
 const UserDashboard = () => {
+  const [user, setUser] = useState(null);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [events, setEvents] = useState({});
@@ -380,6 +381,7 @@ const UserDashboard = () => {
     getRandomFunFact(); // Set a random fun fact when the component mounts
     getRandomHealthTip(); // Set a random health tip when the component mounts
     getRandomPatientTip(); // Set a random patient tip when the component mounts
+    fetchUserInfo();
   }, []);
 
   // Fetch existing appointments from the API
@@ -678,6 +680,22 @@ const saveEvent = async () => {
      }
      return null;
  };
+ const fetchUserInfo = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    const res = await axios.get("http://localhost:5003/api/auth/me", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    setUser(res.data);
+  } catch (error) {
+    console.error("Failed to fetch user info:", error.response?.data || error.message);
+  }
+};
 
   return (
     <div className="dashboard">
@@ -686,7 +704,7 @@ const saveEvent = async () => {
         <section className="main-section" id="top-part">
           <div className="left-panel">
             <div className="welcomeMessage">
-              <h2>Welcome, [FULL NAME]!</h2>
+              <h2>Welcome, {user?.name || "User"}!</h2>
               <p>Your dashboard is all set for the day. Stay informed, track your progress, and connect with your healthcare team all in one place. We’re here to make managing your health easier.</p>
             </div>
             <div className="widget">

@@ -261,6 +261,7 @@ import logo from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
+  const [user, setUser] = useState(null);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [events, setEvents] = useState({});
@@ -372,6 +373,7 @@ const AdminDashboard = () => {
     getRandomFunFact(); // Set a random fun fact when the component mounts
     getRandomHealthTip(); // Set a random health tip when the component mounts
     getRandomDoctorTip(); // Set a random doctor tip when the component mounts
+    fetchUserInfo();
   }, []);
 
   // Fetch existing appointments from the API
@@ -697,6 +699,22 @@ const AdminDashboard = () => {
         }
         return null;
     };
+    const fetchUserInfo = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+    
+        const res = await axios.get("http://localhost:5003/api/auth/me", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+    
+        setUser(res.data);
+      } catch (error) {
+        console.error("Failed to fetch user info:", error.response?.data || error.message);
+      }
+    };
 
   return (
     <div className="dashboard">
@@ -721,7 +739,7 @@ const AdminDashboard = () => {
         <section className="main-section" id="top-part">
           <div className="left-panel">
             <div className="welcomeMessage">
-              <h2>Welcome, Dr. [Last Name]!</h2>
+              <h2>Welcome, Dr. {user?.name || "User"}!</h2>
               <p>Your dashboard is all set for the day. With patient updates, appointments, and key information just a click away, everything’s in place for another productive day of care. Let’s take it one step at a time.</p>
             </div>
             <div className="widget">
