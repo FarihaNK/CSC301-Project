@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import flaskApi from "../api"; // Your Axios instance that attaches JWT automatically
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
-import "./patient_document_view.css"; // Matching CSS file
+//import "./patient_document_view.css"; // Matching CSS file
 import "./patient-documents.css";
 
 
