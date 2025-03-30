@@ -230,12 +230,16 @@ body, html {
     justify-content: center;
     align-items: center;
   }
+
   .modal-content {
     background-color: #fff;
-    width: 400px;
+    width: 60%;
     padding: 20px;
     border-radius: 4px;
     box-sizing: border-box;
+    margin-left: 100px;
+    margin-top: 0;
+
   }
   .modal-content h2 {
     margin-top: 0;

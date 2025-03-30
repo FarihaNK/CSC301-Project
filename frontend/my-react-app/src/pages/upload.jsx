@@ -256,7 +256,7 @@ const Documents = () => {
             style={{
               maxWidth: "90vw",
               maxHeight: "90vh",
-              width: "90vw",
+              width: "70%",
               height: "90vh",
               backgroundColor: "#fff",
               display: "flex",
@@ -323,12 +323,12 @@ const Documents = () => {
                   <iframe
                     src={previewUrl}
                     title="File Preview"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      backgroundColor: "#fff",
-                      border: "none",
-                    }}
+                    // style={{
+                    //   width: "100%",
+                    //   height: "100%",
+                    //   backgroundColor: "#fff",
+                    //   border: "none",
+                    // }}
                   />
                 </div>
               )}
