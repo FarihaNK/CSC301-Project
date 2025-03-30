@@ -39,7 +39,7 @@ export default function PasswordReset() {
   };
 
   const handleCancelReset = () => {
-    navigate("/login"); // or your preferred cancel action
+    navigate("/landingpage"); // or your preferred cancel action
   };
 
   return (
@@ -70,7 +70,7 @@ export default function PasswordReset() {
           {message && <p className="success-text">{message}</p>}
 
           <button onClick={handlePasswordReset} className="reset-button">{isSubmitting ? "Sending..." : "Send Reset Link"}</button>
-          <button onClick={handleCancelReset} className="cancel-button">Cancel</button>
+          <button onClick={() => navigate("/")} className="cancel-button">Cancel</button>
         </div>
       </div>
     </div>

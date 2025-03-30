@@ -1,0 +1,102 @@
+import React, { useState, useEffect, useRef } from "react";
+import flaskApi from "../api"; // Import the Axios helper we created
+import "./ChatbotInterface2.css";
+import logo from "../assets/logo.png";
+import { Link } from 'react-router-dom';
+
+const ChatbotInterface2 = () => {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const chatContainerRef = useRef(null);
+
+  // Send the user's query to the Flask /query endpoint
+  const handleSendMessage = async () => {
+    if (input.trim() === "" || isLoading) return;
+
+    // Append user's question to messages
+    setMessages(prev => [...prev, { type: "question", text: input }]);
+    const currentInput = input; // capture current input before clearing
+    setInput(""); // Clear the input immediately
+
+    try {
+      setIsLoading(true);
+      
+      // POST the query using flaskApi which automatically attaches the JWT token
+      const response = await flaskApi.post("/query", {
+        question: currentInput
+      });
+      
+      // Extract the answer from the response
+      const answer = response.data.answer;
+      setMessages(prev => [...prev, { type: "answer", text: answer }]);
+    } catch (error) {
+      console.error("Error querying RAG:", error);
+      setMessages(prev => [
+        ...prev,
+        {
+          type: "answer",
+          text: "Error retrieving answer. Please try again later."
+        }
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Auto-scroll to the bottom when messages update
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  return (
+    <div className="dashboard">
+      {/* Sidebar */}
+    
+
+      {/* Main Content */}
+      <main className="content">
+        {/* Top Bar */}
+        
+
+        {/* Chat Interface */}
+        <section className="chat-section">
+          <div className="chat-container" ref={chatContainerRef}>
+            {messages.map((msg, index) => (
+              <div
+                key={index}
+                className={msg.type === "question" ? "question" : "answer"}
+              >
+                {msg.text}
+              </div>
+            ))}
+            {isLoading && (
+              <div className="answer" style={{ fontStyle: "italic" }}>
+                Loading...
+              </div>
+            )}
+          </div>
+
+          <div className="chat-input-container">
+            <input
+              type="text"
+              placeholder="Ask your Medical Assistant..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+              disabled={isLoading}
+            />
+            <button onClick={handleSendMessage} disabled={isLoading}>
+              {isLoading ? "Sending..." : "Send"}
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+};
+
+export default ChatbotInterface2;
+

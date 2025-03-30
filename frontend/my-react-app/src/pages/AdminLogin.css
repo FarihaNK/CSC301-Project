@@ -38,7 +38,7 @@ html, body, #root {
   margin-bottom: 20px;
   align-self: baseline;
   /* margin: 0; */
-  margin-left: -50px;
+  margin-left: -55px;
 }
 
 .login-logo {
@@ -96,6 +96,7 @@ html, body, #root {
 .forgetPassport_button:hover, .patientLogin_button:hover {
   text-decoration: underline;
   color: #388da7;
+  background-color: transparent;
 }
 
 .login-button {

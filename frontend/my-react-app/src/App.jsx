@@ -26,6 +26,8 @@ import ResetPassword from "./pages/ResetPassword";
 import MyPatientProfiles from "./pages/MyPatientProfiles";
 import ListOfPatients from './pages/ListOfPatients';
 import ToDoList from './pages/ToDoList'
+import ChatboxInterface2 from './pages/ChatbotInterface2';
+import PatientDocumentView from './pages/patient-documents.jsx';
 
 function Layout() {
   const location = useLocation();
@@ -45,14 +47,18 @@ function Layout() {
     location.pathname === "/profile" ||
     location.pathname === "/mypatients" ||
     location.pathname === "/patientlist" ||
-    location.pathname === "/todo"
+    location.pathname === "/todo" ||
+    location.pathname === "/pmedassist" ||
+    location.pathname === "/uploadeddocuments"
   );
 
   const adminSideBar = !(
     location.pathname === "/userdashboard" ||
     location.pathname === "/mymedicalhistory" ||
     location.pathname === "/profile" ||
-    location.pathname === "/mypatients"
+    location.pathname === "/mypatients" ||
+    location.pathname === "/pmedassist" ||
+    location.pathname === "/uploadeddocuments"
   );
 
   const showPSidebar = !showNavBar && !adminSideBar;
@@ -129,6 +135,11 @@ function App() {
         <Route path="/mymedicalhistory" element={<ProtectedRoute allowedRoles={['patient']}> <MyMedicalHistory /> </ProtectedRoute>} />
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/userdashboard" element={<ProtectedRoute allowedRoles={['patient']}> <UserDashboard /> </ProtectedRoute>} />
+
+
+        <Route path="/uploadeddocuments" element={<ProtectedRoute allowedRoles={['patient']}> <PatientDocumentView /> </ProtectedRoute>} />
+
+
         <Route path="/admindashboard" element={<ProtectedRoute allowedRoles={['doctor']}> <AdminDashboard /> </ProtectedRoute>} />
         <Route path="/forms" element={<FormDashboard />} /> {/* This is the main dashboard */}
 
@@ -137,7 +148,9 @@ function App() {
         <Route path="/bloodtest" element={ <BloodTest />} />
         <Route path="/mri" element={ <MRITest />} />
         <Route path="/ct" element={ <CTScan />} />
-        <Route path="/medassist" element={<ChatboxInterface />} /> { }
+       
+        <Route path="/medassist" element={<ProtectedRoute allowedRoles={['doctor']}> <ChatboxInterface  /> </ProtectedRoute>} />
+        <Route path="/pmedassist" element={<ProtectedRoute allowedRoles={['patient']}> <ChatboxInterface2  /> </ProtectedRoute>} />
         <Route path="/docUpload" element={<Documents />} /> { }
         <Route path="/forgetpassword" element={<PasswordReset />} /> { }
         <Route path="/reset-password/:token" element={<ResetPassword />} />
