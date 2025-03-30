@@ -15,10 +15,13 @@ app.use(morgan("dev"));
 
 app.use("/api/appointments", appointmentRoutes);
 
-// Start server after database connection
-sequelize.sync({ force: true })
-  .then(() => {
-    console.log("Database has been reset and synced!");
-    app.listen(5004, () => console.log("Appointment Service running on port 5004"));
-  })
-  .catch(err => console.error("Database sync error:", err));
+// Start server only if not testing
+if (process.env.NODE_ENV !== "test") {
+  sequelize.sync().then(() => {
+    app.listen(5004, () =>
+      console.log("Appointment Service running on port 5004")
+    );
+  });
+}
+
+module.exports = app;
