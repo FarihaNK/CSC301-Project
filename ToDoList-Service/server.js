@@ -15,10 +15,13 @@ app.use(morgan("dev"));
 
 app.use("/api/tasks", taskRoutes);
 
-// Start server after database connection
-sequelize.sync({ force: true })
-  .then(() => {
-    console.log("Database has been reset and synced!");
-    app.listen(5005, () => console.log("To-Do List Service running on port 5005"));
-  })
-  .catch(err => console.error("Database sync error:", err));
+  // Start server only if not testing
+if (process.env.NODE_ENV !== "test") {
+  sequelize.sync().then(() => {
+    app.listen(5005, () =>
+      console.log("To-Do List Service running on port 5005")
+    );
+  });
+}
+
+module.exports = app;
