@@ -109,6 +109,7 @@
     flex-direction: column;
     gap: 20px;
     width: 100%;
+    overflow: auto;
   }
   
   .widget:hover {

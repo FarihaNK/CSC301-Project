@@ -384,10 +384,10 @@ const AdminDashboard = () => {
             </div>
           </section>
       </main>
-
       {/* Event Modal */}
-        {showModal && (
-        <div className="modal">
+      {showModal && (
+        <>
+          <div className="modal-backdrop" onClick={() => setShowModal(false)}></div>
           <div className="modal-content">
             <h3>{eventDetails.id ? "Edit Event" : "Add Event"}</h3>
             <input
@@ -429,7 +429,7 @@ const AdminDashboard = () => {
             )}
             <button onClick={() => setShowModal(false)}>Cancel</button>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
