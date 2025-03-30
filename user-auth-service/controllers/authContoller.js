@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-const User = require('../models/User');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-=======
 // const User = require('../models/User');
 // const bcrypt = require('bcryptjs');
 // const jwt = require('jsonwebtoken');
@@ -77,7 +72,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const path = require('path');
 const fs = require('fs');
->>>>>>> attempted-AI-integration
 
 exports.register = async (req, res) => {
   try {
@@ -90,8 +84,6 @@ exports.register = async (req, res) => {
     const user = new User({ name, email, password: hashedPassword, role });
     await user.save();
 
-<<<<<<< HEAD
-=======
     // Create a folder for patient sample data if the user is a patient
     if (role === 'patient') {
       // Resolve the absolute path to the "ai-service/sampledata" folder,
@@ -111,7 +103,6 @@ exports.register = async (req, res) => {
       }
     }
 
->>>>>>> attempted-AI-integration
     res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
     res.status(500).json({ message: 'Server error', error: err.message });
@@ -129,19 +120,11 @@ exports.login = async (req, res) => {
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
     const token = jwt.sign(
-<<<<<<< HEAD
-      { id: user._id, role: user.role }, 
-      process.env.JWT_SECRET, 
-      { expiresIn: process.env.JWT_EXPIRATION }
-    );
-    
-=======
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRATION }
     );
 
->>>>>>> attempted-AI-integration
     res.json({ token, user });
   } catch (err) {
     res.status(500).json({ message: 'Server error', error: err.message });
@@ -164,8 +147,4 @@ exports.getDoctors = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err.message });
   }
-<<<<<<< HEAD
-}
-=======
 };
->>>>>>> attempted-AI-integration
