@@ -19,12 +19,18 @@ app.use(morgan("dev"));
 app.use("/api/patients", patientRoutes);
 app.use("/api/medicalhistory", medicalHistoryRoutes);
 
-// Connect to MongoDB
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("Patient Profile Service connected to MongoDB"))
-  .catch((err) => console.error("MongoDB Connection Error:", err));
+// Only connect to MongoDB if not in test environment
+if (process.env.NODE_ENV !== 'test') {
+  mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => {
+      console.log('Patient Profile Service connected to MongoDB');
+      const PORT = process.env.PORT || 5002;
+      app.listen(PORT, () => {
+        console.log(`Patient Profile Service running on port ${PORT}`);
+      });
+    })
+    .catch((err) => console.error('MongoDB Connection Error:', err));
+}
 
-// Start Server
-const PORT = process.env.PORT || 5002;
-app.listen(PORT, () => console.log(`Patient Profile Service running on port ${PORT}`));
+module.exports = app;
