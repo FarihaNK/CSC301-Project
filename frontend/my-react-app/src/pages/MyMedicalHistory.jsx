@@ -80,7 +80,14 @@ const MyMedicalHistory = () => {
   };
 
   if (loading) return <p>Loading...</p>;
-  if (!patient) return <p>No primary (non-dependant) patient found. Please create your profile by using the add profile button.</p>;
+  if (!patient) {
+    return (
+      <div className="no-primary-patient-message">
+        No primary (non-dependant) patient found. Please create your profile by using the add profile button.
+      </div>
+    );
+  }
+  
 
   return (
     <div className="medical-history-page">
@@ -156,3 +163,4 @@ const MyMedicalHistory = () => {
 };
 
 export default MyMedicalHistory;
+
