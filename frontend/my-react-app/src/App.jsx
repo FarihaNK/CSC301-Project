@@ -26,6 +26,7 @@ import ResetPassword from "./pages/ResetPassword";
 import MyPatientProfiles from "./pages/MyPatientProfiles";
 import ListOfPatients from './pages/ListOfPatients';
 import ToDoList from './pages/ToDoList'
+import ToDoListPatient from './pages/ToDoListPatient'
 import ChatboxInterface2 from './pages/ChatbotInterface2';
 import PatientDocumentView from './pages/patient-documents.jsx';
 
@@ -48,6 +49,7 @@ function Layout() {
     location.pathname === "/mypatients" ||
     location.pathname === "/patientlist" ||
     location.pathname === "/todo" ||
+    location.pathname === "/todop" ||
     location.pathname === "/pmedassist" ||
     location.pathname === "/uploadeddocuments"
   );
@@ -58,7 +60,8 @@ function Layout() {
     location.pathname === "/profile" ||
     location.pathname === "/mypatients" ||
     location.pathname === "/pmedassist" ||
-    location.pathname === "/uploadeddocuments"
+    location.pathname === "/uploadeddocuments" ||
+    location.pathname === "/todop"
   );
 
   const showPSidebar = !showNavBar && !adminSideBar;
@@ -156,7 +159,8 @@ function App() {
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/mypatients" element={<ProtectedRoute allowedRoles={['patient']}> <MyPatientProfiles /> </ProtectedRoute>} />
         <Route path="/patientlist" element={<ProtectedRoute allowedRoles={['doctor']}> <ListOfPatients /> </ProtectedRoute>} />
-        <Route path="/todo" element={ <ToDoList /> } />
+        <Route path="/todo" element={<ProtectedRoute allowedRoles={['doctor']}> <ToDoList /> </ProtectedRoute>} />
+        <Route path="/todop" element={<ProtectedRoute allowedRoles={['patient']}> <ToDoListPatient /> </ProtectedRoute>} />
       </Routes>
     </Router>
   );
