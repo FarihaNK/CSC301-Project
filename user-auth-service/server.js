@@ -17,14 +17,18 @@ app.use(morgan('dev'));
 // Routes
 app.use('/api/auth', authRoutes);
 
-// Connect to MongoDB
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error('MongoDB Connection Error:', err));
+// Only connect to MongoDB if not in test environment
+if (process.env.NODE_ENV !== 'test') {
+  mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => {
+      console.log('Connected to MongoDB');
+      const PORT = process.env.PORT || 5003;
+      app.listen(PORT, () => {
+        console.log(`Auth Service running on port ${PORT}`);
+      });
+    })
+    .catch((err) => console.error('MongoDB Connection Error:', err));
+}
 
-// Start server
-const PORT = process.env.PORT || 5003;
-app.listen(PORT, () => {
-  console.log(`Auth Service running on port ${PORT}`);
-});
+module.exports = app;
