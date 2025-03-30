@@ -50,6 +50,8 @@
     color:  #1a202c;
     text-align: center;
     justify-content: center;
+    text-decoration: none; /* Remove underline if any */
+    text-align: center; /* Ensure it's centered */
   }
   
   /* Footer */
@@ -61,4 +63,14 @@
     width: 100%;
     position: relative;
     bottom: 0;
+  }
+
+  .admin h2 {
+    text-decoration: none; /* Remove underline if any */
+    text-align: center; /* Ensure it's centered */
+  }
+  
+  .visitor h2 {
+    text-decoration: none; /* Remove underline if any */
+    text-align: center; /* Ensure it's centered */
   }
