@@ -62,7 +62,7 @@ export default function UserLogin() {
           <button onClick={handleLogin} className="login-button">
             Login
           </button>
-          <button className="adminLogin_button"> Are you an Admin? <br /> Click Here to Login </button>
+          <button className="adminLogin_button" onClick={() => navigate("/adminlogin")}> Are you an Admin? <br /> Click Here to Login </button>
         </div>
       </div>
     </div>

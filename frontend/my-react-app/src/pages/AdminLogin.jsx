@@ -62,9 +62,14 @@ export default function AdminLogin() {
             className="login-input"
             required
           />
-          <button className="forgetPassport_button">Forgot Password?</button>
-          <button type="submit"  className="login-button">Login</button>
-          <button className="patientLogin_button"> Are you a Patient? <br /> Click Here to Login </button>
+           <button className="forgetPassport_button" onClick={() => navigate("/forgetpassword")}>Forgot Password?</button>
+          <button onClick={handleLogin} className="login-button">
+            Login
+          </button>
+          <button className="patientLogin_button" onClick={() => navigate("/userlogin")}> Are you an Patient? <br /> Click Here to Login </button>
+          {/* <button className="forgetPassport_button">Forgot Password?</button> */}
+          {/* <button type="submit"  className="login-button">Login</button>
+          <button className="patientLogin_button"> Are you a Patient? <br /> Click Here to Login </button> */}
         </form>
         {/* </div> */}
       </div>
