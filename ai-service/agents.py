@@ -10,7 +10,7 @@ from populate_database import add_to_chroma
 from populate_database import get_database
 
 
-SLACK_TOKEN = "SLACK TOKEN"  # Slack Bot Token
+SLACK_TOKEN = "blank"  # Slack Bot Token
 SLACK_CHANNEL = "C08JR09HVD1"       # Slack channel ID
 CHROMA_PATH = "./chroma_db"
 

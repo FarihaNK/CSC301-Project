@@ -19,8 +19,4 @@ if __name__ == "__main__":
     if encoding:
         print(f"Detected encoding: {encoding}")
     else:
-<<<<<<< HEAD
         print("Failed to detect encoding due to permission error.")
-=======
-        print("Failed to detect encoding due to permission error.")
->>>>>>> attempted-AI-integration

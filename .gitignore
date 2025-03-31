@@ -6,6 +6,7 @@
 # Ignore virtual environments
 
 ai-service/venv/
+ai-service/agents.py 
 
 # Ignore other local folders
 ai-service/sampledata/
