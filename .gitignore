@@ -1,0 +1,13 @@
+# Ignore all __pycache__ folders
+
+# Ignore all __pycache__ folders recursively
+**/__pycache__/
+
+# Ignore virtual environments
+
+ai-service/venv/
+
+# Ignore other local folders
+ai-service/sampledata/
+ai-service/chroma/
+venv/

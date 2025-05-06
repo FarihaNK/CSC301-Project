@@ -1,0 +1,288 @@
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+  }
+
+/* General Styles */
+body, html {
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}
+
+/* Dashboard Layout */
+.dashboard {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+/* Sidebar Styling */
+.sidebar {
+    background-color: #1a202c;
+    color: white;
+    width: 150px; /* Reduced width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 5px; /* Adjusted padding */
+    border-color: #388da7;
+    border-radius: 5px;
+}
+
+.logo img {
+    width: 120px; /* Adjusted logo size */
+    margin-bottom: 30px; /* Increased margin for better spacing */
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.menu li {
+    margin: 25px 0; /* Increased margin between buttons */
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #2d3748;
+    transition: all 0.3s ease;
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: #388da7;
+}
+
+.menu li:hover {
+    background-color: #388da7
+}
+
+.menu li:last-child:hover {
+    background-color: #e53e3e;
+    color: white;
+}
+
+/* Main Content Section */
+.content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100vh;
+    width: calc(100% - 150px); /* Adjusted for new sidebar width */
+    overflow: hidden;
+}
+
+/* Top Bar Styling */
+.top-bar {
+    display: flex;
+    flex-direction: column; /* Stack search bar and navigation buttons */
+    align-items: flex-start; /* Align everything to the left */
+    padding: 10px 20px;
+    background-color: #f5f5f5;
+    border-bottom: 2px solid #e5e7eb;
+    gap: 10px;
+}
+
+.search-bar {
+    width: 100%;
+    max-width: 400px; /* Adjusted size */
+    padding: 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f0f0f0;
+    color: #333;
+    border-color: #388da7;
+}
+
+.navigation {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 10px;
+}
+
+.navigation button {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    background-color: #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Prevent button text from wrapping */
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: #388da7;
+}
+
+.navigation button:hover {
+    background-color: #388da7;
+    color: white;
+}
+
+  /* === MAIN CONTENT === */
+  .main-content {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin-left: 150px;
+  }
+  
+  /* Top bar */
+  .top-bar {
+    background-color: #e9ecef; 
+    padding: 16px 20px;
+    border-bottom: 1px solid #ccc;
+  }
+  .top-bar h2 {
+    margin: 0;
+    color: #333;
+  }
+  
+  /* === CONTENT AREA === */
+  .content-area {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Header row: "Medical Documents" + "Upload Document" button */
+  .documents-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .documents-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+  }
+  .upload-button {
+    background-color: #1a202c;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95rem;
+  }
+  .upload-button:hover {
+    background-color: #2e3744;
+  }
+  
+  /* === TABLE === */
+  .table-container {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  thead {
+    background-color: #f1f3f5; 
+  }
+  th, td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #dee2e6;
+    text-align: left;
+  }
+  .view-btn {
+    background-color: #1a202c;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .view-btn:hover {
+    background-color: #2e3744;
+  }
+  
+  /* === MODAL === */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-content {
+    background-color: #fff;
+    width: 60%;
+    padding: 20px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-left: 100px;
+    margin-top: 0;
+
+  }
+  .modal-content h2 {
+    margin-top: 0;
+  }
+  .modal-content label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  .modal-content input[type="text"],
+  .modal-content select,
+  .modal-content input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  .add-btn {
+    background-color: #1a202c;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .add-btn:hover {
+    background-color: #2e3744;
+  }
+  .cancel-btn {
+    background-color: #ccc;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .cancel-btn:hover {
+    background-color: #b3b3b3;
+  }
